@@ -27,7 +27,7 @@ class APItoMongoDB:
             response = requests.get(api_url)
             response.raise_for_status()
             data = response.json()  
-            return data
+            return data['results']
         except requests.exceptions.RequestException as e:
             print(f"Erreur lors de la requête API : {e}")
             return None
@@ -44,7 +44,7 @@ class APItoMongoDB:
 
 # URL de l'API
 
-api_url = ''
+api_url = 'https://odre.opendatasoft.com/api/explore/v2.1/catalog/datasets/consommation-quotidienne-brute-regionale/records?limit=20'
 
 # Créer une instance du convertisseur API vers MongoDB
 
