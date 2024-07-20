@@ -1,6 +1,14 @@
-# DetectionAnomalie
+```markdown
+# Projet de Détection des Anomalies Énergétiques
 
-Detection_anomalie/
+## Description
+
+Ce projet est un pipeline complet de bout en bout pour la détection des anomalies dans la consommation énergétique. Il inclut la collecte et l'ingestion des données, l'ingénierie des features, l'entraînement et l'évaluation des modèles de machine learning, ainsi que la mise en production et le monitoring.
+
+## Structure du Projet
+
+```
+root_project/
 │
 ├── data/
 │   ├── raw/                    # Données brutes collectées
@@ -54,3 +62,74 @@ Detection_anomalie/
 ├── requirements.txt            # Liste des dépendances du projet
 ├── README.md                   # Documentation du projet
 └── .gitignore                  # Fichiers et dossiers à ignorer par Git
+```
+
+## Installation
+
+Pour installer les dépendances du projet, exécutez la commande suivante :
+
+```sh
+pip install -r requirements.txt
+```
+
+## Utilisation
+
+### Collecte et Ingestion des Données
+
+Les scripts pour la collecte et l'ingestion des données se trouvent dans le répertoire `src/data/`.
+
+### Prétraitement des Données
+
+Le prétraitement des données est effectué à l'aide du script `src/data/preprocessing.py`.
+
+### Ingénierie des Features
+
+L'ingénierie des features est réalisée à l'aide du script `src/features/feature_engineering.py`.
+
+### Entraînement des Modèles
+
+Pour entraîner les modèles, utilisez le script `src/models/train.py`.
+
+### Évaluation des Modèles
+
+L'évaluation des modèles est effectuée avec le script `src/models/evaluate.py`.
+
+### Mise en Production
+
+La mise en production des modèles est gérée à l'aide de `src/deployment/serve.py` et la configuration Mlflow dans `src/deployment/mlflow/`.
+
+### Monitoring
+
+La surveillance des modèles en production est assurée par Grafana, avec les configurations disponibles dans `src/monitoring/grafana/`.
+
+## Tests Unitaires
+
+Les tests unitaires se trouvent dans le répertoire `src/tests/`. Pour exécuter les tests, utilisez la commande suivante :
+
+```sh
+pytest src/tests/
+```
+
+## Intégration Continue
+
+L'intégration continue est configurée avec GitHub Actions. Le fichier de configuration se trouve dans `.github/workflows/ci.yml`.
+
+## Analyse Financière
+
+Un script pour l'analyse financière et la génération de graphiques se trouve dans `scripts/financial_analysis.py`. Pour exécuter ce script, utilisez la commande suivante :
+
+```sh
+python scripts/financial_analysis.py
+```
+
+## Contribuer
+
+Les contributions sont les bienvenues ! Veuillez soumettre une pull request ou ouvrir une issue pour discuter des changements que vous souhaitez apporter.
+
+## Licence
+
+Ce projet est sous licence MIT. Voir le fichier `LICENSE` pour plus de détails.
+
+```
+
+En suivant ce modèle, vous fournirez une documentation claire et structurée pour votre projet, facilitant ainsi la compréhension et la contribution des autres développeurs.
