@@ -53,5 +53,3 @@ ax[1].legend(["Économies estimées"])
 plt.tight_layout()
 plt.savefig("analyse_financiere.png")
 plt.show()
-
-
