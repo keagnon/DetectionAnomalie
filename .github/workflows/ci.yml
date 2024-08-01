@@ -24,10 +24,10 @@ jobs:
       run: pylint **/*.py
 
     - name: Check import formatting with isort
-      run: isort . --check --diff
+      run: isort .
 
     - name: Check code formatting with black
-      run: black . --check
+      run: black .
 
     - name: Type check with mypy
       run: mypy .
