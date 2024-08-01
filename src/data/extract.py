@@ -14,8 +14,9 @@ class extract:
         self.dbname = os.getenv('MONGODB_DBNAME')
         self.collection_name = os.getenv('MONGODB_COLLECTION')
         self.cluster = os.getenv('MONGODB_CLUSTER')
-
-        self.mongodb_uri = f"mongodb+srv://{self.username}:{quote_plus(self.password)}@{self.cluster}/?retryWrites=true&w=majority&appName=Energy"
+        self.appName = os.getenv('MONGODB_APPNAME')
+        # app name : /?retryWrites=true&w=majority&appName=Energy
+        self.mongodb_uri = f"mongodb+srv://{self.username}:{quote_plus(self.password)}@{self.cluster}{self.appName}"
 
     def fetch_data_from_api(self, api_url :str) -> List[dict]:
         try:
