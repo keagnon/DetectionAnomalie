@@ -1,0 +1,3 @@
+kedro==0.18.3
+kedro-docker
+kedro-viz
