@@ -14,6 +14,7 @@ class MongoDBClient:
         self.collection_name = os.getenv('MONGODB_COLLECTION')
         
         # Construire l'URI de connexion MongoDB
+        
         self.uri = f"mongodb+srv://{self.username}:{self.password}@{self.cluster}/?appName=Energy"
         self.client = MongoClient(self.uri, server_api=ServerApi('1'))
         
@@ -23,8 +24,7 @@ class MongoDBClient:
             print("Ping réussi. Connexion à MongoDB réussie !")
         except Exception as e:
             print(f"Erreur de connexion à MongoDB: {e}")
-            raise  # Relancer l'exception pour arrêter le script si la connexion échoue
-
+            raise  
         self.db = self.client[self.dbname]
         self.collection = self.db[self.collection_name]
 
@@ -33,21 +33,23 @@ class MongoDBClient:
 
 class ElasticsearchClient:
     def __init__(self):
-        # Configuration du client Elasticsearch pour la version 7.x
+        
         self.es = Elasticsearch(
             ['http://localhost:9200']
         )
+
         # Tester la connexion
+
         try:
             info = self.es.info()
             print(f"Connexion à Elasticsearch réussie : {info}")
         except Exception as e:
             print(f"Erreur de connexion à Elasticsearch: {e}")
-            raise  # Relancer l'exception pour arrêter le script si la connexion échoue
+            raise  
 
     def transform_document(self, doc):
         es_doc = doc.copy()
-        es_doc.pop('_id', None)  # Retirer le champ '_id' pour éviter les conflits
+        es_doc.pop('_id', None)  
         return es_doc
 
     def index_documents(self, documents, index_name):
@@ -82,7 +84,7 @@ class DataTransfer:
 if __name__ == "__main__":
     mongo_client = MongoDBClient()
     es_client = ElasticsearchClient()
-    index_name = "consommation"  # Remplacez par le nom de votre index
+    index_name = "consommation"  
 
     data_transfer = DataTransfer(mongo_client, es_client, index_name)
     data_transfer.transfer_data()
