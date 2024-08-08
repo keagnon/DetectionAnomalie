@@ -1,0 +1,6 @@
+# This is a boilerplate parameters config generated for pipeline 'data_engineering'
+# using Kedro 0.19.5.
+#
+# Documentation for this file format can be found in "Parameters"
+# Link: https://docs.kedro.org/en/0.19.5/configuration/parameters.html
+api_url: "https://odre.opendatasoft.com/api/explore/v2.1/catalog/datasets/courbe-de-charge-eldgrd-regional-grtgaz-terega/records?limit=20"

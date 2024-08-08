@@ -1,0 +1,34 @@
+[build-system]
+requires = [ "setuptools",]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "data_collection_kedro"
+readme = "README.md"
+dynamic = [ "dependencies", "version",]
+
+[project.scripts]
+data-collection-kedro = "data_collection_kedro.__main__:main"
+
+[tool.kedro]
+package_name = "data_collection_kedro"
+project_name = "data_collection_kedro"
+kedro_init_version = "0.19.5"
+tools = [ "None",]
+example_pipeline = "False"
+source_dir = "src"
+
+[project.entry-points."kedro.hooks"]
+
+[tool.setuptools.dynamic.dependencies]
+file = "requirements.txt"
+
+[tool.setuptools.dynamic.version]
+attr = "data_collection_kedro.__version__"
+
+[tool.setuptools.packages.find]
+where = [ "src",]
+namespaces = false
+
+[tool.kedro_telemetry]
+project_id = "aa5c216511464fbea9361c8a87421663"
