@@ -3,4 +3,20 @@
 #
 # Documentation for this file format can be found in "Parameters"
 # Link: https://docs.kedro.org/en/0.19.5/configuration/parameters.html
-api_url: "https://odre.opendatasoft.com/api/explore/v2.1/catalog/datasets/courbe-de-charge-eldgrd-regional-grtgaz-terega/records?limit=20"
+api_urls:
+  - "https://data.opendatasoft.com/api/explore/v2.1/catalog/datasets/courbe-de-charge-eldgrd-regional-grtgaz-terega@reseaux-energies-rte/records?limit=20"
+  - "https://data.opendatasoft.com/api/explore/v2.1/catalog/datasets/consommation-nationale-horaire-de-gaz-donnees-definitives-grtgaz-v2@reseaux-energies-rte/records?limit=20"
+  - "https://data.opendatasoft.com/api/explore/v2.1/catalog/datasets/prix-des-energies-en-france@akajoule/records?limit=20"
+csv_file_paths:
+  - "data/mouvements-sociaux-depuis-2002.csv"
+  - "data/previsions-meteo-france-a-36h@cudunkerque.csv"
+  - "data/prix-carburants-quotidien@opendatamef.csv"
+db_name: "EngieWatchData"
+collection_names:
+  - "Consommation_quotidienne_régionalisee_gaz"
+  - "consommation_horaire_gaz"
+  - "prix_energies"
+csv_collection_names:
+  - "csv_mouvements_sociaux"
+  - "csv_previsions_meteo"
+  - "csv_prix_carburants"

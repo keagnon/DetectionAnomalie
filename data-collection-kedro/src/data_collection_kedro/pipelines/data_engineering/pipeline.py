@@ -1,26 +1,26 @@
-"""
-This is a boilerplate pipeline 'data_engineering'
-generated using Kedro 0.19.5
-"""
-
 from kedro.pipeline import Pipeline, node
-from .nodes import fetch_data_from_api, display_data
+from .nodes import process_api_data,process_csv_data
 
 def create_pipeline(**kwargs) -> Pipeline:
+    """
+    Create a Kedro pipeline for the ETL process with multiple API sources.
+
+    Returns:
+        Pipeline: The constructed Kedro pipeline.
+    """
     return Pipeline(
         [
             node(
-                func=fetch_data_from_api,
-                inputs="params:api_url",
-                outputs="raw_data",
-                name="fetch_data_node",
+                func=process_api_data,
+                inputs=["params:api_urls", "params:db_name", "params:collection_names"],
+                outputs=None,
+                name="process_api_data_node"
             ),
             node(
-                func=display_data,
-                inputs="raw_data",
+                func=process_csv_data,
+                inputs=["params:csv_file_paths", "params:db_name", "params:csv_collection_names"],
                 outputs=None,
-                name="display_data_node",
+                name="process_csv_data_node"
             ),
         ]
     )
-
