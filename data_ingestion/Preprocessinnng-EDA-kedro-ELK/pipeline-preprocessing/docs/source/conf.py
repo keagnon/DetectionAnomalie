@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 
 
-# pipline_traitement documentation build
+# pipeline_preprocessing documentation build
 # configuration file, created by sphinx-quickstart.
 #
 # This file is execfile()d with the current directory set to its
@@ -20,12 +21,11 @@
 import re
 
 from kedro.framework.cli.utils import find_stylesheets
-
-from pipline_traitement import __version__ as release
+from pipeline_preprocessing import __version__ as release
 
 # -- Project information -----------------------------------------------------
 
-project = "pipline_traitement"
+project = "pipeline_preprocessing"
 author = "Kedro"
 
 # The short X.Y version.
@@ -47,13 +47,12 @@ extensions = [
     "sphinx.ext.doctest",
     "sphinx.ext.todo",
     "sphinx.ext.coverage",
-    "sphinx.ext.mathjax",
     "sphinx.ext.ifconfig",
     "sphinx.ext.viewcode",
     "sphinx.ext.mathjax",
     "nbsphinx",
-    "myst_parser",
     "sphinx_copybutton",
+    "myst_parser",
 ]
 
 # enable autosummary plugin (table of contents for modules/classes/class
@@ -76,7 +75,7 @@ master_doc = "index"
 #
 # This is also used if you do content translation via gettext catalogs.
 # Usually you set "language" from the command line for these cases.
-language = None
+language = "en"
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
@@ -116,10 +115,13 @@ html_static_path = ["_static"]
 
 html_show_sourcelink = False
 
+# Removes, from all docs, the copyright footer.
+html_show_copyright = False
+
 # -- Options for HTMLHelp output ---------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = "pipline_traitementdoc"
+htmlhelp_basename = "pipeline_preprocessingdoc"
 
 # -- Options for LaTeX output ------------------------------------------------
 
@@ -147,8 +149,8 @@ latex_elements = {
 latex_documents = [
     (
         master_doc,
-        "pipline_traitement.tex",
-        "pipline_traitement Documentation",
+        "pipeline_preprocessing.tex",
+        "pipeline_preprocessing Documentation",
         "Kedro",
         "manual",
     )
@@ -161,8 +163,8 @@ latex_documents = [
 man_pages = [
     (
         master_doc,
-        "pipline_traitement",
-        "pipline_traitement Documentation",
+        "pipeline_preprocessing",
+        "pipeline_preprocessing Documentation",
         [author],
         1,
     )
@@ -176,11 +178,11 @@ man_pages = [
 texinfo_documents = [
     (
         master_doc,
-        "pipline_traitement",
-        "pipline_traitement Documentation",
+        "pipeline_preprocessing",
+        "pipeline_preprocessing Documentation",
         author,
-        "pipline_traitement",
-        "Project pipline_traitement codebase.",
+        "pipeline_preprocessing",
+        "Project pipeline_preprocessing codebase.",
         "Data-Science",
     )
 ]
@@ -222,3 +224,4 @@ def setup(app):
     # add Kedro stylesheets
     for stylesheet in find_stylesheets():
         app.add_css_file(stylesheet)
+    # enable rendering RST tables in Markdown

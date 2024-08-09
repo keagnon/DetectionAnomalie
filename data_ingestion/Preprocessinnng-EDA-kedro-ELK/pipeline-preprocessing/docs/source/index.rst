@@ -1,8 +1,8 @@
-.. pipline_traitement documentation master file, created by sphinx-quickstart.
+.. pipeline_preprocessing documentation master file, created by sphinx-quickstart.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to project pipline_traitement's API docs!
+Welcome to project pipeline_preprocessing's API docs!
 =============================================
 
 .. toctree::
