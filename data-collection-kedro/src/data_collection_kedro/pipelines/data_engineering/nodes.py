@@ -2,17 +2,17 @@ import requests
 import pandas as pd
 from typing import Dict, Any, List
 from .transform import Transform
-import json
+from pymongo import MongoClient
+import os
+from dotenv import load_dotenv
 
 def fetch_data_from_api(api_url: str) -> pd.DataFrame:
     """
     Fetch data from the specified API URL.
-
-    Args:
-        api_url (str): The URL of the API to fetch data from.
-
-    Returns:
-        pd.DataFrame: DataFrame containing the fetched data.
+    Params::
+          api_url: The URL of the API to fetch data from.
+    Returns::
+          pd.DataFrame: DataFrame containing the fetched data.
     """
     try:
         response = requests.get(api_url)
@@ -34,68 +34,87 @@ def fetch_data_from_api(api_url: str) -> pd.DataFrame:
 def read_csv_file(file_path: str) -> pd.DataFrame:
     """
     Read data from a CSV file.
-
-    Args:
-        file_path (str): The path to the CSV file.
-
-    Returns:
-        pd.DataFrame: DataFrame containing the CSV data.
+    Params::
+          file_path : The path to the CSV file.
+    Returns::
+          pd.DataFrame: DataFrame containing the CSV data.
     """
-    return pd.read_csv(file_path,  delimiter=';', encoding='utf-8')
+    return pd.read_csv(file_path, delimiter=';', encoding='utf-8')
 
 def store_in_mongodb(data: pd.DataFrame, db_name: str, collection_name: str) -> None:
     """
     Store the cleaned data in MongoDB.
-
-    Args:
-        data (pd.DataFrame): The cleaned data to store.
-        db_name (str): The name of the MongoDB database.
-        collection_name (str): The name of the MongoDB collection.
+    Params::
+          data: The cleaned data to store.
+          db_name: The name of the MongoDB database.
+          collection_name: The name of the MongoDB collection.
     """
-    from pymongo import MongoClient
-    client = MongoClient('mongodb://localhost:27017/')
-    db = client[db_name]
-    collection = db[collection_name]
-    collection.insert_many(data.to_dict('records'))
-    client.close()
+    load_dotenv()
+
+    username = os.getenv('MONGODB_USERNAME')
+    password = os.getenv('MONGODB_PASSWORD')
+    cluster = os.getenv('MONGODB_CLUSTER')
+
+    mongodb_uri = f"mongodb+srv://{username}:{password}@{cluster}/?appName=Energy"
+    try:
+        client = MongoClient(mongodb_uri, tls=True, tlsAllowInvalidCertificates=True)
+        db = client[db_name]
+        collection = db[collection_name]
+
+        if isinstance(data, pd.DataFrame):
+            data = data.to_dict('records')
+
+        collection.insert_many(data)
+        print(f"{len(data)} records stored successfully in {collection_name}.")
+    except Exception as e:
+        print(f"Error when inserting data: {e}")
+
+def select_columns(data: pd.DataFrame, columns: List[str]) -> pd.DataFrame:
+    """
+    Select specific columns from the DataFrame.
+    params::
+          data: The original DataFrame.
+          columns: List of columns to select.
+    Returns::
+          pd.DataFrame: DataFrame with only the selected columns.
+    """
+    return data[columns]
 
 def display_data(data: pd.DataFrame) -> None:
     """
     Display the first few rows of the DataFrame.
-
-    Args:
-        data (pd.DataFrame): The data to display.
+    params::
+          data (pd.DataFrame): The data to display.
     """
     print(data.head())
+    print(data.columns)
 
 def process_api_data(api_urls: List[str], db_name: str, collection_names: List[str]) -> None:
     """
     Process multiple API URLs and store data in MongoDB.
-
-    Args:
-        api_urls (List[str]): List of API URLs to fetch data from.
-        db_name (str): The name of the MongoDB database.
-        collection_names (List[str]): List of MongoDB collection names.
+    Params::
+          api_urls: List of API URLs to fetch data from.
+          db_name: The name of the MongoDB database.
+          collection_names: List of MongoDB collection names.
     """
+
     for api_url, collection_name in zip(api_urls, collection_names):
         raw_data = fetch_data_from_api(api_url)
         cleaned_data = Transform.clean_data(raw_data)
         display_data(cleaned_data)
         store_in_mongodb(cleaned_data, db_name, collection_name)
 
-
 def process_csv_data(file_paths: List[str], db_name: str, collection_names: List[str]) -> None:
     """
     Process multiple CSV files and store data in MongoDB.
-
-    Args:
-        file_paths (List[str]): List of file paths to read CSV data from.
-        db_name (str): The name of the MongoDB database.
-        collection_names (List[str]): List of MongoDB collection names.
+    params::
+          file_paths: List of file paths to read CSV data from.
+          db_name: The name of the MongoDB database.
+          collection_names: List of MongoDB collection names.
     """
+
     for file_path, collection_name in zip(file_paths, collection_names):
         raw_data = read_csv_file(file_path)
-        if not raw_data.empty:
-            cleaned_data = Transform.clean_data(raw_data)
-            display_data(cleaned_data)
-            store_in_mongodb(cleaned_data, db_name, collection_name)
+        cleaned_data = Transform.clean_data(raw_data)
+        display_data(cleaned_data)
+        store_in_mongodb(cleaned_data, db_name, collection_name)

@@ -13,3 +13,10 @@ pour le dags airflow etapes : pip install kedro-airflow puisn kedro airflow crea
 garder
 https://data.opendatasoft.com/explore/dataset/consommation-nationale-horaire-de-gaz-donnees-definitives-grtgaz-v2%40reseaux-energies-rte/information/?disjunctive.operateur&sort=date
 https://data.opendatasoft.com/explore/dataset/prix-carburants-quotidien%40opendatamef/table/
+
+
+
+
+csv_mouvements_sociaux: ["Date", "date_de_fin", "Motif exprimé", "Nombre de grévistes du préavis"]
+  csv_previsions_meteo: ["prevision", "minimum_temperature_at_2_metres", "minimum_temperature_at_2_metres", "2_metre_relative_humidity", "10m_wind_speed", "commune"]
+  csv_prix_carburants: ["Code postal", "adresse", "ville", "geom", "Mise à jour des prix", "Prix", "Carburant", "com_arm_code","Code Officiel Région", "Région", "Services proposés"]
