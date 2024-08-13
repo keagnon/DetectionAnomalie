@@ -84,7 +84,7 @@ def display_data(data):
 
 def store_in_mongodb(data: pd.DataFrame, db_name: str, collection_name: str) -> None:
     """
-    Store the cleaned data in MongoDB.
+    Store the cleaned data in MongoDB..
     """
     load_dotenv()
 
