@@ -1,7 +1,3 @@
-"""
-This is a boilerplate pipeline 'data_fusion_pipeline'
-generated using Kedro 0.19.5
-"""
 from kedro.pipeline import Pipeline, node
 from .nodes import load_collections, select_columns, display_selected_data, merge_dataframes, display_data, store_in_mongodb
 def create_pipeline(**kwargs) -> Pipeline:
