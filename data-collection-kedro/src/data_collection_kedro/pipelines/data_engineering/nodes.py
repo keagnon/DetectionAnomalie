@@ -41,13 +41,15 @@ def read_csv_file(file_path: str) -> pd.DataFrame:
     """
     return pd.read_csv(file_path, delimiter=';', encoding='utf-8')
 
-def store_in_mongodb(data: pd.DataFrame, db_name: str, collection_name: str) -> None:
+def store_in_mongodb(data: pd.DataFrame, db_name: str, collection_name: str, batch_size: int = 1000) -> None:
     """
-    Store the cleaned data in MongoDB.
-    Params::
-          data: The cleaned data to store.
-          db_name: The name of the MongoDB database.
-          collection_name: The name of the MongoDB collection.
+    Store the cleaned data in MongoDB in batches.
+
+    Params:
+    - data: The cleaned data to store.
+    - db_name: The name of the MongoDB database.
+    - collection_name: The name of the MongoDB collection.
+    - batch_size: The number of records to insert in each batch.
     """
     load_dotenv()
 
@@ -55,7 +57,8 @@ def store_in_mongodb(data: pd.DataFrame, db_name: str, collection_name: str) -> 
     password = os.getenv('MONGODB_PASSWORD')
     cluster = os.getenv('MONGODB_CLUSTER')
 
-    mongodb_uri = f"mongodb+srv://{username}:{password}@{cluster}/?appName=Energy"
+    mongodb_uri = f"mongodb+srv://{username}:{password}@{cluster}/?appName=Energy&connectTimeoutMS=60000"
+
     try:
         client = MongoClient(mongodb_uri, tls=True, tlsAllowInvalidCertificates=True)
         db = client[db_name]
@@ -64,21 +67,15 @@ def store_in_mongodb(data: pd.DataFrame, db_name: str, collection_name: str) -> 
         if isinstance(data, pd.DataFrame):
             data = data.to_dict('records')
 
-        collection.insert_many(data)
-        print(f"{len(data)} records stored successfully in {collection_name}.")
+        # Insert data in batches
+        for i in range(0, len(data), batch_size):
+            batch = data[i:i + batch_size]
+            collection.insert_many(batch)
+            print(f"Batch {i//batch_size + 1} with {len(batch)} records stored successfully in {collection_name}.")
+
     except Exception as e:
         print(f"Error when inserting data: {e}")
 
-def select_columns(data: pd.DataFrame, columns: List[str]) -> pd.DataFrame:
-    """
-    Select specific columns from the DataFrame.
-    params::
-          data: The original DataFrame.
-          columns: List of columns to select.
-    Returns::
-          pd.DataFrame: DataFrame with only the selected columns.
-    """
-    return data[columns]
 
 def display_data(data: pd.DataFrame) -> None:
     """

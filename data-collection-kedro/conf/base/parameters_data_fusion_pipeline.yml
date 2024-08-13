@@ -1,0 +1,13 @@
+db_name1: "DBEnergy"
+
+collection_names1:
+  - "csv_mouvements_sociaux"
+  - "csv_prix_energies"
+
+columns_to_select:
+  - ["date", "date_de_fin", "motif_exprimé", "nombre_de_grévistes_du_préavis"]  # Colonnes pour csv_mouvements_sociaux
+  - ["période", "source", "électricité", "gaz_naturel"]  # Colonnes pour csv_prix_energies
+
+merge_column: "date"  # Fusion sur la colonne 'date' dans csv_mouvements_sociaux et 'période' dans csv_prix_energies
+
+output_collection_name: "energiedata"
