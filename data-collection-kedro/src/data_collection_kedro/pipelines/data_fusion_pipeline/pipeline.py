@@ -3,7 +3,7 @@ This is a boilerplate pipeline 'data_fusion_pipeline'
 generated using Kedro 0.19.5
 """
 from kedro.pipeline import Pipeline, node
-from .nodes import load_collections, select_columns, display_selected_data, merge_dataframes, display_data
+from .nodes import load_collections, select_columns, display_selected_data, merge_dataframes, display_data, store_in_mongodb
 def create_pipeline(**kwargs) -> Pipeline:
     return Pipeline([
         node(
@@ -35,5 +35,11 @@ def create_pipeline(**kwargs) -> Pipeline:
                 inputs="merged_data",
                 outputs="displayed_data",
                 name="display_data_node",
+        ),
+        node(
+                func=store_in_mongodb,
+                inputs=dict(data="displayed_data", db_name="params:db_name", collection_name="params:output_collection_name"),
+                outputs=None,
+                name="store_in_mongodb_node",
         ),
     ])

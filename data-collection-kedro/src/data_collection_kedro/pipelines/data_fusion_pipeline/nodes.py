@@ -105,3 +105,4 @@ def store_in_mongodb(data: pd.DataFrame, db_name: str, collection_name: str) -> 
         print(f"{len(data)} records stored successfully in {collection_name}.")
     except Exception as e:
         print(f"Error when inserting data: {e}")
+
