@@ -1,3 +1,7 @@
+"""
+This is a boilerplate pipeline 'etl_pipeline'
+generated using Kedro 0.19.5
+"""
 import requests
 import pandas as pd
 from typing import Dict, Any, List
@@ -41,7 +45,7 @@ def read_csv_file(file_path: str) -> pd.DataFrame:
     """
     return pd.read_csv(file_path, delimiter=';', encoding='utf-8')
 
-def store_in_mongodb(data: pd.DataFrame, db_name: str, collection_name: str, batch_size: int = 1000) -> None:
+def store_in_mongodb(data: pd.DataFrame, db_name: str, collection_name: str, batch_size: int = 500, connect_timeout: int = 200000) -> None:
     """
     Store the cleaned data in MongoDB in batches.
 
@@ -50,6 +54,7 @@ def store_in_mongodb(data: pd.DataFrame, db_name: str, collection_name: str, bat
     - db_name: The name of the MongoDB database.
     - collection_name: The name of the MongoDB collection.
     - batch_size: The number of records to insert in each batch.
+    - connect_timeout: Connection timeout in milliseconds.
     """
     load_dotenv()
 
@@ -57,10 +62,22 @@ def store_in_mongodb(data: pd.DataFrame, db_name: str, collection_name: str, bat
     password = os.getenv('MONGODB_PASSWORD')
     cluster = os.getenv('MONGODB_CLUSTER')
 
-    mongodb_uri = f"mongodb+srv://{username}:{password}@{cluster}/?appName=Energy&connectTimeoutMS=60000"
+    mongodb_uri = f"mongodb+srv://{username}:{password}@{cluster}/?appName=Energy&connectTimeoutMS={connect_timeout}"
+
+    max_retries = 3
+    for attempt in range(max_retries):
+        try:
+            client = MongoClient(mongodb_uri, tls=True, tlsAllowInvalidCertificates=True)
+            break  # Exit the loop if the connection is successful
+        except Exception as e:
+            print(f"Attempt {attempt + 1} to connect to MongoDB failed: {e}")
+            if attempt < max_retries - 1:
+                time.sleep(5)  # Wait for 5 seconds before retrying
+            else:
+                print("All connection attempts failed. Exiting.")
+                raise e  # Raise the exception if all retries fail
 
     try:
-        client = MongoClient(mongodb_uri, tls=True, tlsAllowInvalidCertificates=True)
         db = client[db_name]
         collection = db[collection_name]
 
@@ -70,12 +87,15 @@ def store_in_mongodb(data: pd.DataFrame, db_name: str, collection_name: str, bat
         # Insert data in batches
         for i in range(0, len(data), batch_size):
             batch = data[i:i + batch_size]
-            collection.insert_many(batch)
-            print(f"Batch {i//batch_size + 1} with {len(batch)} records stored successfully in {collection_name}.")
+            try:
+                collection.insert_many(batch)
+                print(f"Batch {i//batch_size + 1} with {len(batch)} records stored successfully in {collection_name}.")
+            except Exception as e:
+                print(f"Error inserting batch {i//batch_size + 1}: {e}")
+                # Optionally, retry the insertion or handle the failure
 
     except Exception as e:
         print(f"Error when inserting data: {e}")
-
 
 def display_data(data: pd.DataFrame) -> None:
     """
@@ -99,7 +119,7 @@ def process_api_data(api_urls: List[str], db_name: str, collection_names: List[s
         raw_data = fetch_data_from_api(api_url)
         cleaned_data = Transform.clean_data(raw_data)
         display_data(cleaned_data)
-        store_in_mongodb(cleaned_data, db_name, collection_name)
+        #store_in_mongodb(cleaned_data, db_name, collection_name)
 
 def process_csv_data(file_paths: List[str], db_name: str, collection_names: List[str]) -> None:
     """
@@ -111,7 +131,13 @@ def process_csv_data(file_paths: List[str], db_name: str, collection_names: List
     """
 
     for file_path, collection_name in zip(file_paths, collection_names):
+        print(f"Processing file {file_path} for collection {collection_name}")
         raw_data = read_csv_file(file_path)
         cleaned_data = Transform.clean_data(raw_data)
-        display_data(cleaned_data)
-        store_in_mongodb(cleaned_data, db_name, collection_name)
+
+        try:
+            display_data(cleaned_data)
+            store_in_mongodb(cleaned_data, db_name, collection_name)
+        except Exception as e:
+            print(f"Failed to insert data from {file_path} into {collection_name}: {e}")
+

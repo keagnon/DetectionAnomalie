@@ -1,3 +1,7 @@
+"""
+This is a boilerplate pipeline 'etl_pipeline'
+generated using Kedro 0.19.5
+"""
 from kedro.pipeline import Pipeline, node
 from .nodes import process_api_data,process_csv_data
 

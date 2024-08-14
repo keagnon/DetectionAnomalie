@@ -14,3 +14,17 @@ garder
 https://data.opendatasoft.com/explore/dataset/consommation-nationale-horaire-de-gaz-donnees-definitives-grtgaz-v2%40reseaux-energies-rte/information/?disjunctive.operateur&sort=date
 https://data.opendatasoft.com/explore/dataset/prix-carburants-quotidien%40opendatamef/table/
 
+collection_names1:
+  - "csv_mouvements_sociaux"
+  - "csv_prix_energies"
+  - "csv_prix_carburants"
+  - "csv_courbe_de_charge"
+
+columns_to_select:
+  -
+
+  -
+   -
+
+
+-

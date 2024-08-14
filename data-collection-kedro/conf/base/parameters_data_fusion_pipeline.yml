@@ -1,13 +1,15 @@
 db_name1: "DBEnergy"
 
 collection_names1:
-  - "csv_mouvements_sociaux"
+  - "csv_prix_carburants"
+  - "csv_previsions_meteo"
+  - "csv_courbe_de_charge"
   - "csv_prix_energies"
+  - "csv_mouvements_sociaux"
 
 columns_to_select:
-  - ["date", "date_de_fin", "motif_exprimé", "nombre_de_grévistes_du_préavis"]  # Colonnes pour csv_mouvements_sociaux
-  - ["période", "source", "électricité", "gaz_naturel"]  # Colonnes pour csv_prix_energies
-
-merge_column: "date"  # Fusion sur la colonne 'date' dans csv_mouvements_sociaux et 'période' dans csv_prix_energies
-
-output_collection_name: "energiedata"
+  - ["periode", "source", "elec_tt", "gaz_tt", "propane", "fod_c1","sp95", "sp98", "gazole", "gplc", "bois_vrac", "bois_sac","peg_gaz_2022", "peg_gaz_2023", "peg_gaz_2024", "peg_gaz_2025","peg_gaz_2026", "peg_gaz_2027", "baseload_elec_2022","baseload_elec_2023", "baseload_elec_2024", "baseload_elec_2025","baseload_elec_2026", "baseload_elec_2027", "prix_tonne_co2","gazole_100km", "sp98_100km", "sp95_100km", "elec_100km", "id","code_postal", "pop", "adresse", "ville", "horaires", "rupture","fermeture", "geom", "mise_à_jour_des_prix", "prix_id", "prix","carburant", "com_arm_code", "commune_/_arrondissement_municipal","code_officiel_epci", "nom_officiel_epci", "numéro_département","département", "code_officiel_région", "région", "services_proposés","carburant_en_rupture", "début_rupture", "fin_rupture","automate_24-24_(oui/non)"]
+  - ["date_et_heure_de_la_prévision", "prevision", "position","date_du_calcul", "2_metre_temperature","minimum_temperature_at_2_metres", "maximum_temperature_at_2_metres","2_metre_relative_humidity", "total_precipitation", "10m_wind_speed","surface_net_solar_radiation", "surface_net_thermal_radiation","surface_solar_radiation_downwards", "surface_latent_heat_flux","surface_sensible_heat_flux", "commune", "nombre_date"]
+  - ["date", "operateur", "secteur_d_activite", "region", "00_00_00","01_00", "02_00", "03_00", "04_00", "05_00_00", "06_00_00", "07_00","08_00", "09_00", "10_00","11_00_00", "12_00_00", "13_00", "14_00","15_00", "16_00", "17_00", "18_00", "19_00_00", "20_00", "21_00","22_00", "23_00", "conso_journaliere_mwh_pcs_0degc", "statut","code_region", "date_et_heure_de_la_prévision", "prevision", "position","date_du_calcul", "2_metre_temperature","minimum_temperature_at_2_metres", "maximum_temperature_at_2_metres","2_metre_relative_humidity", "total_precipitation", "10m_wind_speed","surface_net_solar_radiation", "surface_net_thermal_radiation","surface_solar_radiation_downwards", "surface_latent_heat_flux","surface_sensible_heat_flux", "commune", "nombre_date"]
+  - ["période", "source", "électricité", "gaz_naturel"]
+  - ["date", "date_de_fin", "motif_exprimé", "nombre_de_grévistes_du_préavis"]

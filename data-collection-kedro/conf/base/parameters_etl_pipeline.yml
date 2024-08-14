@@ -1,4 +1,4 @@
-# This is a boilerplate parameters config generated for pipeline 'data_engineering'
+# This is a boilerplate parameters config generated for pipeline 'etl_pipeline'
 # using Kedro 0.19.5.
 #
 # Documentation for this file format can be found in "Parameters"
@@ -8,8 +8,8 @@ api_urls:
   - "https://data.opendatasoft.com/api/explore/v2.1/catalog/datasets/prix-des-energies-en-france@akajoule/records?limit=20"
 
 csv_file_paths:
-  - "data/previsions-meteo-france-a-36h@cudunkerque.csv"
   - "data/prix-carburants-quotidien@opendatamef.csv"
+  - "data/previsions-meteo-france-a-36h@cudunkerque.csv"
   - "data/courbe-de-charge-eldgrd-regional-grtgaz-terega@reseaux-energies-rte.csv"
   - "data/prix-des-energies-en-france@akajoule.csv"
   - "data/mouvements-sociaux-depuis-2002.csv"
@@ -22,6 +22,4 @@ collection_names:
   - "csv_courbe_de_charge"
   - "csv_prix_energies"
   - "csv_mouvements_sociaux"
-  - "api_courbe_de_charge"
-  - "api_prix_energies"
 
