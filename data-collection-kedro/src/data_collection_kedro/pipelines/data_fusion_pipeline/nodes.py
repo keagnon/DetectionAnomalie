@@ -7,18 +7,9 @@ import pandas as pd
 from dotenv import load_dotenv
 import os
 
-def load_collections(collection_names, db_name, connect_timeout: int = 200000, max_retries: int = 3):
+def load_collections(collection_names, db_name,connect_timeout: int = 20000):
     """
     Charger les collections MongoDB spécifiées et les retourner sous forme de DataFrames.
-
-    Params:
-    - collection_names: List of collection names to load from MongoDB.
-    - db_name: The name of the MongoDB database.
-    - connect_timeout: Connection timeout in milliseconds.
-    - max_retries: Number of retries in case the connection to MongoDB fails.
-
-    Returns:
-    - List of DataFrames containing the data from the specified collections.
     """
     load_dotenv()
 
@@ -27,38 +18,20 @@ def load_collections(collection_names, db_name, connect_timeout: int = 200000, m
     cluster = os.getenv('MONGODB_CLUSTER')
 
     mongodb_uri = f"mongodb+srv://{username}:{password}@{cluster}/?appName=Energy&connectTimeoutMS={connect_timeout}"
+    client = MongoClient(mongodb_uri, tls=True, tlsAllowInvalidCertificates=True)
 
-    # Attempt to connect to MongoDB with retries
-    for attempt in range(max_retries):
-        try:
-            client = MongoClient(mongodb_uri, tls=True, tlsAllowInvalidCertificates=True)
-            break  # Exit the loop if the connection is successful
-        except Exception as e:
-            print(f"Attempt {attempt + 1} to connect to MongoDB failed: {e}")
-            if attempt < max_retries - 1:
-                time.sleep(5)  # Wait for 5 seconds before retrying
-            else:
-                print("All connection attempts failed. Exiting.")
-                raise e  # Raise the exception if all retries fail
+    db = client[db_name]
+    dataframes = []
 
-    try:
-        db = client[db_name]
-        dataframes = []
+    for name in collection_names:
+        collection = db[name]
+        data = pd.DataFrame(list(collection.find()))
+        dataframes.append(data)
+        print(f"Collection {name} loaded successfully")
+        print(data.head())
+        print(data.columns)
 
-        for name in collection_names:
-            collection = db[name]
-            data = pd.DataFrame(list(collection.find()))
-            dataframes.append(data)
-            print(f"Collection {name} loaded successfully")
-            print(data.head())
-            print(data.columns)
-
-        return dataframes
-
-    except Exception as e:
-        print(f"Error when loading collections: {e}")
-        raise e  # Raise the exception if something goes wrong after connection
-
+    return dataframes
 
 def select_columns(dataframes, columns_to_select):
     """
