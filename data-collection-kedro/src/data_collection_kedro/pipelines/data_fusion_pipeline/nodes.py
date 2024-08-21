@@ -28,8 +28,8 @@ def load_collections(collection_names, db_name,connect_timeout: int = 20000):
         data = pd.DataFrame(list(collection.find()))
         dataframes.append(data)
         print(f"Collection {name} loaded successfully")
-        print(data.head())
-        print(data.columns)
+        # print(data.head())
+        # print(data.columns)
 
     return dataframes
 
@@ -72,6 +72,39 @@ def merge_dataframes(dataframes, merge_column):
     merged_data = pd.merge(df1, df2, left_on=merge_column, right_on='période', how='inner')
 
     return merged_data
+
+
+def normalize_columns(dataframes):
+    """
+    Normalise les colonnes avant la fusion des DataFrames.
+    Renomme et convertit les colonnes de dates et de régions pour assurer la cohérence.
+    """
+    for i, df in enumerate(dataframes):
+        if 'prevision' in df.columns:
+            df.rename(columns={'prevision': 'date', 'commune': 'région'}, inplace=True)
+            df['date'] = pd.to_datetime(df['date'], format='%d/%m/%Y - %H h', errors='coerce')
+        elif 'période' in df.columns:
+            df.rename(columns={'période': 'date'}, inplace=True)
+            df['date'] = pd.to_datetime(df['date'], format='%d %B %Y', errors='coerce')
+        elif 'date_de_fin' in df.columns:
+            df['date'] = pd.to_datetime(df['date'], errors='coerce')
+            df['date_de_fin'] = pd.to_datetime(df['date_de_fin'], errors='coerce')
+        elif 'date' in df.columns and '00:00' in df.columns:
+            df['date'] = pd.to_datetime(df['date'], format='%d %B %Y', errors='coerce')
+        elif 'début_rupture' in df.columns:
+            df['début_rupture'] = pd.to_datetime(df['début_rupture'], format='%d %B %Y %H:%M', errors='coerce')
+            df['fin_rupture'] = pd.to_datetime(df['fin_rupture'], format='%d %B %Y %H:%M', errors='coerce')
+            df['date'] = df['début_rupture']
+
+        # Remplacer NaT par une date par défaut
+        df['date'].fillna(pd.Timestamp('1970-01-01'), inplace=True)
+
+        # Afficher les lignes avec des erreurs de conversion
+        if df['date'].isnull().any():
+            print(f"Warning: Null values encountered in 'date' column after conversion in DataFrame {i}.")
+            print(df[df['date'].isnull()])
+
+    return dataframes
 
 
 def store_in_mongodb(data: pd.DataFrame, db_name: str, collection_name: str) -> None:

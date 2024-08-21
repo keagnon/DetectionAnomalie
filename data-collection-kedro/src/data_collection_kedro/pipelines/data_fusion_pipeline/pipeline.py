@@ -1,5 +1,5 @@
 from kedro.pipeline import Pipeline, node
-from .nodes import load_collections, select_columns, display_selected_data, merge_dataframes, store_in_mongodb
+from .nodes import load_collections, select_columns, display_selected_data, merge_dataframes, store_in_mongodb, normalize_columns
 def create_pipeline(**kwargs) -> Pipeline:
     return Pipeline([
         node(
@@ -19,6 +19,12 @@ def create_pipeline(**kwargs) -> Pipeline:
                 inputs="selected_dataframes",
                 outputs="displayed_selected_data",
                 name="display_selected_data_node",
+        ),
+        node(
+            func=normalize_columns,
+            inputs="selected_dataframes",
+            outputs="normalized_dataframes",
+            name="normalize_columns_node",
         ),
 
     ])
