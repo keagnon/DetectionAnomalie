@@ -106,6 +106,16 @@ def normalize_columns(dataframes):
 
     return dataframes
 
+def display_dataframes(dataframes):
+    """
+    Affiche les premières lignes de chaque DataFrame dans la liste donnée.
+    """
+    for i, df in enumerate(dataframes):
+        print(f"DataFrame {i+1}:")
+        print(df.head())
+        print("\n")
+
+    return dataframes
 
 def store_in_mongodb(data: pd.DataFrame, db_name: str, collection_name: str) -> None:
     """
