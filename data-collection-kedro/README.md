@@ -85,11 +85,6 @@ def load_collections(collection_names, db_name, connect_timeout: int = 60000, ma
 db_name1: "DBEnergy"
 
 collection_names1:
-  - "csv_previsions_meteo"
-  - "csv_prix_energies"
-  - "csv_mouvements_sociaux"
+
 
 columns_to_select:
-  - ["date_et_heure_de_la_prévision", "prevision", "position","date_du_calcul", "2_metre_temperature","minimum_temperature_at_2_metres", "maximum_temperature_at_2_metres","2_metre_relative_humidity", "total_precipitation", "10m_wind_speed","surface_net_solar_radiation", "surface_net_thermal_radiation","surface_solar_radiation_downwards", "surface_latent_heat_flux","surface_sensible_heat_flux", "commune", "nombre_date"]
-  - ["période", "source", "électricité", "gaz_naturel"]
-  - ["date", "date_de_fin", "motif_exprimé", "nombre_de_grévistes_du_préavis"]
