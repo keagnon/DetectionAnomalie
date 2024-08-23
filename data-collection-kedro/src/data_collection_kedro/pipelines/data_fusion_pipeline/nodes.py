@@ -55,6 +55,7 @@ def display_selected_data(dataframes):
     for i, df in enumerate(dataframes):
         print(f"Affichage des données sélectionnées pour la collection {i+1}:")
         print(df.head())
+        print(len(df))
     return dataframes
 
 def merge_dataframes(dataframes, merge_column):
@@ -116,6 +117,46 @@ def display_dataframes(dataframes):
         print("\n")
 
     return dataframes
+
+def merge_data(dataframes):
+    # Prendre les 400 premières lignes de chaque DataFrame
+    df1 = dataframes[0].head(400)
+    df2 = dataframes[1].head(400)
+    df3 = dataframes[2].head(400)
+    df4 = dataframes[3].head(400)
+    df5 = dataframes[4].head(400)
+
+    # Fusionner DataFrame 1 et 2 sur la colonne 'date'
+    merged_1_2 = pd.merge(df1, df2, on='date', how='inner')
+    print("DataFrame 1 et 2 fusionnés (400 premières lignes) :")
+    print(merged_1_2.head())
+
+    # Fusionner DataFrame 3 et 4 sur la colonne 'date'
+    merged_3_4 = pd.merge(df3, df4, on='date', how='inner')
+    print("DataFrame 3 et 4 fusionnés (400 premières lignes) :")
+    print(merged_3_4.head())
+
+    # Fusionner les résultats des deux premières fusions
+    merged_final = pd.merge(merged_1_2, merged_3_4, on='date', how='inner')
+    print("DataFrame final (1_2 et 3_4) fusionné :")
+    print(merged_final.head())
+
+    # Fusionner avec le DataFrame 5
+    merged_all = pd.merge(merged_final, df5, on='date', how='inner')
+    print("DataFrame final fusionné avec DataFrame 5 (400 premières lignes) :")
+    print(merged_all.head())
+
+    return merged_all
+
+
+def display_final_dataframe(dataframe):
+    """
+    Affiche les premières lignes du DataFrame final fusionné.
+    """
+    print("DataFrame Final Fusionné :")
+    print(dataframe.head())
+    return dataframe
+
 
 def store_in_mongodb(data: pd.DataFrame, db_name: str, collection_name: str) -> None:
     """

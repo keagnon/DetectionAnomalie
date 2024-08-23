@@ -1,15 +1,13 @@
 db_name1: "DBEnergy"
 
 collection_names1:
-  - "csv_prix_carburants"
-  - "csv_courbe_de_charge"
-  - "csv_previsions_meteo"
-  - "csv_prix_energies"
-  - "csv_mouvements_sociaux"
+  - "csv_prix_carburants_data_2018_2024"
+  - "csv_previsions_meteo_data_2018_2024"
+  - "csv_courbe_de_charge_data_2018_2024"
+  - "csv_mouvements_sociaux_data_2018_2024"
 
 columns_to_select:
   - ["code_postal", "mise_à_jour_des_prix","prix", "carburant","région","carburant_en_rupture", "début_rupture", "fin_rupture"]
   - ["date","région", "00:00","01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00","09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00","17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00","consommation_journalière_(mwh_-_pcs_0°c)", "statut"]
   - ["prevision", "position","minimum_temperature_at_2_metres", "maximum_temperature_at_2_metres","2_metre_relative_humidity","10m_wind_speed","commune"]
-  - ["période", "source", "électricité", "gaz_naturel"]
-  - ["date", "date_de_fin", "motif_exprimé", "nombre_de_grévistes_du_préavis"]
+  - ["date", "date_de_fin", "motif_exprimé"]

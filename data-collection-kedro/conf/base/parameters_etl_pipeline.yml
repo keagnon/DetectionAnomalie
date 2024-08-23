@@ -8,18 +8,16 @@ api_urls:
   - "https://data.opendatasoft.com/api/explore/v2.1/catalog/datasets/prix-des-energies-en-france@akajoule/records?limit=20"
 
 csv_file_paths:
-  - "data/prix-carburants-quotidien@opendatamef.csv"
-  - "data/previsions-meteo-france-a-36h@cudunkerque.csv"
-  - "data/courbe-de-charge-eldgrd-regional-grtgaz-terega@reseaux-energies-rte.csv"
-  - "data/prix-des-energies-en-france@akajoule.csv"
-  - "data/mouvements-sociaux-depuis-2002.csv"
+  - "data/prixcarburant_data_2018_2024.csv"
+  - "data/meteo_data_2018_2024.csv"
+  - "data/courbe_de_charge_data_2018_2024.csv"
+  - "data/movement_data_2018_2024.csv"
 
 db_name: "DBEnergy"
 
 collection_names:
-  - "csv_prix_carburants"
-  - "csv_previsions_meteo"
-  - "csv_courbe_de_charge"
-  - "csv_prix_energies"
-  - "csv_mouvements_sociaux"
+  - "csv_prix_carburants_data_2018_2024"
+  - "csv_previsions_meteo_data_2018_2024"
+  - "csv_courbe_de_charge_data_2018_2024"
+  - "csv_mouvements_sociaux_data_2018_2024"
 
