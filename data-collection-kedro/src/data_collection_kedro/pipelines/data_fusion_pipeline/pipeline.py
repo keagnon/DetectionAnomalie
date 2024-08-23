@@ -1,5 +1,5 @@
 from kedro.pipeline import Pipeline, node
-from .nodes import load_collections, select_columns, display_selected_data, merge_dataframes, store_in_mongodb, normalize_columns, display_dataframes, merge_data,display_final_dataframe
+from .nodes import load_collections, select_columns, display_selected_data, store_in_mongodb, normalize_columns, display_dataframes, merge_data,display_final_dataframe
 def create_pipeline(**kwargs) -> Pipeline:
     return Pipeline([
         node(

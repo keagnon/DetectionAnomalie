@@ -28,8 +28,8 @@ def load_collections(collection_names, db_name,connect_timeout: int = 20000):
         data = pd.DataFrame(list(collection.find()))
         dataframes.append(data)
         print(f"Collection {name} loaded successfully")
-        # print(data.head())
-        # print(data.columns)
+        print(data.head())
+        print(data.columns)
 
     return dataframes
 
@@ -58,22 +58,6 @@ def display_selected_data(dataframes):
         print(len(df))
     return dataframes
 
-def merge_dataframes(dataframes, merge_column):
-    """
-    Fusionne les DataFrames sur une colonne commune.
-    """
-    df1 = dataframes[0]
-    df2 = dataframes[1]
-
-    # Assurez-vous que les colonnes de fusion sont au même format
-    df1[merge_column] = pd.to_datetime(df1[merge_column])
-    df2['période'] = pd.to_datetime(df2['période'])
-
-    # Fusion des deux DataFrames
-    merged_data = pd.merge(df1, df2, left_on=merge_column, right_on='période', how='inner')
-
-    return merged_data
-
 
 def normalize_columns(dataframes):
     """
@@ -81,30 +65,44 @@ def normalize_columns(dataframes):
     Renomme et convertit les colonnes de dates et de régions pour assurer la cohérence.
     """
     for i, df in enumerate(dataframes):
-        if 'prevision' in df.columns:
-            df.rename(columns={'prevision': 'date', 'commune': 'région'}, inplace=True)
-            df['date'] = pd.to_datetime(df['date'], format='%d/%m/%Y - %H h', errors='coerce')
-        elif 'période' in df.columns:
-            df.rename(columns={'période': 'date'}, inplace=True)
-            df['date'] = pd.to_datetime(df['date'], format='%d %B %Y', errors='coerce')
-        elif 'date_de_fin' in df.columns:
-            df['date'] = pd.to_datetime(df['date'], errors='coerce')
-            df['date_de_fin'] = pd.to_datetime(df['date_de_fin'], errors='coerce')
+        # Dataset "Prix du Carburant"
+        if 'début_rupture' in df.columns:
+            df['début_rupture'] = pd.to_datetime(df['début_rupture'], format='%Y-%m-%d %H:%M:%S', errors='coerce')
+            df['fin_rupture'] = pd.to_datetime(df['fin_rupture'], format='%Y-%m-%d %H:%M:%S', errors='coerce')
+            df['date'] = df['début_rupture']  # Utiliser début_rupture comme la colonne date principale
+            print(f"DataFrame {i} (Prix du Carburant) après normalisation :")
+
+        # Dataset "Courbe de Charge"
         elif 'date' in df.columns and '00:00' in df.columns:
-            df['date'] = pd.to_datetime(df['date'], format='%d %B %Y', errors='coerce')
-        elif 'début_rupture' in df.columns:
-            df['début_rupture'] = pd.to_datetime(df['début_rupture'], format='%d %B %Y %H:%M', errors='coerce')
-            df['fin_rupture'] = pd.to_datetime(df['fin_rupture'], format='%d %B %Y %H:%M', errors='coerce')
-            df['date'] = df['début_rupture']
+            df['date'] = pd.to_datetime(df['date'], format='%Y-%m-%d', errors='coerce')
+            print(f"DataFrame {i} (Courbe de Charge) après normalisation :")
+
+        # Dataset "Mouvements Sociaux"
+        elif 'date_de_fin' in df.columns:
+            df['date_de_debut'] = pd.to_datetime(df['date_de_debut'], format='%Y-%m-%d', errors='coerce')
+            df['date_de_fin'] = pd.to_datetime(df['date_de_fin'], format='%Y-%m-%d', errors='coerce')
+            df['date'] = df['date_de_debut']  # Utiliser date_de_debut comme la colonne date principale
+            print(f"DataFrame {i} (Mouvements Sociaux) après normalisation :")
+
+        # Dataset "Météo"
+        elif 'forecast_timestamp' in df.columns:
+            df['forecast_timestamp'] = pd.to_datetime(df['forecast_timestamp'], errors='coerce')
+            df['date'] = df['forecast_timestamp'].dt.date  # Extraire la date
+            df['heure'] = df['forecast_timestamp'].dt.time  # Extraire l'heure
+            print(f"DataFrame {i} (Météo) après normalisation :")
 
         # Remplacer NaT par une date par défaut
-        df['date'].fillna(pd.Timestamp('1970-01-01'), inplace=True)
+        if 'date' in df.columns:
+            df['date'].fillna(pd.Timestamp('1970-01-01'), inplace=True)
 
         # Afficher les lignes avec des erreurs de conversion
         if df['date'].isnull().any():
             print(f"Warning: Null values encountered in 'date' column after conversion in DataFrame {i}.")
             print(df[df['date'].isnull()])
 
+        # Afficher les premières lignes et les types de données après normalisation
+        print(df.head())
+        print(df.dtypes)
     return dataframes
 
 def display_dataframes(dataframes):
@@ -119,34 +117,24 @@ def display_dataframes(dataframes):
     return dataframes
 
 def merge_data(dataframes):
-    # Prendre les 400 premières lignes de chaque DataFrame
-    df1 = dataframes[0].head(400)
-    df2 = dataframes[1].head(400)
-    df3 = dataframes[2].head(400)
-    df4 = dataframes[3].head(400)
-    df5 = dataframes[4].head(400)
+    # Charger tous les DataFrames
+    df_carburant = dataframes[0]
+    df_meteo = dataframes[1]
+    df_courbe = dataframes[2]
+    df_mouvement = dataframes[3]
 
-    # Fusionner DataFrame 1 et 2 sur la colonne 'date'
-    merged_1_2 = pd.merge(df1, df2, on='date', how='inner')
-    print("DataFrame 1 et 2 fusionnés (400 premières lignes) :")
-    print(merged_1_2.head())
+    # Étape 1 : Ajouter l'indicateur de mouvement social au DataFrame météo
+    df_meteo['movement_social'] = df_meteo['date'].isin(df_mouvement['date'])
+    print("Indicateur de mouvement social ajouté à la météo :")
+    print(df_meteo.head())
+    print(len(df_meteo))
 
-    # Fusionner DataFrame 3 et 4 sur la colonne 'date'
-    merged_3_4 = pd.merge(df3, df4, on='date', how='inner')
-    print("DataFrame 3 et 4 fusionnés (400 premières lignes) :")
-    print(merged_3_4.head())
+    # Étape 2 : Fusionner DataFrame carburant et météo sur la colonne 'date'
+    merged_carburant_meteo = pd.merge(df_carburant, df_meteo, on='date', how='inner')
+    print("DataFrame carburant et météo fusionnés :")
+    print(merged_carburant_meteo.head())
 
-    # Fusionner les résultats des deux premières fusions
-    merged_final = pd.merge(merged_1_2, merged_3_4, on='date', how='inner')
-    print("DataFrame final (1_2 et 3_4) fusionné :")
-    print(merged_final.head())
-
-    # Fusionner avec le DataFrame 5
-    merged_all = pd.merge(merged_final, df5, on='date', how='inner')
-    print("DataFrame final fusionné avec DataFrame 5 (400 premières lignes) :")
-    print(merged_all.head())
-
-    return merged_all
+    return merged_final
 
 
 def display_final_dataframe(dataframe):

@@ -8,16 +8,15 @@ api_urls:
   - "https://data.opendatasoft.com/api/explore/v2.1/catalog/datasets/prix-des-energies-en-france@akajoule/records?limit=20"
 
 csv_file_paths:
-  - "data/prixcarburant_data_2018_2024.csv"
+  - "data/prix_du_carburant_data_2018_2024.csv"
   - "data/meteo_data_2018_2024.csv"
   - "data/courbe_de_charge_data_2018_2024.csv"
   - "data/movement_data_2018_2024.csv"
 
-db_name: "DBEnergy"
-
 collection_names:
-  - "csv_prix_carburants_data_2018_2024"
-  - "csv_previsions_meteo_data_2018_2024"
+  - "csv_prix_du_carburant_data_2018_2024"
+  - "csv_meteo_data_2018_2024"
   - "csv_courbe_de_charge_data_2018_2024"
   - "csv_mouvements_sociaux_data_2018_2024"
 
+db_name: "DBEnergy"
