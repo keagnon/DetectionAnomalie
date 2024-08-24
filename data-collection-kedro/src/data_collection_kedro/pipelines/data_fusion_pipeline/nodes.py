@@ -109,6 +109,13 @@ def normalize_columns(dataframes):
 
     return dataframes
 
+def ensure_correct_dtypes(df):
+    if 'région' in df.columns:
+        df['région'] = df['région'].astype(str)
+    if 'date' in df.columns:
+        df['date'] = pd.to_datetime(df['date'], errors='coerce')
+    return df
+
 
 def display_dataframes(dataframes):
     """
@@ -122,11 +129,18 @@ def display_dataframes(dataframes):
     return dataframes
 
 def merge_data(dataframes):
-    # Charger les 1000 premières lignes de chaque DataFrame
+    # Step 1: Load the first 1000 rows of each DataFrame
     df_carburant = dataframes[0].head(1000)
     df_meteo = dataframes[1].head(1000)
     df_courbe = dataframes[2].head(1000)
     df_mouvement = dataframes[3].head(1000)
+
+    # Ensure correct data types
+    df_carburant = ensure_correct_dtypes(df_carburant)
+    df_courbe = ensure_correct_dtypes(df_courbe)
+    df_meteo = ensure_correct_dtypes(df_meteo)
+    df_mouvement = ensure_correct_dtypes(df_mouvement)
+
     print(f"les colones du dataset carburant {df_carburant.columns}")
     print(f"les colones du dataset meteo {df_meteo.columns}")
     print(f"les colones du dataset courbe {df_courbe.columns}")
@@ -135,8 +149,7 @@ def merge_data(dataframes):
     # Étape 1 : Ajouter l'indicateur de mouvement social au DataFrame météo
     df_meteo['movement_social'] = df_meteo['date'].isin(df_mouvement['date'])
     print("Indicateur de mouvement social ajouté à la météo :")
-    print(df_meteo.head())
-    print(len(df_meteo))
+    print(f"Nombre de lignes après fusion: {len(df_meteo)}")
     print(df_meteo.columns)
 
     # Étape 2 : Merger les DataFrames Courbe de Charge et Prix du Carburant
@@ -169,9 +182,26 @@ def merge_data(dataframes):
     print(merged_df_carburant_courbes.columns)
     merged_df_carburant_courbes.rename(columns={'date_x': 'date'}, inplace=True)
 
-    # Étape 3 : Merger les DataFrames (Courbe de Charge et Prix du Carburant) fusionnés avec (mouvement social et méteo) fusionnés
-    final_merged_df = pd.merge(merged_df_carburant_courbes, df_meteo, on=['région', 'date'], how='inner')
-    final_merged_df.to_csv('final_merged_df.csv')
+    # Étape 3 : Merger (Courbe de Charge + Prix du Carburant) avec (Mouvement Social + Météo)
+    final_merged_batches = []
+    num_batches_final = max(len(merged_df_carburant_courbes), len(df_meteo)) // batch_size + 1
+
+    for i in range(num_batches_final):
+        merged_df_batch = merged_df_carburant_courbes[i * batch_size:(i + 1) * batch_size]
+        df_meteo_batch = df_meteo[i * batch_size:(i + 1) * batch_size]
+
+        final_merged_batch = pd.merge(merged_df_batch, df_meteo_batch, on=['région'], how='inner')
+        final_merged_batches.append(final_merged_batch)
+
+    final_merged_df = pd.concat(final_merged_batches, ignore_index=True)
+
+    print("Fusion des DataFrames (Courbe de Charge et Prix du Carburant) fusionnés avec (Mouvement Social et Météo) réussie par lots :")
+    print(final_merged_df.head())
+    print(f"Nombre de lignes après fusion: {len(final_merged_df)}")
+    print("Colonnes disponibles après fusion:")
+    print(final_merged_df.columns)
+
+    final_merged_df.to_csv('merged_df_carburant_courbes.csv')
 
     return final_merged_df
 
