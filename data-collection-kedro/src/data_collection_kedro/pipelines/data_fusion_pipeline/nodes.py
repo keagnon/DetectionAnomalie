@@ -132,14 +132,48 @@ def merge_data(dataframes):
     print(f"les colones du dataset courbe {df_courbe.columns}")
     print(f"les colones du dataset mouvement {df_mouvement.columns}")
 
-    # # Étape 1 : Ajouter l'indicateur de mouvement social au DataFrame météo
-    # df_meteo['movement_social'] = df_meteo['date'].isin(df_mouvement['date'])
-    # print("Indicateur de mouvement social ajouté à la météo :")
-    # print(df_meteo.head())
-    # print(len(df_meteo))
-    # print(df_meteo.columns)
+    # Étape 1 : Ajouter l'indicateur de mouvement social au DataFrame météo
+    df_meteo['movement_social'] = df_meteo['date'].isin(df_mouvement['date'])
+    print("Indicateur de mouvement social ajouté à la météo :")
+    print(df_meteo.head())
+    print(len(df_meteo))
+    print(df_meteo.columns)
 
-    return df_courbe
+    # Étape 2 : Merger les DataFrames Courbe de Charge et Prix du Carburant
+    print(f" colone carburants {df_carburant.columns}")
+    print(f" colone courbe {df_courbe.columns}")
+
+    batch_size = 250  # Définir la taille des lots
+    merged_batches = []
+    num_batches = max(len(df_carburant), len(df_courbe)) // batch_size + 1
+
+    # Boucle sur chaque lot
+    for i in range(num_batches):
+        # Sélectionner le lot actuel pour df_carburant et df_courbe
+        df_carburant_batch = df_carburant[i * batch_size:(i + 1) * batch_size]
+        df_courbe_batch = df_courbe[i * batch_size:(i + 1) * batch_size]
+
+        # Fusionner les DataFrames pour le lot actuel
+        merged_batch = pd.merge(df_courbe_batch, df_carburant_batch, on=['région'], how='inner')
+
+        # Ajouter le résultat de la fusion à la liste
+        merged_batches.append(merged_batch)
+
+    # Concaténer tous les lots fusionnés pour obtenir le DataFrame final
+    merged_df_carburant_courbes = pd.concat(merged_batches, ignore_index=True)
+
+    print("Fusion des DataFrames Courbe de Charge et Prix du Carburant réussie par lots :")
+    print(merged_df_carburant_courbes.head())
+    print(f"Nombre de lignes après fusion: {len(merged_df_carburant_courbes)}")
+    print("Colonnes disponibles après fusion:")
+    print(merged_df_carburant_courbes.columns)
+    merged_df_carburant_courbes.rename(columns={'date_x': 'date'}, inplace=True)
+
+    # Étape 3 : Merger les DataFrames (Courbe de Charge et Prix du Carburant) fusionnés avec (mouvement social et méteo) fusionnés
+    final_merged_df = pd.merge(merged_df_carburant_courbes, df_meteo, on=['région', 'date'], how='inner')
+    final_merged_df.to_csv('final_merged_df.csv')
+
+    return final_merged_df
 
 
 def display_final_dataframe(dataframe):
