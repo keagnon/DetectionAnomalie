@@ -67,33 +67,36 @@ def normalize_columns(dataframes):
     for i, df in enumerate(dataframes):
         # Dataset "Prix du Carburant"
         if 'début_rupture' in df.columns:
-            df['début_rupture'] = pd.to_datetime(df['début_rupture'], format='%Y-%m-%d %H:%M:%S', errors='coerce')
-            df['fin_rupture'] = pd.to_datetime(df['fin_rupture'], format='%Y-%m-%d %H:%M:%S', errors='coerce')
-            df['date'] = df['début_rupture']  # Utiliser début_rupture comme la colonne date principale
+            df['début_rupture'] = pd.to_datetime(df['début_rupture'], format='%Y-%m-%d %H:%M', errors='coerce')
+            df['fin_rupture'] = pd.to_datetime(df['fin_rupture'], format='%Y-%m-%d %H:%M', errors='coerce')
+            df['date'] = df['début_rupture']
             print(f"DataFrame {i} (Prix du Carburant) après normalisation :")
 
         # Dataset "Courbe de Charge"
         elif 'date' in df.columns and '00:00' in df.columns:
             df['date'] = pd.to_datetime(df['date'], format='%Y-%m-%d', errors='coerce')
+            # Renommer la colonne 'Région' en 'région'
+            if 'Région' in df.columns:
+                df.rename(columns={'Région': 'région'}, inplace=True)
             print(f"DataFrame {i} (Courbe de Charge) après normalisation :")
 
         # Dataset "Mouvements Sociaux"
         elif 'date_de_fin' in df.columns:
-            df['date_de_debut'] = pd.to_datetime(df['date_de_debut'], format='%Y-%m-%d', errors='coerce')
+            df['date'] = pd.to_datetime(df['date_de_debut'], format='%Y-%m-%d', errors='coerce')
             df['date_de_fin'] = pd.to_datetime(df['date_de_fin'], format='%Y-%m-%d', errors='coerce')
-            df['date'] = df['date_de_debut']  # Utiliser date_de_debut comme la colonne date principale
             print(f"DataFrame {i} (Mouvements Sociaux) après normalisation :")
 
         # Dataset "Météo"
         elif 'forecast_timestamp' in df.columns:
-            df['forecast_timestamp'] = pd.to_datetime(df['forecast_timestamp'], errors='coerce')
-            df['date'] = df['forecast_timestamp'].dt.date  # Extraire la date
-            df['heure'] = df['forecast_timestamp'].dt.time  # Extraire l'heure
+            df['date'] = pd.to_datetime(df['forecast_timestamp'].apply(lambda x: str(x).split(' ')[0]), format='%Y-%m-%d', errors='coerce')
+            df['heure'] = df['forecast_timestamp'].apply(lambda x: ' '.join(str(x).split(' ')[1:]))
+            df.rename(columns={'commune': 'région'}, inplace=True)
             print(f"DataFrame {i} (Météo) après normalisation :")
+            # Supprimer la colonne forecast_timestamp
+            df.drop(columns=['forecast_timestamp'], inplace=True)
 
         # Remplacer NaT par une date par défaut
-        if 'date' in df.columns:
-            df['date'].fillna(pd.Timestamp('1970-01-01'), inplace=True)
+        df['date'].fillna(pd.Timestamp('1970-01-01'), inplace=True)
 
         # Afficher les lignes avec des erreurs de conversion
         if df['date'].isnull().any():
@@ -103,7 +106,9 @@ def normalize_columns(dataframes):
         # Afficher les premières lignes et les types de données après normalisation
         print(df.head())
         print(df.dtypes)
+
     return dataframes
+
 
 def display_dataframes(dataframes):
     """
@@ -117,24 +122,24 @@ def display_dataframes(dataframes):
     return dataframes
 
 def merge_data(dataframes):
-    # Charger tous les DataFrames
-    df_carburant = dataframes[0]
-    df_meteo = dataframes[1]
-    df_courbe = dataframes[2]
-    df_mouvement = dataframes[3]
+    # Charger les 1000 premières lignes de chaque DataFrame
+    df_carburant = dataframes[0].head(1000)
+    df_meteo = dataframes[1].head(1000)
+    df_courbe = dataframes[2].head(1000)
+    df_mouvement = dataframes[3].head(1000)
+    print(f"les colones du dataset carburant {df_carburant.columns}")
+    print(f"les colones du dataset meteo {df_meteo.columns}")
+    print(f"les colones du dataset courbe {df_courbe.columns}")
+    print(f"les colones du dataset mouvement {df_mouvement.columns}")
 
-    # Étape 1 : Ajouter l'indicateur de mouvement social au DataFrame météo
-    df_meteo['movement_social'] = df_meteo['date'].isin(df_mouvement['date'])
-    print("Indicateur de mouvement social ajouté à la météo :")
-    print(df_meteo.head())
-    print(len(df_meteo))
+    # # Étape 1 : Ajouter l'indicateur de mouvement social au DataFrame météo
+    # df_meteo['movement_social'] = df_meteo['date'].isin(df_mouvement['date'])
+    # print("Indicateur de mouvement social ajouté à la météo :")
+    # print(df_meteo.head())
+    # print(len(df_meteo))
+    # print(df_meteo.columns)
 
-    # Étape 2 : Fusionner DataFrame carburant et météo sur la colonne 'date'
-    merged_carburant_meteo = pd.merge(df_carburant, df_meteo, on='date', how='inner')
-    print("DataFrame carburant et météo fusionnés :")
-    print(merged_carburant_meteo.head())
-
-    return merged_final
+    return df_courbe
 
 
 def display_final_dataframe(dataframe):
