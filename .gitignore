@@ -1,2 +1,6 @@
 ENV/
 .env
+
+# ignore everything in the following folders
+data/**
+logs/**
