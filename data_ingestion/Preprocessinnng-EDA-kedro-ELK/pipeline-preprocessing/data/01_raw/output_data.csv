@@ -1,0 +1,21 @@
+date_heure,date,heure,code_insee_region,region,consommation_brute_gaz_grtgaz,statut_grtgaz,consommation_brute_gaz_terega,statut_terega,consommation_brute_gaz_totale,consommation_brute_electricite_rte,statut_rte,consommation_brute_totale
+2021-06-28T11:30:00+00:00,2021-06-28,13:30,52,Pays de la Loire,,,,,,2958,Consolidé,
+2021-06-28T11:30:00+00:00,2021-06-28,13:30,53,Bretagne,,,,,,2522,Consolidé,
+2021-06-28T11:30:00+00:00,2021-06-28,13:30,76,Occitanie,,,,,,4188,Consolidé,
+2021-06-28T12:00:00+00:00,2021-06-28,14:00,75,Nouvelle-Aquitaine,775.0,Définitif,771.0,Définitif,1546.0,4553,Consolidé,6099.0
+2021-06-28T12:00:00+00:00,2021-06-28,14:00,93,Provence-Alpes-Côte d'Azur,2260.0,Définitif,,,2260.0,4881,Consolidé,7141.0
+2021-06-28T12:30:00+00:00,2021-06-28,14:30,24,Centre-Val de Loire,,,,,,1757,Consolidé,
+2021-06-28T12:30:00+00:00,2021-06-28,14:30,27,Bourgogne-Franche-Comté,,,,,,2427,Consolidé,
+2021-06-28T13:00:00+00:00,2021-06-28,15:00,53,Bretagne,1215.0,Définitif,,,1215.0,2422,Consolidé,3637.0
+2021-06-28T13:00:00+00:00,2021-06-28,15:00,93,Provence-Alpes-Côte d'Azur,2216.0,Définitif,,,2216.0,4834,Consolidé,7050.0
+2021-06-28T13:30:00+00:00,2021-06-28,15:30,11,Île-de-France,,,,,,7185,Consolidé,
+2021-06-28T13:30:00+00:00,2021-06-28,15:30,93,Provence-Alpes-Côte d'Azur,,,,,,4803,Consolidé,
+2021-06-28T14:00:00+00:00,2021-06-28,16:00,24,Centre-Val de Loire,598.0,Définitif,,,598.0,1705,Consolidé,2303.0
+2021-06-28T14:00:00+00:00,2021-06-28,16:00,52,Pays de la Loire,1171.0,Définitif,,,1171.0,2724,Consolidé,3895.0
+2021-06-28T14:30:00+00:00,2021-06-28,16:30,27,Bourgogne-Franche-Comté,,,,,,2250,Consolidé,
+2021-06-28T14:30:00+00:00,2021-06-28,16:30,44,Grand Est,,,,,,4724,Consolidé,
+2021-06-28T14:30:00+00:00,2021-06-28,16:30,53,Bretagne,,,,,,2289,Consolidé,
+2021-06-28T14:30:00+00:00,2021-06-28,16:30,76,Occitanie,,,,,,3800,Consolidé,
+2021-06-28T14:30:00+00:00,2021-06-28,16:30,84,Auvergne-Rhône-Alpes,,,,,,6972,Consolidé,
+2021-06-28T14:30:00+00:00,2021-06-28,16:30,93,Provence-Alpes-Côte d'Azur,,,,,,4653,Consolidé,
+2021-06-28T15:00:00+00:00,2021-06-28,17:00,32,Hauts-de-France,5383.0,Définitif,,,5383.0,5012,Consolidé,10395.0

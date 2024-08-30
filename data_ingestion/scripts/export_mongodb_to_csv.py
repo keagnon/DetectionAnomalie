@@ -50,7 +50,6 @@ if __name__ == "__main__":
     documents = mongo_client.get_documents()
     
     # Specify the CSV file name
-    csv_file_name = "output_data.csv"
-    
     # Save the documents to a CSV file
+    csv_file_name = "/home/santoudllo/Desktop/RNCP/DetectionAnomalie/data_ingestion/Preprocessinnng-EDA-kedro-ELK/pipeline-preprocessing/data/01_raw/output_data.csv"
     mongo_client.save_to_csv(documents, csv_file_name)
