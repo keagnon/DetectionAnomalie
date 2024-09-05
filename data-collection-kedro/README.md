@@ -12,15 +12,13 @@
 9. [Contribution](#contribution)
 10. [Licence](#licence)
 
----
 
 ## **Vue d'ensemble du projet** 🌍
 
-data-collection-kedro est un projet de pipeline de données construit autour du framework Kedro, utilisé pour automatiser les processus d'extraction, de transformation et de chargement (ETL). Il inclut des fonctionnalités de détection d'anomalies dans des données temporelles et catégoriques, avec stockage dans MongoDB et Elasticsearch.
+`Data-collection-kedro` est un projet de pipeline de données construit autour du framework Kedro, utilisé pour automatiser les processus d'extraction, de transformation et de chargement (ETL). Il inclut des fonctionnalités de détection d'anomalies dans des données temporelles et catégoriques, avec stockage dans MongoDB et Elasticsearch.
 
 Le projet se concentre sur l'intégration de données provenant de diverses sources (API, fichiers CSV, XML), leur stockage et leur fusion dans des bases de données.
 
----
 
 ## **Architecture du projet** 🏗️
 
@@ -31,7 +29,6 @@ Le projet suit une architecture modulaire basée sur Kedro, où chaque tâche de
 - **Pipeline ETL (`etl_pipeline`)** : Extraction, transformation et stockage des données dans MongoDB.
 - **Pipeline de Fusion de Données (`data_fusion_pipeline`)** : Fusion et stockage des données dans Elasticsearch.
 
----
 
 ## **Installation et configuration** ⚙️
 
@@ -75,7 +72,6 @@ Le projet suit une architecture modulaire basée sur Kedro, où chaque tâche de
    ELASTIC_DEPLOYMENT_ENDPOINT=adresse_du_cluster_elastic
    ```
 
----
 
 ## **Structure du projet** 🗂️
 
@@ -106,7 +102,6 @@ detectionanomalie/
 └── README.md               # Documentation du projet
 ```
 
----
 
 ## **Exécution du projet** 🚀
 
@@ -134,7 +129,6 @@ detectionanomalie/
    docker run -it kedro-data-engineering
    ```
 
----
 
 ## **Description des pipelines** 🔄
 
@@ -155,7 +149,6 @@ detectionanomalie/
   - `normalize_columns()`
   - `merge_data_store_in_elastic()`
 
----
 
 ## **Fichiers de configuration** 🛠️
 
@@ -165,7 +158,6 @@ detectionanomalie/
 ### **2. `parameters.yml`** :
 - Contient les paramètres globaux comme la taille des chunks ou les URL des API.
 
----
 
 ## **Tests du projet** 🧪
 
@@ -183,7 +175,6 @@ Les tests sont réalisés avec **pytest**. Les tests unitaires sont disponibles 
    pytest tests/pipelines/etl_pipeline/
    ```
 
----
 
 ## **Exemples d'images** 🖼️
 
@@ -224,7 +215,4 @@ De la même manière, ajoutez une capture pour Elasticsearch :
 ![Elasticsearch](./images/elasticsearch.png)
 ```
 
-> Placez les images dans le répertoire `images/` à la racine du projet.
-
----
 
