@@ -1,90 +1,234 @@
-https://odre.opendatasoft.com/explore/dataset/consommation-nationale-horaire-de-gaz-donnees-provisoires-grtgaz-terega-v2/api/?disjunctive.operateur&sort=date&dataChart=eyJxdWVyaWVzIjpbeyJjaGFydHMiOlt7InR5cGUiOiJjb2x1bW4iLCJmdW5jIjoiU1VNIiwieUF4aXMiOiJjb25zb21tYXRpb25fam91cm5hbGllcmVfbXdoX3BjcyIsInNjaWVudGlmaWNEaXNwbGF5Ijp0cnVlLCJjb2xvciI6InJhbmdlLUFjY2VudCIsInBvc2l0aW9uIjoiY2VudGVyIn1dLCJ4QXhpcyI6ImRhdGUiLCJtYXhwb2ludHMiOiIiLCJ0aW1lc2NhbGUiOiJtb250aCIsInNvcnQiOiIiLCJzZXJpZXNCcmVha2Rvd24iOiJvcGVyYXRldXIiLCJzZXJpZXNCcmVha2Rvd25UaW1lc2NhbGUiOiIiLCJzdGFja2VkIjoiIiwiY29uZmlnIjp7ImRhdGFzZXQiOiJjb25zb21tYXRpb24tbmF0aW9uYWxlLWhvcmFpcmUtZGUtZ2F6LWRvbm5lZXMtcHJvdmlzb2lyZXMtZ3J0Z2F6LXRlcmVnYS12MiIsIm9wdGlvbnMiOnsiZGlzanVuY3RpdmUub3BlcmF0ZXVyIjp0cnVlLCJzb3J0IjoiZGF0ZSJ9fX1dLCJkaXNwbGF5TGVnZW5kIjp0cnVlLCJhbGlnbk1vbnRoIjp0cnVlfQ%3D%3D
-https://www.data.gouv.fr/fr/datasets/production-regionale-annuelle-des-energies-renouvelables-2008-a-2021/
-https://data.sncf.com/explore/dataset/mouvements-sociaux-depuis-2002/api/?sort=date_de_debut
-https://opendata.agenceore.fr/explore/dataset/conso-elec-gaz-annuelle-par-secteur-dactivite-agregee-departement/table/?stage_theme=true
-https://data.opendatasoft.com/explore/dataset/prix-des-energies-en-france%40akajoule/table/?dataChart=eyJxdWVyaWVzIjpbeyJjb25maWciOnsiZGF0YXNldCI6InByaXgtZGVzLWVuZXJnaWVzLWVuLWZyYW5jZUBha2Fqb3VsZSIsIm9wdGlvbnMiOnt9fSwiY2hhcnRzIjpbeyJhbGlnbk1vbnRoIjp0cnVlLCJ0eXBlIjoibGluZSIsImZ1bmMiOiJBVkciLCJ5QXhpcyI6ImVsZWNfdHQiLCJzY2llbnRpZmljRGlzcGxheSI6dHJ1ZSwiY29sb3IiOiIjMTQyRTdCIn1dLCJ4QXhpcyI6InBlcmlvZGUiLCJtYXhwb2ludHMiOiIiLCJ0aW1lc2NhbGUiOiJ5ZWFyIiwic29ydCI6IiJ9XSwiZGlzcGxheUxlZ2VuZCI6dHJ1ZSwiYWxpZ25Nb250aCI6dHJ1ZX0%3D
-https://odre.opendatasoft.com/explore/dataset/consommation-quotidienne-brute/api/   a y reflechir pas de localité compliqué a analyser
-https://data.opendatasoft.com/explore/dataset/consommation-quotidienne-brute-regionale%40reseaux-energies-rte/information/?disjunctive.code_insee_region&disjunctive.region&sort=-date_heure remplacer par celui ci plus pertinanat presence des region et cp
+Voici la version améliorée du README en français, avec des icônes et des exemples d'images pour MongoDB et Elasticsearch :
 
+---
 
+# **🚀 Data-collection-kedro - Projet Kedro**
 
-pour le dags airflow etapes : pip install kedro-airflow puisn kedro airflow create
+## **Table des matières** 📚
+1. [Vue d'ensemble du projet](#vue-densemble-du-projet)
+2. [Architecture du projet](#architecture-du-projet)
+3. [Installation et configuration](#installation-et-configuration)
+4. [Structure du projet](#structure-du-projet)
+5. [Exécution du projet](#exécution-du-projet)
+6. [Description des pipelines](#description-des-pipelines)
+7. [Fichiers de configuration](#fichiers-de-configuration)
+8. [Tests du projet](#tests-du-projet)
+9. [Contribution](#contribution)
+10. [Licence](#licence)
 
-garder
-https://data.opendatasoft.com/explore/dataset/consommation-nationale-horaire-de-gaz-donnees-definitives-grtgaz-v2%40reseaux-energies-rte/information/?disjunctive.operateur&sort=date
-https://data.opendatasoft.com/explore/dataset/prix-carburants-quotidien%40opendatamef/table/
+---
 
-collection_names1:
-  - "csv_mouvements_sociaux"
-  - "csv_prix_energies"
-  - "csv_prix_carburants"
-  - "csv_courbe_de_charge"
+## **Vue d'ensemble du projet** 🌍
 
-columns_to_select:
-  -
+data-collection-kedro est un projet de pipeline de données construit autour du framework Kedro, utilisé pour automatiser les processus d'extraction, de transformation et de chargement (ETL). Il inclut des fonctionnalités de détection d'anomalies dans des données temporelles et catégoriques, avec stockage dans MongoDB et Elasticsearch.
 
-  -
-   -
+Le projet se concentre sur l'intégration de données provenant de diverses sources (API, fichiers CSV, XML), leur stockage et leur fusion dans des bases de données.
 
+---
 
--
+## **Architecture du projet** 🏗️
 
-def load_collections(collection_names, db_name, connect_timeout: int = 60000, max_retries: int = 3):
-    """
-    Charger les collections MongoDB spécifiées et les retourner sous forme de DataFrames.
+Le projet suit une architecture modulaire basée sur Kedro, où chaque tâche de traitement de données est encapsulée dans des pipelines distincts pour favoriser la flexibilité et la maintenance.
 
-    Params:
-    - collection_names: List of collection names to load from MongoDB.
-    - db_name: The name of the MongoDB database.
-    - connect_timeout: Connection timeout in milliseconds.
-    - max_retries: Number of retries in case the connection to MongoDB fails.
+### **Vue d'ensemble des pipelines :**
 
-    Returns:
-    - List of DataFrames containing the data from the specified collections.
-    """
-    load_dotenv()
+- **Pipeline ETL (`etl_pipeline`)** : Extraction, transformation et stockage des données dans MongoDB.
+- **Pipeline de Fusion de Données (`data_fusion_pipeline`)** : Fusion et stockage des données dans Elasticsearch.
 
-    username = os.getenv('MONGODB_USERNAME')
-    password = os.getenv('MONGODB_PASSWORD')
-    cluster = os.getenv('MONGODB_CLUSTER')
+---
 
-    mongodb_uri = f"mongodb+srv://{username}:{password}@{cluster}/?appName=Energy&connectTimeoutMS={connect_timeout}"
+## **Installation et configuration** ⚙️
 
-    # Attempt to connect to MongoDB with retries
-    for attempt in range(max_retries):
-        try:
-            client = MongoClient(mongodb_uri, tls=True, tlsAllowInvalidCertificates=True)
-            break  # Exit the loop if the connection is successful
-        except Exception as e:
-            print(f"Attempt {attempt + 1} to connect to MongoDB failed: {e}")
-            if attempt < max_retries - 1:
-                time.sleep(5)  # Wait for 5 seconds before retrying
-            else:
-                print("All connection attempts failed. Exiting.")
-                raise e  # Raise the exception if all retries fail
+### **Prérequis :**
 
-    try:
-        db = client[db_name]
-        dataframes = []
+- **Python 3.8** ou version plus récente
+- **MongoDB** (cloud ou instance locale)
+- **Elasticsearch** (cloud ou instance locale)
+- **Docker** (optionnel pour containeriser le projet)
 
-        for name in collection_names:
-            collection = db[name]
-            data = pd.DataFrame(list(collection.find()))
-            dataframes.append(data)
-            print(f"Collection {name} loaded successfully")
-            print(data.head())
-            print(data.columns)
+### **Étapes d'installation :**
 
-        return dataframes
+1. **Cloner le dépôt :**
+   ```bash
+   git clone https://github.com/votreutilisateur/detectionanomalie.git
+   cd detectionanomalie
+   ```
 
-    except Exception as e:
-        print(f"Error when loading collections: {e}")
-        raise e  # Raise the exception if something goes wrong after connection
+2. **Créer un environnement virtuel :**
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # Unix
+   # Ou
+   venv\Scripts\activate     # Windows
+   ```
 
+3. **Installer les dépendances :**
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-db_name1: "DBEnergy"
+4. **Configurer les variables d'environnement :**
+   Créez un fichier `.env` et renseignez les informations de connexion MongoDB et Elasticsearch :
+   ```env
+   MONGODB_USERNAME=nom_utilisateur_mongo
+   MONGODB_PASSWORD=mot_de_passe_mongo
+   MONGODB_CLUSTER=adresse_du_cluster_mongo
 
-collection_names1:
+   ELASTIC_USERNAME=nom_utilisateur_elastic
+   ELASTIC_PASSWORD=mot_de_passe_elastic
+   ELASTIC_DEPLOYMENT_ENDPOINT=adresse_du_cluster_elastic
+   ```
 
+---
 
-columns_to_select:
+## **Structure du projet** 🗂️
+
+La structure du projet suit les conventions de Kedro :
+
+```
+detectionanomalie/
+│
+├── data/
+│   ├── 01_raw/            # Données brutes
+│   ├── 02_intermediate/    # Données intermédiaires
+│   ├── 03_primary/         # Données nettoyées
+│   └── README.md           # Documentation sur les données
+│
+├── conf/
+│   ├── base/               # Configuration commune à tous les environnements
+│   └── local/              # Configuration spécifique à l'environnement local
+│
+├── src/
+│   ├── data_collection_kedro/
+│   │   ├── pipelines/      # Définition des pipelines
+│   └── __init__.py
+│
+├── tests/                  # Tests unitaires
+│
+├── Dockerfile              # Dockerfile pour containeriser le projet
+├── pyproject.toml          # Métadonnées et dépendances du projet
+└── README.md               # Documentation du projet
+```
+
+---
+
+## **Exécution du projet** 🚀
+
+### **Exécuter localement :**
+
+- **Exécuter tous les pipelines :**
+   ```bash
+   kedro run
+   ```
+
+- **Exécuter un pipeline spécifique :**
+   ```bash
+   kedro run --pipeline=etl_pipeline
+   ```
+
+### **Exécuter avec Docker :**
+
+- **Construire l'image Docker :**
+   ```bash
+   docker build -t kedro-data-engineering .
+   ```
+
+- **Exécuter le conteneur Docker :**
+   ```bash
+   docker run -it kedro-data-engineering
+   ```
+
+---
+
+## **Description des pipelines** 🔄
+
+### **Pipeline ETL (`etl_pipeline`)** 🛠️
+
+- **Objectif** : Extraire des données API/CSV, les transformer et les stocker dans MongoDB.
+- **Fonctions principales** :
+  - `fetch_data_from_api()`
+  - `read_csv_file()`
+  - `store_in_mongodb()`
+
+### **Pipeline de Fusion de Données (`data_fusion_pipeline`)** 🔗
+
+- **Objectif** : Fusionner plusieurs jeux de données, normaliser les colonnes et les stocker dans Elasticsearch.
+- **Fonctions principales** :
+  - `load_collections()`
+  - `select_columns()`
+  - `normalize_columns()`
+  - `merge_data_store_in_elastic()`
+
+---
+
+## **Fichiers de configuration** 🛠️
+
+### **1. `catalog.yml`** :
+- Définit les jeux de données, leurs sources et destinations (MongoDB, Elasticsearch).
+
+### **2. `parameters.yml`** :
+- Contient les paramètres globaux comme la taille des chunks ou les URL des API.
+
+---
+
+## **Tests du projet** 🧪
+
+Les tests sont réalisés avec **pytest**. Les tests unitaires sont disponibles dans le répertoire `tests/`.
+
+### **Exécuter les tests :**
+
+- **Tous les tests** :
+   ```bash
+   pytest
+   ```
+
+- **Tester un pipeline spécifique** :
+   ```bash
+   pytest tests/pipelines/etl_pipeline/
+   ```
+
+---
+
+## **Exemples d'images** 🖼️
+
+Vous pouvez inclure des captures d'écran des exécutions de vos pipelines, ainsi que des résultats de tests ou du coverage :
+
+### **Exemple d'image - Exécution du pipeline ETL :**
+
+```markdown
+![Pipeline ETL](./images/pipeline_etl_execution.png)
+```
+
+### **Exemple d'image - Exécution du pipeline de fusion :**
+
+```markdown
+![Pipeline de fusion](./images/pipeline_fusion_execution.png)
+```
+
+### **Exemple d'image - Tests unitaires et couverture :**
+
+```markdown
+![Tests unitaires](./images/test_execution.png)
+![Coverage des tests](./images/coverage.png)
+```
+
+### **Exemple d'image - Visualisation MongoDB :**
+
+Vous pouvez également ajouter une capture de la base de données MongoDB :
+
+```markdown
+![MongoDB](./images/mongodb.png)
+```
+
+### **Exemple d'image - Visualisation Elasticsearch :**
+
+De la même manière, ajoutez une capture pour Elasticsearch :
+
+```markdown
+![Elasticsearch](./images/elasticsearch.png)
+```
+
+> Placez les images dans le répertoire `images/` à la racine du projet.
+
+---
+
