@@ -242,7 +242,7 @@ def merge_data_store_in_elastic(dataframes):
         merge_meteo_courbe["TempMin_Deg"].fillna(value=0, inplace=True)
         merge_meteo_courbe["CloudCoverage_percent"].fillna(value=0, inplace=True)
 
-        # Remplacer les valeurs NaN par "pas connu" pour la colonne "motif" dans merge_courbe_mouvement
+        # Remplacer les valeurs NaN par "inconnu" pour la colonne "motif" dans merge_courbe_mouvement
         merge_courbe_mouvement["motif"].fillna(value="inconnu", inplace=True)
 
         store_in_elasticsearch(merge_meteo_courbe, es, index_name=meteo_courbe_index, chunk_size=500)
