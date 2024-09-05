@@ -1,7 +1,3 @@
-Voici la version améliorée du README en français, avec des icônes et des exemples d'images pour MongoDB et Elasticsearch :
-
----
-
 # **🚀 Data-collection-kedro - Projet Kedro**
 
 ## **Table des matières** 📚
