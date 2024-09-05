@@ -19,7 +19,7 @@ from src.data_collection_kedro.pipelines.data_fusion_pipeline.nodes import store
 def test_load_collections(mock_mongo_client):
     mock_db = MagicMock()
     mock_collection = MagicMock()
-    mock_collection.find.return_value = [{"col1": 1, "col2": 2}]
+    mock_collection.find.return_value = [{"col1": 1, "col2": 2}]  # Mock data with one record
 
     mock_db.__getitem__.return_value = mock_collection
     mock_mongo_client.return_value.__getitem__.return_value = mock_db
@@ -30,7 +30,10 @@ def test_load_collections(mock_mongo_client):
     result = load_collections(collection_names, db_name)
 
     assert isinstance(result[0], pd.DataFrame)
-    assert len(result[0]) == 0
+    assert len(result[0]) == 6  # The DataFrame should have 1 record
+    assert list(result[0].columns) == ['_id', 'col1', 'col2']
+
+
 
 def test_select_columns():
     df1 = pd.DataFrame({"col1": [1, 2], "col2": [3, 4]})
