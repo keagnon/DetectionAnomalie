@@ -1,12 +1,13 @@
-import pandas as pd
 import os
+
+import pandas as pd
 
 # Définir les chemins vers les fichiers CSV
 file_paths = [
     "data-collection-kedro/data/meteo/oldReg_MeteoFR_2018-01-01_2018-12-31.csv",
     "data-collection-kedro/data/meteo/oldReg_MeteoFR_2019-01-01_2019-12-31.csv",
     "data-collection-kedro/data/meteo/oldReg_MeteoFR_2020-01-01_2020-12-31.csv",
-    "data-collection-kedro/data/meteo/oldReg_MeteoFR_2021-01-01_2021-01-31.csv"
+    "data-collection-kedro/data/meteo/oldReg_MeteoFR_2021-01-01_2021-01-31.csv",
 ]
 
 # Liste pour stocker les DataFrames
@@ -25,6 +26,8 @@ for file in file_paths:
 combined_df = pd.concat(dataframes, ignore_index=True)
 
 # Sauvegarder le DataFrame combiné dans un nouveau fichier CSV
-combined_df.to_csv("data-collection-kedro/data/combined_meteo_data.csv", index=False,sep=';')
+combined_df.to_csv(
+    "data-collection-kedro/data/combined_meteo_data.csv", index=False, sep=";"
+)
 
 print("Les fichiers CSV ont été fusionnés avec succès.")

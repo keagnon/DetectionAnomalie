@@ -3,15 +3,16 @@ This is a boilerplate pipeline 'data_fusion_pipeline'
 generated using Kedro 0.19.5
 """
 import os
-from pymongo import MongoClient
+import sys
+
+import numpy as np
 import pandas as pd
 from dotenv import load_dotenv
-import sys
-import numpy as np
-from elasticsearch import Elasticsearch, helpers,exceptions
+from elasticsearch import Elasticsearch, exceptions, helpers
+from pymongo import MongoClient
 
 
-def load_collections(collection_names, db_name,connect_timeout: int = 20000):
+def load_collections(collection_names, db_name, connect_timeout: int = 20000):
     """
     Charger les collections MongoDB spécifiées et les retourner sous forme de DataFrames.
     params ::
@@ -22,9 +23,9 @@ def load_collections(collection_names, db_name,connect_timeout: int = 20000):
 
     load_dotenv()
 
-    username = os.getenv('MONGODB_USERNAME')
-    password = os.getenv('MONGODB_PASSWORD')
-    cluster = os.getenv('MONGODB_CLUSTER')
+    username = os.getenv("MONGODB_USERNAME")
+    password = os.getenv("MONGODB_PASSWORD")
+    cluster = os.getenv("MONGODB_CLUSTER")
 
     mongodb_uri = f"mongodb+srv://{username}:{password}@{cluster}/?appName=Energy&connectTimeoutMS={connect_timeout}"
     client = MongoClient(mongodb_uri, tls=True, tlsAllowInvalidCertificates=True)
@@ -41,6 +42,7 @@ def load_collections(collection_names, db_name,connect_timeout: int = 20000):
         print(data.columns)
 
     return dataframes
+
 
 def select_columns(dataframes, columns_to_select):
     """
@@ -60,6 +62,7 @@ def select_columns(dataframes, columns_to_select):
             raise
     return selected_dataframes
 
+
 def normalize_columns(dataframes):
     """
     Normalise les colonnes avant la fusion des DataFrames.
@@ -68,36 +71,36 @@ def normalize_columns(dataframes):
         dataframes : List dataframe à normaliser
     """
     region_mapping = {
-        'alsace': 'grand est',
-        'aquitaine': 'nouvelle-aquitaine',
-        'ardeche': 'auvergne-rhône-alpes',
-        'auvergne': 'auvergne-rhône-alpes',
-        'bourgogne': 'bourgogne-franche-comté',
-        'franche-comte': 'bourgogne-franche-comté',
-        'champagne-ardenne': 'grand est',
-        'corse': 'corse',
-        'limousin': 'nouvelle-aquitaine',
-        'languedoc-roussillon': 'occitanie',
-        'lorraine': 'grand est',
-        'midi-pyrenees': 'occitanie',
-        'nord-pas-de-calais': 'hauts-de-france',
-        'picardie': 'hauts-de-france',
-        'poitou-charentes': 'nouvelle-aquitaine',
-        'pays-de-la-loire': 'pays de la loire',
-        'provence-alpes-c-te-d-azur': "provence-alpes-côte d'azur",
-        'ile-de-france': 'île-de-france',
-        'ile-de-re': 'nouvelle-aquitaine',
-        'rh-ne-alpes': 'auvergne-rhône-alpes',
-        'centre': 'centre-val de loire'
+        "alsace": "grand est",
+        "aquitaine": "nouvelle-aquitaine",
+        "ardeche": "auvergne-rhône-alpes",
+        "auvergne": "auvergne-rhône-alpes",
+        "bourgogne": "bourgogne-franche-comté",
+        "franche-comte": "bourgogne-franche-comté",
+        "champagne-ardenne": "grand est",
+        "corse": "corse",
+        "limousin": "nouvelle-aquitaine",
+        "languedoc-roussillon": "occitanie",
+        "lorraine": "grand est",
+        "midi-pyrenees": "occitanie",
+        "nord-pas-de-calais": "hauts-de-france",
+        "picardie": "hauts-de-france",
+        "poitou-charentes": "nouvelle-aquitaine",
+        "pays-de-la-loire": "pays de la loire",
+        "provence-alpes-c-te-d-azur": "provence-alpes-côte d'azur",
+        "ile-de-france": "île-de-france",
+        "ile-de-re": "nouvelle-aquitaine",
+        "rh-ne-alpes": "auvergne-rhône-alpes",
+        "centre": "centre-val de loire",
     }
 
     for i, df in enumerate(dataframes):
         print(f"Normalisation du DataFrame {i} :")
 
         # Dataset "Courbe de Charge"
-        if 'date' in df.columns and '00:00' in df.columns:
-            df['date'] = pd.to_datetime(df['date'])
-            df['région'] = df['région'].astype(str).str.lower().str.strip()
+        if "date" in df.columns and "00:00" in df.columns:
+            df["date"] = pd.to_datetime(df["date"])
+            df["région"] = df["région"].astype(str).str.lower().str.strip()
             # Remplacer les NaN par une valeur par défaut, par exemple 0
             df = df.fillna(0)
             print(f"type colone region courbe {df['région'].dtypes}")
@@ -105,21 +108,21 @@ def normalize_columns(dataframes):
             print(df.head())
             print("----------------------------------------------------")
         # Dataset "Mouvements Sociaux"
-        elif 'date_de_fin' in df.columns:
-            df['date'] = pd.to_datetime(df['date_de_debut'])
-            df['motif'] = df['motif'].astype(str).str.lower().str.strip()
+        elif "date_de_fin" in df.columns:
+            df["date"] = pd.to_datetime(df["date_de_debut"])
+            df["motif"] = df["motif"].astype(str).str.lower().str.strip()
             df = df.fillna(0)
-            df['motif'] = df['motif'].fillna(np.nan)
+            df["motif"] = df["motif"].fillna(np.nan)
             print(f"type colone mouvement courbe { df['date'].dtypes}")
             print(df.head())
             print("----------------------------------------------------")
         # Dataset "Météo"
-        elif 'TempMax_Deg' in df.columns:
-            df.rename(columns={'day': 'date'}, inplace=True)
-            df['date'] = pd.to_datetime(df['date'])
-            df.rename(columns={'region': 'région'}, inplace=True)
-            df['région'] = df['région'].astype(str).str.lower().str.strip()
-            df['région'] = df['région'].replace(region_mapping)
+        elif "TempMax_Deg" in df.columns:
+            df.rename(columns={"day": "date"}, inplace=True)
+            df["date"] = pd.to_datetime(df["date"])
+            df.rename(columns={"region": "région"}, inplace=True)
+            df["région"] = df["région"].astype(str).str.lower().str.strip()
+            df["région"] = df["région"].replace(region_mapping)
             print(f"type colone date meteo { df['date'].dtypes}")
             print(f"type colone region meteo {df['région'].dtypes}")
             df = df.fillna(0)
@@ -143,6 +146,7 @@ def display_dataframes(dataframes):
         print("\n")
 
     return dataframes
+
 
 def store_in_elasticsearch(df, es, index_name, chunk_size=500):
     """
@@ -169,7 +173,10 @@ def store_in_elasticsearch(df, es, index_name, chunk_size=500):
         print(f"Données insérées avec succès dans l'index Elasticsearch : {index_name}")
 
     except Exception as e:
-        print(f"Échec de l'insertion des données dans l'index Elasticsearch {index_name} : {str(e)}")
+        print(
+            f"Échec de l'insertion des données dans l'index Elasticsearch {index_name} : {str(e)}"
+        )
+
 
 def create_index(es, index_name):
     """
@@ -200,7 +207,9 @@ def merge_data_store_in_elastic(dataframes):
     es_password = os.getenv("ELASTIC_PASSWORD")
 
     if not es_host or not es_username or not es_password:
-        raise ValueError("Les informations d'identification Elasticsearch ne sont pas définies dans les variables d'environnement.")
+        raise ValueError(
+            "Les informations d'identification Elasticsearch ne sont pas définies dans les variables d'environnement."
+        )
 
     try:
         es = Elasticsearch(
@@ -214,8 +223,8 @@ def merge_data_store_in_elastic(dataframes):
         else:
             print("Connected to Elasticsearch.")
 
-        meteo_courbe_index = 'meteo_courbe_index'
-        courbe_mouvement_index = 'courbe_mouvement_index'
+        meteo_courbe_index = "meteo_courbe_index"
+        courbe_mouvement_index = "courbe_mouvement_index"
 
         # Créatin index
         create_index(es, meteo_courbe_index)
@@ -227,15 +236,26 @@ def merge_data_store_in_elastic(dataframes):
         df_mouvement = dataframes[2]
 
         # Fusionner les DataFrames
-        merge_meteo_courbe = pd.merge(df_meteo, df_courbe, on=['date', 'région'], how='inner')
-        merge_meteo_courbe.to_csv('merge_meteo_courbe.csv')
+        merge_meteo_courbe = pd.merge(
+            df_meteo, df_courbe, on=["date", "région"], how="inner"
+        )
+        merge_meteo_courbe.to_csv("merge_meteo_courbe.csv")
         print(f"Nombre de lignes après fusion meteo-courbe: {len(merge_meteo_courbe)}")
 
         merge_courbe_mouvement = df_courbe.copy()
-        merge_courbe_mouvement['movement_social'] = merge_courbe_mouvement['date'].isin(df_mouvement['date'])
-        merge_courbe_mouvement = pd.merge(merge_courbe_mouvement, df_mouvement[['date', 'motif']], on='date', how='left')
-        merge_courbe_mouvement.to_csv('merge_courbe_mouvement.csv')
-        print(f"Nombre de lignes après fusion courbe-mouvement: {len(merge_courbe_mouvement)}")
+        merge_courbe_mouvement["movement_social"] = merge_courbe_mouvement["date"].isin(
+            df_mouvement["date"]
+        )
+        merge_courbe_mouvement = pd.merge(
+            merge_courbe_mouvement,
+            df_mouvement[["date", "motif"]],
+            on="date",
+            how="left",
+        )
+        merge_courbe_mouvement.to_csv("merge_courbe_mouvement.csv")
+        print(
+            f"Nombre de lignes après fusion courbe-mouvement: {len(merge_courbe_mouvement)}"
+        )
 
         # Remplacer les valeurs NaN par 0 pour certaines colonnes dans merge_meteo_courbe
         merge_meteo_courbe["TempMax_Deg"].fillna(value=0, inplace=True)
@@ -245,8 +265,15 @@ def merge_data_store_in_elastic(dataframes):
         # Remplacer les valeurs NaN par "inconnu" pour la colonne "motif" dans merge_courbe_mouvement
         merge_courbe_mouvement["motif"].fillna(value="inconnu", inplace=True)
 
-        store_in_elasticsearch(merge_meteo_courbe, es, index_name=meteo_courbe_index, chunk_size=500)
-        store_in_elasticsearch(merge_courbe_mouvement, es, index_name=courbe_mouvement_index, chunk_size=500)
+        store_in_elasticsearch(
+            merge_meteo_courbe, es, index_name=meteo_courbe_index, chunk_size=500
+        )
+        store_in_elasticsearch(
+            merge_courbe_mouvement,
+            es,
+            index_name=courbe_mouvement_index,
+            chunk_size=500,
+        )
 
         print("----------------------------------------------------")
         print(es.count(index="courbe_mouvement_index")["count"])
@@ -258,5 +285,3 @@ def merge_data_store_in_elastic(dataframes):
         print(f"An error occurred: {str(e)}")
 
     return merge_meteo_courbe, merge_courbe_mouvement
-
-
