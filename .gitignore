@@ -8,10 +8,10 @@ ENV/
 conf/local/**
 !conf/local/.gitkeep
 .telemetry
-
+engiewatch.2024-09-02.private-key.pem
 # ignore potentially sensitive credentials files
 conf/**/*credentials*
-
+compact-nirvana-431819-p9-80257f7ee128.json
 # ignore everything in the following folders
 data/**
 logs/**

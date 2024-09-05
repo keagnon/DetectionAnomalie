@@ -1,15 +1,12 @@
 db_name1: "DBEnergy"
 
 collection_names1:
-  - "csv_prix_carburants"
-  - "csv_courbe_de_charge"
-  - "csv_previsions_meteo"
-  - "csv_prix_energies"
-  - "csv_mouvements_sociaux"
+  - "csv_combined_meteo_data"
+  - "csv_courbe_de_charge_data_2018_2024"
+  - "csv_mouvements_sociaux_data_2018_2024"
 
 columns_to_select:
-  - ["code_postal", "pop", "adresse", "ville", "horaires","rupture", "fermeture", "geom", "mise_à_jour_des_prix", "prix_id","prix", "carburant", "com_arm_code","commune_/_arrondissement_municipal", "code_officiel_epci","nom_officiel_epci", "numéro_département", "département","code_officiel_région", "région", "services_proposés","carburant_en_rupture", "début_rupture", "fin_rupture","automate_24-24_(oui/non)"]
-  - ["date", "opérateur", "secteur_d'activité", "région", "00:00","01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00","09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00","17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00","consommation_journalière_(mwh_-_pcs_0°c)", "statut", "code_région"]
-  - ["date_et_heure_de_la_prévision", "prevision", "position","date_du_calcul", "2_metre_temperature","minimum_temperature_at_2_metres", "maximum_temperature_at_2_metres","2_metre_relative_humidity", "total_precipitation", "10m_wind_speed","surface_net_solar_radiation", "surface_net_thermal_radiation","surface_solar_radiation_downwards", "surface_latent_heat_flux","surface_sensible_heat_flux", "commune", "nombre_date"]
-  - ["période", "source", "électricité", "gaz_naturel"]
-  - ["date", "date_de_fin", "motif_exprimé", "nombre_de_grévistes_du_préavis"]
+  - ['TempMax_Deg', 'TempMin_Deg', 'Wind_kmh','Wet_percent', 'Visibility_km', 'CloudCoverage_percent','Dayduration_hour', 'region', 'day']
+  - ["date", "opérateur", "secteur_d'activité","région", "00:00","01:00","02:00","03:00","04:00","05:00","06:00","07:00","08:00","09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00","20:00","21:00","22:00","23:00","consommation_journalière_(mwh_-_pcs_0°c)", "statut"]
+  - ["date_de_debut","date_de_fin","motif"]
+

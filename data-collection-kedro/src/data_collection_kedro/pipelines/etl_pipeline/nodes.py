@@ -106,7 +106,7 @@ def display_data(data: pd.DataFrame) -> None:
     print(data.head())
     print(data.columns)
 
-def process_api_data(api_urls: List[str], db_name: str, collection_names: List[str]) -> None:
+def etl_api_data(api_urls: List[str], db_name: str, collection_names: List[str]) -> None:
     """
     Process multiple API URLs and store data in MongoDB.
     Params::
@@ -119,9 +119,9 @@ def process_api_data(api_urls: List[str], db_name: str, collection_names: List[s
         raw_data = fetch_data_from_api(api_url)
         cleaned_data = Transform.clean_data(raw_data)
         display_data(cleaned_data)
-        #store_in_mongodb(cleaned_data, db_name, collection_name)
+        store_in_mongodb(cleaned_data, db_name, collection_name)
 
-def process_csv_data(file_paths: List[str], db_name: str, collection_names: List[str]) -> None:
+def etl_csv_data(file_paths: List[str], db_name: str, collection_names: List[str]) -> None:
     """
     Process multiple CSV files and store data in MongoDB.
     params::
