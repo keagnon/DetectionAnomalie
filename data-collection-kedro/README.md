@@ -225,9 +225,7 @@ Vous pouvez inclure des captures d'écran des exécutions de vos pipelines, ains
 
 ### **Exemple d'image - Exécution du pipeline ETL :**
 
-```markdown
 ![Pipeline ETL](images/etl_pipeline/im1.png)
-```
 
 ### **Exemple d'image - Exécution du pipeline de fusion :**
 
