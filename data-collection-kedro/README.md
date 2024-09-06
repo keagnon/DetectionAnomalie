@@ -1,7 +1,3 @@
-Je vais vous fournir une version plus facile à copier et à coller de la version française du README avec les liens de navigation.
-
----
-
 # **🚀 Data-collection-kedro - Projet Kedro**
 
 ## **Table des matières** 📚
@@ -197,10 +193,10 @@ data-collection-kedro/
 
 ## **Fichiers de configuration** 🛠️ <a name="fichiers-de-configuration"></a>
 
-### **1. `catalog.yml`** :
+### **1. `parameters_data_fusion_pipeline.yml`** :
 - Définit les jeux de données, leurs sources et destinations (MongoDB, Elasticsearch).
 
-### **2. `parameters.yml`** :
+### **2. `parameters_etl_pipeline.yml`** :
 - Contient les paramètres globaux comme la taille des chunks ou les URL des API.
 
 ---
@@ -230,7 +226,7 @@ Vous pouvez inclure des captures d'écran des exécutions de vos pipelines, ains
 ### **Exemple d'image - Exécution du pipeline ETL :**
 
 ```markdown
-![Pipeline ETL](../images/etl_pipeline/im1.png)
+![Pipeline ETL](images/etl_pipeline/im1.png)
 ```
 
 ### **Exemple d'image - Exécution du pipeline de fusion :**
