@@ -1,7 +1,5 @@
-# Variables
-PYTHON_FILES = data-collection-kedro/src/data_collection_kedro/pipelines/  # Indique les dossiers à vérifier
+PYTHON_FILES = data-collection-kedro/src/data_collection_kedro/pipelines/
 
-# Commandes pour vérifier la qualité du code
 .PHONY: lint
 lint: pylint black-check isort-check mypy
 
@@ -25,7 +23,6 @@ mypy:
 	@echo "Running mypy..."
 	mypy $(PYTHON_FILES)
 
-# Commandes pour formater le code
 .PHONY: format
 format: black isort
 
@@ -39,9 +36,6 @@ isort:
 	@echo "Running isort..."
 	isort $(PYTHON_FILES)
 
-
-
-# Commande pour tout lancer (lint, test, coverage)
 .PHONY: all
 all: lint coverage
 	@echo "All checks passed!"
