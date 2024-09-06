@@ -132,7 +132,6 @@ def main(file_path):
     return df
 
 if __name__ == "__main__":
-    # Exemple d'utilisation
     file_path = 'merge_courbe_mouvement.csv'
     df_with_anomalies = main(file_path)
     print(df_with_anomalies.head())
