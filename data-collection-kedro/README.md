@@ -226,6 +226,11 @@ Vous pouvez inclure des captures d'écran des exécutions de vos pipelines, ains
 ### **Exemple d'image - Exécution du pipeline ETL :**
 
 ![Pipeline ETL](images/etl_pipeline/im1.png)
+![Pipeline ETL](images/etl_pipeline/im2.png)
+![Pipeline ETL](images/etl_pipeline/im3.png)
+![Pipeline ETL](images/etl_pipeline/im4.png)
+![Pipeline ETL](images/etl_pipeline/im5.png)
+![Pipeline ETL](images/etl_pipeline/im6.png)
 
 ### **Exemple d'image - Exécution du pipeline de fusion :**
 
