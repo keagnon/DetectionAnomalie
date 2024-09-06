@@ -1,3 +1,7 @@
+Je vais vous fournir une version plus facile à copier et à coller de la version française du README avec les liens de navigation.
+
+---
+
 # **🚀 Data-collection-kedro - Projet Kedro**
 
 ## **Table des matières** 📚
@@ -9,18 +13,20 @@
 6. [Description des pipelines](#description-des-pipelines)
 7. [Fichiers de configuration](#fichiers-de-configuration)
 8. [Tests du projet](#tests-du-projet)
-9. [Contribution](#contribution)
-10. [Licence](#licence)
+9. [Exemples d'images](#exemples-dimages)
 
 
-## **Vue d'ensemble du projet** 🌍
+---
 
-`Data-collection-kedro` est un projet de pipeline de données construit autour du framework Kedro, utilisé pour automatiser les processus d'extraction, de transformation et de chargement (ETL). Il inclut des fonctionnalités de détection d'anomalies dans des données temporelles et catégoriques, avec stockage dans MongoDB et Elasticsearch.
+## **Vue d'ensemble du projet** 🌍 <a name="vue-densemble-du-projet"></a>
+
+`Data-collection-kedro` est un projet de pipeline de données construit autour du framework Kedro, utilisé pour automatiser les processus d'extraction, de transformation et de chargement (ETL). Il est inclure dans notre projet de détection d'anomalies dans des données temporelles et catégoriques, avec stockage des données dans MongoDB et Elasticsearch.
 
 Le projet se concentre sur l'intégration de données provenant de diverses sources (API, fichiers CSV, XML), leur stockage et leur fusion dans des bases de données.
 
+---
 
-## **Architecture du projet** 🏗️
+## **Architecture du projet** 🏗️ <a name="architecture-du-projet"></a>
 
 Le projet suit une architecture modulaire basée sur Kedro, où chaque tâche de traitement de données est encapsulée dans des pipelines distincts pour favoriser la flexibilité et la maintenance.
 
@@ -29,8 +35,9 @@ Le projet suit une architecture modulaire basée sur Kedro, où chaque tâche de
 - **Pipeline ETL (`etl_pipeline`)** : Extraction, transformation et stockage des données dans MongoDB.
 - **Pipeline de Fusion de Données (`data_fusion_pipeline`)** : Fusion et stockage des données dans Elasticsearch.
 
+---
 
-## **Installation et configuration** ⚙️
+## **Installation et configuration** ⚙️ <a name="installation-et-configuration"></a>
 
 ### **Prérequis :**
 
@@ -43,8 +50,8 @@ Le projet suit une architecture modulaire basée sur Kedro, où chaque tâche de
 
 1. **Cloner le dépôt :**
    ```bash
-   git clone https://github.com/votreutilisateur/detectionanomalie.git
-   cd detectionanomalie
+   git clone https://github.com/keagnon/DetectionAnomalie.git
+   cd DetectionAnomalie
    ```
 
 2. **Créer un environnement virtuel :**
@@ -66,44 +73,75 @@ Le projet suit une architecture modulaire basée sur Kedro, où chaque tâche de
    MONGODB_USERNAME=nom_utilisateur_mongo
    MONGODB_PASSWORD=mot_de_passe_mongo
    MONGODB_CLUSTER=adresse_du_cluster_mongo
+   MONGODB_DBNAME=nom_base_de_donnée
 
    ELASTIC_USERNAME=nom_utilisateur_elastic
    ELASTIC_PASSWORD=mot_de_passe_elastic
    ELASTIC_DEPLOYMENT_ENDPOINT=adresse_du_cluster_elastic
+
    ```
 
+---
 
-## **Structure du projet** 🗂️
+## **Structure du projet** 🗂️ <a name="structure-du-projet"></a>
 
 La structure du projet suit les conventions de Kedro :
 
 ```
-detectionanomalie/
+data-collection-kedro/
 │
-├── data/
-│   ├── 01_raw/            # Données brutes
-│   ├── 02_intermediate/    # Données intermédiaires
-│   ├── 03_primary/         # Données nettoyées
-│   └── README.md           # Documentation sur les données
+├── conf/                                # Fichiers de configuration
+│   ├── base/
+│   │   ├── catalog.yml                  # Définition des jeux de données et leurs emplacements
+│   │   ├── parameters_data_fusion_pipeline.yml
+│   │   ├── parameters_etl_pipeline.yml
+│   │   └── parameters.yml               # Paramètres globaux du projet
+│   └── local/                           # Configuration spécifique à l'environnement local
 │
-├── conf/
-│   ├── base/               # Configuration commune à tous les environnements
-│   └── local/              # Configuration spécifique à l'environnement local
+├── data/                                # Données utilisées dans le projet
+│   ├── data_carburant_xml/
+│   ├── data_merge/
+│   ├── meteo/
+│   │   ├── combined_meteo_data.csv
+│   │   ├── courbe_de_charge_data_2018_2024.csv
+│   │   ├── meteo_data_2018_2024.csv
+│   │   ├── movement_data_2018_2024.csv
+│   │   └── prix_du_carburant_data_2018_2024.csv
+│   └── README.md                       # Documentation sur les données
+│
+├── kedro-dataeng-env/                   # Environnement virtuel Kedro
 │
 ├── src/
-│   ├── data_collection_kedro/
-│   │   ├── pipelines/      # Définition des pipelines
-│   └── __init__.py
+│   ├── data_collection_kedro/           # Répertoire principal des sources du projet
+│   │   ├── pipelines/                   # Pipelines de traitement des données
+│   │   │   ├── data_fusion_pipeline/
+│   │   │   │   ├── nodes.py             # Fonctions spécifiques au pipeline de fusion de données
+│   │   │   │   ├── pipeline.py          # Définition des pipelines
+│   │   │   ├── etl_pipeline/
+│   │   │   │   ├── nodes.py             # Fonctions spécifiques au pipeline ETL
+│   │   │   │   ├── transform.py         # Transformation des données pour ETL
+│   │   │   └── utils.py                 # Fonctions utilitaires
+│   │   ├── settings.py                  # Paramètres du projet Kedro
+│   └── pipeline_registry.py             # Enregistrement des pipelines Kedro
 │
-├── tests/                  # Tests unitaires
+├── tests/                               # Tests unitaires pour le projet
+│   ├── pipelines/
+│   │   ├── data_fusion_pipeline/
+│   │   │   ├── test_pipeline.py         # Tests pour le pipeline de fusion de données
+│   │   ├── etl_pipeline/
+│   │   │   ├── test_pipeline.py         # Tests pour le pipeline ETL
+│   │   │   ├── test_transform.py        # Tests pour les transformations de données ETL
 │
-├── Dockerfile              # Dockerfile pour containeriser le projet
-├── pyproject.toml          # Métadonnées et dépendances du projet
-└── README.md               # Documentation du projet
+├── Dockerfile                           # Fichier Docker pour containeriser le projet
+├── pyproject.toml                       # Fichier de configuration du projet et des dépendances
+├── README.md                            # Documentation principale du projet
+└── requirements.txt                     # Liste des dépendances Python du projet
+
 ```
 
+---
 
-## **Exécution du projet** 🚀
+## **Exécution du projet** 🚀 <a name="exécution-du-projet"></a>
 
 ### **Exécuter localement :**
 
@@ -115,6 +153,11 @@ detectionanomalie/
 - **Exécuter un pipeline spécifique :**
    ```bash
    kedro run --pipeline=etl_pipeline
+   ```
+   ou
+
+   ```bash
+   kedro run --pipeline=data_fusion_pipeline
    ```
 
 ### **Exécuter avec Docker :**
@@ -129,12 +172,13 @@ detectionanomalie/
    docker run -it kedro-data-engineering
    ```
 
+---
 
-## **Description des pipelines** 🔄
+## **Description des pipelines** 🔄 <a name="description-des-pipelines"></a>
 
 ### **Pipeline ETL (`etl_pipeline`)** 🛠️
 
-- **Objectif** : Extraire des données API/CSV, les transformer et les stocker dans MongoDB.
+- **Objectif** : Extraire des données API/CSV/XML, les transformer et les stocker dans MongoDB.
 - **Fonctions principales** :
   - `fetch_data_from_api()`
   - `read_csv_file()`
@@ -149,8 +193,9 @@ detectionanomalie/
   - `normalize_columns()`
   - `merge_data_store_in_elastic()`
 
+---
 
-## **Fichiers de configuration** 🛠️
+## **Fichiers de configuration** 🛠️ <a name="fichiers-de-configuration"></a>
 
 ### **1. `catalog.yml`** :
 - Définit les jeux de données, leurs sources et destinations (MongoDB, Elasticsearch).
@@ -158,8 +203,9 @@ detectionanomalie/
 ### **2. `parameters.yml`** :
 - Contient les paramètres globaux comme la taille des chunks ou les URL des API.
 
+---
 
-## **Tests du projet** 🧪
+## **Tests du projet** 🧪 <a name="tests-du-projet"></a>
 
 Les tests sont réalisés avec **pytest**. Les tests unitaires sont disponibles dans le répertoire `tests/`.
 
@@ -175,15 +221,16 @@ Les tests sont réalisés avec **pytest**. Les tests unitaires sont disponibles 
    pytest tests/pipelines/etl_pipeline/
    ```
 
+---
 
-## **Exemples d'images** 🖼️
+## **Exemples d'images** 🖼️ <a name="exemples-dimages"></a>
 
 Vous pouvez inclure des captures d'écran des exécutions de vos pipelines, ainsi que des résultats de tests ou du coverage :
 
 ### **Exemple d'image - Exécution du pipeline ETL :**
 
 ```markdown
-![Pipeline ETL](./images/pipeline_etl_execution.png)
+![Pipeline ETL](../images/etl_pipeline/im1.png)
 ```
 
 ### **Exemple d'image - Exécution du pipeline de fusion :**
@@ -214,5 +261,4 @@ De la même manière, ajoutez une capture pour Elasticsearch :
 ```markdown
 ![Elasticsearch](./images/elasticsearch.png)
 ```
-
 
