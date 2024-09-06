@@ -1,25 +1,20 @@
 # This is a boilerplate parameters config generated for pipeline 'etl_pipeline'
 # using Kedro 0.19.5.
-#
-# Documentation for this file format can be found in "Parameters"
-# Link: https://docs.kedro.org/en/0.19.5/configuration/parameters.html
+
 api_urls:
   - "https://data.opendatasoft.com/api/explore/v2.1/catalog/datasets/courbe-de-charge-eldgrd-regional-grtgaz-terega@reseaux-energies-rte/records?limit=20"
   - "https://data.opendatasoft.com/api/explore/v2.1/catalog/datasets/prix-des-energies-en-france@akajoule/records?limit=20"
 
 csv_file_paths:
-  - "data/prix-carburants-quotidien@opendatamef.csv"
-  - "data/previsions-meteo-france-a-36h@cudunkerque.csv"
-  - "data/courbe-de-charge-eldgrd-regional-grtgaz-terega@reseaux-energies-rte.csv"
-  - "data/prix-des-energies-en-france@akajoule.csv"
-  - "data/mouvements-sociaux-depuis-2002.csv"
-
-db_name: "DBEnergy"
+  - "data/prix_du_carburant_data_2018_2024.csv"
+  - "data/combined_meteo_data.csv"
+  - "data/courbe_de_charge_data_2018_2024.csv"
+  - "data/movement_data_2018_2024.csv"
 
 collection_names:
-  - "csv_prix_carburants"
-  - "csv_previsions_meteo"
-  - "csv_courbe_de_charge"
-  - "csv_prix_energies"
-  - "csv_mouvements_sociaux"
+  - "csv_prix_du_carburant_data_2018_2024"
+  - "csv_combined_meteo_data.csv"
+  - "csv_courbe_de_charge_data_2018_2024"
+  - "csv_mouvements_sociaux_data_2018_2024"
 
+db_name: "DBEnergy"

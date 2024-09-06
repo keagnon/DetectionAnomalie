@@ -2,13 +2,16 @@
 This is a boilerplate pipeline 'etl_pipeline'
 generated using Kedro 0.19.5
 """
-import requests
-import pandas as pd
-from typing import Dict, Any, List
-from .transform import Transform
-from pymongo import MongoClient
 import os
+from typing import Any, Dict, List
+
+import pandas as pd
+import requests
 from dotenv import load_dotenv
+from pymongo import MongoClient
+
+from .transform import Transform
+
 
 def fetch_data_from_api(api_url: str) -> pd.DataFrame:
     """
@@ -23,8 +26,8 @@ def fetch_data_from_api(api_url: str) -> pd.DataFrame:
         response.raise_for_status()
         try:
             data = response.json()
-            if 'results' in data:
-                return pd.DataFrame(data['results'])
+            if "results" in data:
+                return pd.DataFrame(data["results"])
             else:
                 print(f"Warning: 'results' key not found in response from {api_url}")
                 return pd.DataFrame()
@@ -35,6 +38,7 @@ def fetch_data_from_api(api_url: str) -> pd.DataFrame:
         print(f"Error: Request failed for {api_url} with exception {e}")
         return pd.DataFrame()
 
+
 def read_csv_file(file_path: str) -> pd.DataFrame:
     """
     Read data from a CSV file.
@@ -43,9 +47,16 @@ def read_csv_file(file_path: str) -> pd.DataFrame:
     Returns::
           pd.DataFrame: DataFrame containing the CSV data.
     """
-    return pd.read_csv(file_path, delimiter=';', encoding='utf-8')
+    return pd.read_csv(file_path, delimiter=";", encoding="utf-8")
 
-def store_in_mongodb(data: pd.DataFrame, db_name: str, collection_name: str, batch_size: int = 500, connect_timeout: int = 200000) -> None:
+
+def store_in_mongodb(
+    data: pd.DataFrame,
+    db_name: str,
+    collection_name: str,
+    batch_size: int = 500,
+    connect_timeout: int = 200000,
+) -> None:
     """
     Store the cleaned data in MongoDB in batches.
 
@@ -58,16 +69,18 @@ def store_in_mongodb(data: pd.DataFrame, db_name: str, collection_name: str, bat
     """
     load_dotenv()
 
-    username = os.getenv('MONGODB_USERNAME')
-    password = os.getenv('MONGODB_PASSWORD')
-    cluster = os.getenv('MONGODB_CLUSTER')
+    username = os.getenv("MONGODB_USERNAME")
+    password = os.getenv("MONGODB_PASSWORD")
+    cluster = os.getenv("MONGODB_CLUSTER")
 
     mongodb_uri = f"mongodb+srv://{username}:{password}@{cluster}/?appName=Energy&connectTimeoutMS={connect_timeout}"
 
     max_retries = 3
     for attempt in range(max_retries):
         try:
-            client = MongoClient(mongodb_uri, tls=True, tlsAllowInvalidCertificates=True)
+            client = MongoClient(
+                mongodb_uri, tls=True, tlsAllowInvalidCertificates=True
+            )
             break  # Exit the loop if the connection is successful
         except Exception as e:
             print(f"Attempt {attempt + 1} to connect to MongoDB failed: {e}")
@@ -82,20 +95,23 @@ def store_in_mongodb(data: pd.DataFrame, db_name: str, collection_name: str, bat
         collection = db[collection_name]
 
         if isinstance(data, pd.DataFrame):
-            data = data.to_dict('records')
+            data = data.to_dict("records")
 
         # Insert data in batches
         for i in range(0, len(data), batch_size):
-            batch = data[i:i + batch_size]
+            batch = data[i : i + batch_size]
             try:
                 collection.insert_many(batch)
-                print(f"Batch {i//batch_size + 1} with {len(batch)} records stored successfully in {collection_name}.")
+                print(
+                    f"Batch {i//batch_size + 1} with {len(batch)} records stored successfully in {collection_name}."
+                )
             except Exception as e:
                 print(f"Error inserting batch {i//batch_size + 1}: {e}")
                 # Optionally, retry the insertion or handle the failure
 
     except Exception as e:
         print(f"Error when inserting data: {e}")
+
 
 def display_data(data: pd.DataFrame) -> None:
     """
@@ -106,7 +122,10 @@ def display_data(data: pd.DataFrame) -> None:
     print(data.head())
     print(data.columns)
 
-def process_api_data(api_urls: List[str], db_name: str, collection_names: List[str]) -> None:
+
+def etl_api_data(
+    api_urls: List[str], db_name: str, collection_names: List[str]
+) -> None:
     """
     Process multiple API URLs and store data in MongoDB.
     Params::
@@ -119,9 +138,12 @@ def process_api_data(api_urls: List[str], db_name: str, collection_names: List[s
         raw_data = fetch_data_from_api(api_url)
         cleaned_data = Transform.clean_data(raw_data)
         display_data(cleaned_data)
-        #store_in_mongodb(cleaned_data, db_name, collection_name)
+        store_in_mongodb(cleaned_data, db_name, collection_name)
 
-def process_csv_data(file_paths: List[str], db_name: str, collection_names: List[str]) -> None:
+
+def etl_csv_data(
+    file_paths: List[str], db_name: str, collection_names: List[str]
+) -> None:
     """
     Process multiple CSV files and store data in MongoDB.
     params::
@@ -140,4 +162,3 @@ def process_csv_data(file_paths: List[str], db_name: str, collection_names: List
             store_in_mongodb(cleaned_data, db_name, collection_name)
         except Exception as e:
             print(f"Failed to insert data from {file_path} into {collection_name}: {e}")
-
