@@ -5,7 +5,19 @@ import base64
 from datetime import datetime
 from streamlit_navigation_bar import st_navbar
 import plotly.express as px
+from dotenv import load_dotenv
+import os
+import subprocess
+import webbrowser
 
+import mlflow
+import mlflow.sklearn
+
+import matplotlib.pyplot as plt
+import plotly.express as px
+import plotly.graph_objects as go
+# Charger les variables d'environnement depuis le fichier .env
+load_dotenv()
 
 # Fonction pour faire la prédiction météorologique (simulation ici)
 def predict_meteo(temp_max, temp_min, wind_speed, humidity, visibility, cloud_coverage):
@@ -20,58 +32,82 @@ def get_img_as_base64(file):
         data = f.read()
     return base64.b64encode(data).decode()
 
+# Configurer les credentials Google Cloud
+google_credentials = os.getenv('GOOGLE_APPLICATION_CREDENTIALS')
+if google_credentials:
+    os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = google_credentials
 
-# CSS pour mettre un fond noir sur toute la page
+# Configurer MLflow
+mlflow_tracking_uri = os.getenv('MLFLOW_TRACKING_URI')
+if mlflow_tracking_uri:
+    mlflow.set_tracking_uri(mlflow_tracking_uri)
+
+# Charger le modèle MLflow pour la détection d'anomalies
+logged_model = 'runs:/a01b4b5c87f14c55b24cd5910fc7a874/isolation_forest_model'
+loaded_model = mlflow.pyfunc.load_model(logged_model)
+
+# Fonction de prétraitement des données
+def preprocess_data(file_path):
+    df = pd.read_csv(file_path)
+    df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
+    df['date'] = pd.to_datetime(df['date'], errors='coerce')
+    hourly_columns = [f'{hour:02d}:00' for hour in range(24)]
+    df[hourly_columns] = df[hourly_columns].apply(pd.to_numeric, errors='coerce').fillna(df[hourly_columns].mean())
+    df['consommation_moyenne_journalière'] = df[hourly_columns].mean(axis=1)
+    return df, hourly_columns
+
+# Function to launch MLflow UI from Streamlit
+def open_mlflow_ui():
+    url = os.getenv("MLFLOW_TRACKING_URI")
+    webbrowser.open_new_tab(url)
+
+
 page_bg_img = f"""
 <style>
-/* Arrière-plan pour le conteneur principal */
+/* Ensure the entire app container scrolls with the page */
+[data-testid="stAppViewContainer"] {{
+    overflow: auto;
+}}
+.stDataFrame div[data-testid="stHorizontalBlock"] {{
+        width: 100% !important;
+}}
+
+/* Make the header scroll with the page */
+[data-testid="stHeader"] {{
+    position: relative !important;
+    background: rgba(0,0,0,0);
+    z-index: 1 !important;
+    top: auto;
+}}
+
+/* Custom styling for the main container */
 [data-testid="stAppViewContainer"] > .main {{
     background-color: #F0F2F6;
-    max-width: 100%;  /* Assurer que le contenu prenne toute la largeur */
-    padding-left: 2rem;  /* Ajuster le padding gauche pour plus d'espace */
-    padding-right: 2rem; /* Ajuster le padding droit pour plus d'espace */
+    max-width: 100%;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    overflow: auto;
+    position: relative !important;
 }}
 
-/* Arrière-plan pour la barre latérale */
-[data-testid="stSidebar"] > div:first-child {{
-    background-color: #F0F2F6;
-}}
-
-/* En-tête transparent */
-[data-testid="stHeader"] {{
-    background: rgba(0,0,0,0);
-}}
-/* Personnaliser la bordure des champs de texte */
-input, textarea {{
-    border: 1px solid #d9d9d9 !important;
-    border-radius: 5px !important;
-    padding: 8px !important;
-    font-size: 16px !important;
-    width: 100% !important;
-}}
-
-input:focus, textarea:focus {{
-    border: 1px solid #ff4b4b !important;
-    outline: none !important;
-}}
-
-/* Réglage de la barre d'outils */
+/* Remove any fixed positioning of the toolbar */
 [data-testid="stToolbar"] {{
     right: 2rem;
+    position: relative !important;
 }}
 
-/* Enlever les limites de largeur du contenu principal */
 .block-container {{
     padding: 5rem 1rem 2rem 1rem;
-    max-width: 80%;  /* Utiliser toute la largeur disponible */
+    max-width: 80%;
 }}
 
 footer {{
     visibility: hidden;
 }}
-
 </style>
 """
+
+
 
 styles = {
     "div": {
@@ -101,6 +137,34 @@ styles = {
 }
 
 
+# Custom CSS for the result display
+st.markdown(
+    """
+    <style>
+    .result-line {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #1f1f1f;
+        color: white;
+        padding: 10px;
+        border-radius: 8px;
+        margin: 20px 0;
+    }
+    .result-line .label {
+        font-size: 1.2rem;
+        font-weight: bold;
+    }
+    .result-line .value {
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: #66ff66;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 # Injecter le CSS dans la page
 st.markdown(page_bg_img, unsafe_allow_html=True)
 st.markdown("<br>", unsafe_allow_html=True)
@@ -114,10 +178,7 @@ menu = st_navbar(["Prédiction Météo", "Anomalie Détection", "Prédiction con
 # </div>
 # """, unsafe_allow_html=True)
 
-# Function to launch MLflow UI from Streamlit
-def open_mlflow_ui():
-    url = os.getenv("MLFLOW_TRACKING_URI")
-    webbrowser.open_new_tab(url)
+
 
 # 1. Prédiction Météo
 if menu == "Prédiction Météo":
@@ -158,44 +219,94 @@ elif menu == "Anomalie Détection":
         🌦️ Détection d'anomalies dans la consommation énergétique
     </div>
     """, unsafe_allow_html=True)
-    st.markdown("<br>", unsafe_allow_html=True)
-    st.markdown("<br>", unsafe_allow_html=True)
 
     uploaded_file = st.file_uploader("Choisissez un fichier CSV", type=["csv"])
 
-    with st.expander("Voir les données brutes"):
-        if uploaded_file is not None:
-            # Lecture du fichier CSV
-            df = pd.read_csv(uploaded_file)
-            # Affichage des données dans un DataFrame Streamlit
-            st.dataframe(df)
+    if uploaded_file is not None:
+        # Charger et prétraiter les données
+        df, hourly_columns = preprocess_data(uploaded_file)
+
+        if all(column in df.columns for column in hourly_columns):
+            # Effectuer la prédiction des anomalies
+            data = df[hourly_columns]
+            df['anomaly'] = loaded_model.predict(data)
+
+            # Calcul du pourcentage de lignes avec et sans anomalies
+            total_rows = len(df)
+            anomalies_count = len(df[df['anomaly'] == -1])
+            non_anomalies_count = total_rows - anomalies_count
+
+            anomalies_percentage = (anomalies_count / total_rows) * 100
+            non_anomalies_percentage = 100 - anomalies_percentage
+
+            ## Display results in a line format
+            st.markdown(
+                """
+                <div class="result-line">
+                    <div class="label">Nombre d'anomalie :</div>
+                    <div class="value">{}</div>
+                </div>
+                <div class="result-line">
+                    <div class="label">Nombre de lignes sans anomalie :</div>
+                    <div class="value">{}</div>
+                </div>
+                """.format(anomalies_count, non_anomalies_count),
+                unsafe_allow_html=True
+            )
+
+            selected_columns = ['date', 'région', 'consommation_moyenne_journalière', 'statut', 'anomaly']
+
+            # Appliquer du style pour mettre en évidence les anomalies
+            def highlight_anomalies(row):
+                return ['background-color: red' if row.anomaly == -1 else '' for _ in row]
+
+            st.dataframe(df[selected_columns].style.apply(highlight_anomalies, axis=1),width=1400)
+            # Add italicized text below the table
+            st.markdown('<div style="text-align: center;"><em>Tableau des anomalies détectées</em></div>', unsafe_allow_html=True)
+
+
+
+            # Filtrer les lignes avec anomalies
+            anomalies_df = df[df['anomaly'] == -1]
+
+            # Laisser l'utilisateur choisir les anomalies à tracer
+            if not anomalies_df.empty:
+                st.subheader("Visualisation des anomalies")
+                selected_rows = st.multiselect(
+                    "Choisissez les anomalies à afficher",
+                    anomalies_df.index,
+                    format_func=lambda idx: f"{anomalies_df.loc[idx, 'date']} - Région: {anomalies_df.loc[idx, 'région']}"
+                )
+
+                if selected_rows:
+                    for i, row in enumerate(selected_rows):
+                        anomaly_row = anomalies_df.loc[row]
+                        fig = go.Figure()
+
+                        fig.add_trace(go.Scatter(x=hourly_columns,
+                                                y=anomaly_row[hourly_columns],
+                                                mode='lines+markers',
+                                                line=dict(color='red'),
+                                                marker=dict(size=6)))
+                        fig.update_layout(
+                            title=f"Anomalie détectée le {anomaly_row['date']} - Région : {anomaly_row['région']}",
+                            xaxis_title="Heure",
+                            yaxis_title="Consommation (MWh)",
+                            paper_bgcolor='rgba(0,0,0,0)',  # Fond transparent
+                            plot_bgcolor='rgba(0,0,0,0)'   # Fond transparent
+                        )
+
+                        # Display 2 charts per row
+                        if i % 2 == 0:
+                            col1, col2 = st.columns(2)
+                            col1.plotly_chart(fig, use_container_width=True)
+                        else:
+                            col2.plotly_chart(fig, use_container_width=True)
+
+            else:
+                st.info("Aucune anomalie détectée.")
         else:
-            st.write("Aucun fichier chargé")
-
-    # Create donut charts for each concern
-    col1, col2 = st.columns(2)
-
-    with col1:
-        fig_trust = px.pie(values=[36, 64], names=["Trust", ""], hole=0.6)
-        fig_trust.update_traces(textinfo='percent+label', marker=dict(colors=['#00BFFF', '#e8e8e8']))
-        fig_trust.update_layout(
-            showlegend=False,
-            annotations=[dict(text='36%', x=0.5, y=0.5, font_size=20, showarrow=False)],
-            paper_bgcolor='rgba(0,0,0,0)',  # Fond transparent pour le papier
-            plot_bgcolor='rgba(0,0,0,0)'    # Fond transparent pour le graphique
-        )
-        st.plotly_chart(fig_trust, use_container_width=True)
-
-    with col2:
-        fig_privacy = px.pie(values=[28, 72], names=["Privacy", ""], hole=0.6)
-        fig_privacy.update_traces(textinfo='percent+label', marker=dict(colors=['#00FF00', '#e8e8e8']))
-        fig_privacy.update_layout(
-            showlegend=False,
-            annotations=[dict(text='28%', x=0.5, y=0.5, font_size=20, showarrow=False)],
-            paper_bgcolor='rgba(0,0,0,0)',  # Fond transparent pour le papier
-            plot_bgcolor='rgba(0,0,0,0)'    # Fond transparent pour le graphique
-        )
-        st.plotly_chart(fig_privacy, use_container_width=True)
+            st.error("Les colonnes horaires ne sont pas toutes présentes dans le dataset.")
 
 # 3. Prédiction Mouvements Sociaux
 elif menu == "Prédiction conso":
@@ -269,3 +380,5 @@ elif menu == "Feedback":
 
     # Image de feedback
     st.image("https://cdn-icons-png.flaticon.com/512/1256/1256650.png", width=100, caption="Feedback Utilisateurs")
+elif menu == "Tracking":
+    open_mlflow_ui()

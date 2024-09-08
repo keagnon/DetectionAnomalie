@@ -1,9 +1,10 @@
 import streamlit as st
 import pandas as pd
+import numpy as np
 import mlflow
 from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
-import matplotlib.pyplot as plt
+import plotly.express as px
 from dotenv import load_dotenv
 import os
 
@@ -21,7 +22,7 @@ if mlflow_tracking_uri:
     mlflow.set_tracking_uri(mlflow_tracking_uri)
 
 # Charger le modèle DBSCAN depuis MLflow
-logged_model = 'runs:/faeb99c10bb64fe2880f5d867d8b3cda/dbscan_model'
+logged_model = 'runs:/096e31c04a7e4beaa1054645122fc825/dbscan_model'
 loaded_model = mlflow.sklearn.load_model(logged_model)
 
 # Interface Streamlit
@@ -56,19 +57,64 @@ if uploaded_file is not None:
         df['pca1'] = df_pca[:, 0]
         df['pca2'] = df_pca[:, 1]
 
+        # Compter le nombre de points dans chaque cluster
+        unique_labels, counts = np.unique(df['cluster'], return_counts=True)
+
+        # Log the metrics in MLflow
+        with mlflow.start_run() as run:
+            for label, count in zip(unique_labels, counts):
+                if label == -1:
+                    mlflow.log_metric('noise_points', count)
+                else:
+                    mlflow.log_metric(f'cluster_{label}_size', count)
+
         # Afficher les résultats du clustering
         st.subheader("Résultats du Clustering DBSCAN")
         st.dataframe(df[['date', 'région', 'cluster']].head())
 
-        # Visualiser les clusters avec PCA
+        # Afficher les comptes des clusters dans Streamlit
+        st.subheader("Nombre de données dans chaque cluster")
+        for label, count in zip(unique_labels, counts):
+            if label == -1:
+                st.write(f"Nombre de points de bruit : {count}")
+            else:
+                st.write(f"Cluster {label}: {count} points")
+
+
+        # Visualiser les clusters avec Plotly
         st.subheader("Visualisation des clusters")
-        plt.figure(figsize=(10, 6))
-        plt.scatter(df['pca1'], df['pca2'], c=df['cluster'], cmap='viridis', s=50)
-        plt.title("Clustering DBSCAN")
-        plt.xlabel("PCA 1")
-        plt.ylabel("PCA 2")
-        plt.colorbar(label="Cluster")
-        st.pyplot(plt)
+        fig = px.scatter(
+            df,
+            x='pca1',
+            y='pca2',
+            color='cluster',
+            title="Clustering DBSCAN",
+            labels={'pca1': 'PCA 1', 'pca2': 'PCA 2', 'cluster': 'Cluster'},
+            hover_data=['date', 'région', 'consommation_moyenne_journalière', 'cluster'],
+            size=np.ones(len(df)) * 10  # Uniform size for all points
+        )
+        fig.update_layout(coloraxis_colorbar=dict(title="Cluster"))
+
+        # Add cluster counts as annotations inside or outside the graph
+        for label, count in zip(unique_labels, counts):
+            if label != -1:
+                label_data = df[df['cluster'] == label]
+                centroid_x = label_data['pca1'].mean()
+                centroid_y = label_data['pca2'].mean()
+                fig.add_annotation(
+                    x=centroid_x,
+                    y=centroid_y,
+                    text=f"Cluster {label}<br>{count} points",
+                    showarrow=True,
+                    arrowhead=2,
+                    ax=0,
+                    ay=-30,
+                    bgcolor="white",
+                    bordercolor="black",
+                    font=dict(size=10)
+                )
+
+        st.plotly_chart(fig)
 
         # Afficher les points marqués comme bruit (cluster = -1)
         st.subheader("Points marqués comme bruit")

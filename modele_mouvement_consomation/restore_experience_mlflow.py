@@ -18,7 +18,7 @@ if google_credentials:
 else:
     print("Warning: GOOGLE_APPLICATION_CREDENTIALS non défini dans .env")
 # Spécifie l'ID de l'expérience supprimée
-experiment_id = 32
+experiment_id = 0
 
 # Restaurer l'expérience
 mlflow.tracking.MlflowClient().restore_experiment(experiment_id)

@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import mlflow
-import matplotlib.pyplot as plt
+import plotly.graph_objects as go
 from dotenv import load_dotenv
 import os
 
@@ -47,15 +47,41 @@ if uploaded_file is not None:
         data = df[hourly_columns]
         df['anomaly'] = loaded_model.predict(data)
 
-        # Afficher les données avec anomalies en rouge
-        st.subheader("Tableau des anomalies détectées")
-        selected_columns = ['date', 'région', 'consommation_moyenne_journalière', 'statut', 'anomaly']
+        # Calcul du pourcentage de lignes avec et sans anomalies
+        total_rows = len(df)
+        anomalies_count = len(df[df['anomaly'] == -1])
+        non_anomalies_count = total_rows - anomalies_count
 
-        # Appliquer du style pour mettre en évidence les anomalies
-        def highlight_anomalies(row):
-            return ['background-color: red' if row.anomaly == -1 else '' for _ in row]
+        anomalies_percentage = (anomalies_count / total_rows) * 100
+        non_anomalies_percentage = 100 - anomalies_percentage
 
-        st.dataframe(df[selected_columns].style.apply(highlight_anomalies, axis=1))
+        # Créer une disposition avec deux colonnes
+        col1, col2 = st.columns(2)
+
+        with col1:
+            st.subheader("Tableau des anomalies détectées")
+            selected_columns = ['date', 'région', 'consommation_moyenne_journalière', 'statut', 'anomaly']
+
+            # Appliquer du style pour mettre en évidence les anomalies
+            def highlight_anomalies(row):
+                return ['background-color: red' if row.anomaly == -1 else '' for _ in row]
+
+            st.dataframe(df[selected_columns].style.apply(highlight_anomalies, axis=1))
+
+        with col2:
+            st.subheader("Distribution des anomalies")
+            fig_anomalies = go.Figure(data=[go.Pie(labels=["Avec Anomalies", "Sans Anomalies"],
+                                                   values=[anomalies_count, non_anomalies_count],
+                                                   hole=.6)])
+            fig_anomalies.update_traces(textinfo='percent+label',
+                                        marker=dict(colors=['#FF6347', '#e8e8e8']))
+            fig_anomalies.update_layout(
+                showlegend=False,
+                annotations=[dict(text=f'{anomalies_percentage:.1f}%', x=0.5, y=0.5, font_size=20, showarrow=False)],
+                paper_bgcolor='rgba(0,0,0,0)',  # Fond transparent pour le papier
+                plot_bgcolor='rgba(0,0,0,0)'    # Fond transparent pour le graphique
+            )
+            st.plotly_chart(fig_anomalies, use_container_width=True)
 
         # Filtrer les lignes avec anomalies
         anomalies_df = df[df['anomaly'] == -1]
@@ -70,14 +96,30 @@ if uploaded_file is not None:
             )
 
             if selected_rows:
-                for i in selected_rows:
-                    row = anomalies_df.loc[i]
-                    plt.figure(figsize=(10, 5))
-                    plt.plot(hourly_columns, row[hourly_columns], marker='o', color='red')
-                    plt.title(f"Anomalie détectée le {row['date']} - Région : {row['région']}")
-                    plt.xlabel('Heure')
-                    plt.ylabel('Consommation (MWh)')
-                    st.pyplot(plt)
+                for i, row in enumerate(selected_rows):
+                    anomaly_row = anomalies_df.loc[row]
+                    fig = go.Figure()
+
+                    fig.add_trace(go.Scatter(x=hourly_columns,
+                                             y=anomaly_row[hourly_columns],
+                                             mode='lines+markers',
+                                             line=dict(color='red'),
+                                             marker=dict(size=6)))
+                    fig.update_layout(
+                        title=f"Anomalie détectée le {anomaly_row['date']} - Région : {anomaly_row['région']}",
+                        xaxis_title="Heure",
+                        yaxis_title="Consommation (MWh)",
+                        paper_bgcolor='rgba(0,0,0,0)',  # Fond transparent
+                        plot_bgcolor='rgba(0,0,0,0)'   # Fond transparent
+                    )
+
+                    # Display 2 charts per row
+                    if i % 2 == 0:
+                        col1, col2 = st.columns(2)
+                        col1.plotly_chart(fig, use_container_width=True)
+                    else:
+                        col2.plotly_chart(fig, use_container_width=True)
+
         else:
             st.info("Aucune anomalie détectée.")
     else:
