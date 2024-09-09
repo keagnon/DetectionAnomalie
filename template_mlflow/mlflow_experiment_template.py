@@ -11,13 +11,6 @@
 
 import os
 from dotenv import load_dotenv  # Ajoutez cette ligne
-
-# Chargez les variables d'environnement depuis le fichier .env
-load_dotenv()
-
-# Configurez les credentials Google Cloud
-os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = os.getenv('GOOGLE_APPLICATION_CREDENTIALS')
-
 import mlflow
 from mlflow import MlflowClient
 from mlflow_utils import create_mlflow_experiment, get_mlflow_experiment
@@ -28,28 +21,36 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score
 from sklearn.model_selection import GridSearchCV
 
-# Fonction utilitaire pour optimiser le modèle via GridSearchCV
+load_dotenv()
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = os.getenv('GOOGLE_APPLICATION_CREDENTIALS')
+
 def optimize_model(model, param_grid, X_train, y_train):
+    """
+    Optimiser un modèle avec GridSearchCV.
+    ::params
+        model: Modèle à optimiser
+        param_grid: Grille des hyperparamètres
+        X_train: Features d'entraînement
+        y_train: Target d'entraînement
+
+    """
     grid_search = GridSearchCV(estimator=model, param_grid=param_grid, cv=5, scoring='accuracy')
     grid_search.fit(X_train, y_train)
     best_model = grid_search.best_estimator_
     return best_model, grid_search.best_params_
 
 if __name__ == "__main__":
-    # Étape 1: Configuration de l'URI de suivi MLflow
     mlflow.set_tracking_uri(os.getenv('MLFLOW_TRACKING_URI'))
 
-    # Étape 2: Création ou récupération d'une expérience MLflow
+    # Création ou récupération d'une expérience MLflow
     experiment_id = create_mlflow_experiment(
         experiment_name="MlflowTeamTemplate",  # Nom de l'expérience
         artifact_location=os.getenv('MLFLOW_ARTEFACTS_LOCATION'),  # Emplacement pour stocker les artefacts
         tags={"env": "dev", "version": "1.0.0"}  # Tags optionnels
     )
 
-    # Initialisation du client MLflow
     client = MlflowClient()
 
-    # Étape 3: Chargement du dataset (Iris dans cet exemple)
     iris = load_iris()
     X_train, X_test, y_train, y_test = train_test_split(iris.data, iris.target, test_size=0.2, random_state=42)
 
@@ -58,7 +59,6 @@ if __name__ == "__main__":
     lr_params = {'C': [0.1, 1, 10]}
     gb_params = {'n_estimators': [100, 200], 'learning_rate': [0.05, 0.1]}
 
-    # Étape 4: Entraînement et enregistrement des modèles avec MLflow
     # Random Forest Classifier
     with mlflow.start_run(run_name="logging_models_rf", experiment_id=experiment_id):
         mlflow.sklearn.autolog()  # Auto-enregistrement des paramètres, métriques, et modèle

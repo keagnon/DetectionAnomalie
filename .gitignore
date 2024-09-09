@@ -15,10 +15,14 @@ compact-nirvana-431819-p9-80257f7ee128.json
 # ignore everything in the following folders
 data/**
 logs/**
-
+dahboard_ui_strealit/**
+dahboard_ui_strealit/
 # except their sub-folders
 !data/**/
 !logs/**/
+data_test/**
+modele_mouvement_conso/**
+fusion_courbe_mouvement.csv
 
 # also keep all .gitkeep files
 !.gitkeep

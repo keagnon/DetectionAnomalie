@@ -8,27 +8,24 @@ import plotly.express as px
 from dotenv import load_dotenv
 import os
 
-# Charger les variables d'environnement depuis le fichier .env
 load_dotenv()
 
-# Configurer les credentials Google Cloud
+# Configurations des credentials Google Cloud
 google_credentials = os.getenv('GOOGLE_APPLICATION_CREDENTIALS')
 if google_credentials:
     os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = google_credentials
 
-# Configurer MLflow
+# Configuration MLflow
 mlflow_tracking_uri = os.getenv('MLFLOW_TRACKING_URI')
 if mlflow_tracking_uri:
     mlflow.set_tracking_uri(mlflow_tracking_uri)
 
-# Charger le modèle DBSCAN depuis MLflow
+# Chargement du modèle DBSCAN depuis MLflow
 logged_model = 'runs:/096e31c04a7e4beaa1054645122fc825/dbscan_model'
 loaded_model = mlflow.sklearn.load_model(logged_model)
 
-# Interface Streamlit
 st.title("Clustering des Consommations Énergétiques avec DBSCAN")
 
-# Fonction pour prétraiter les données
 def preprocess_data(file_path):
     df = pd.read_csv(file_path)
     df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
@@ -38,29 +35,23 @@ def preprocess_data(file_path):
     df['consommation_moyenne_journalière'] = df[hourly_columns].mean(axis=1)
     return df, hourly_columns
 
-# Télécharger le fichier CSV
 uploaded_file = st.file_uploader("Choisissez un fichier CSV", type=["csv"])
 
 if uploaded_file is not None:
-    # Charger et prétraiter les données
     df, hourly_columns = preprocess_data(uploaded_file)
 
-    # Appliquer le modèle DBSCAN
     if all(column in df.columns for column in hourly_columns):
         scaler = StandardScaler()
         X = scaler.fit_transform(df[hourly_columns])
         df['cluster'] = loaded_model.fit_predict(X)
 
-        # Réduction de dimensions pour visualisation
         pca = PCA(n_components=2)
         df_pca = pca.fit_transform(X)
         df['pca1'] = df_pca[:, 0]
         df['pca2'] = df_pca[:, 1]
 
-        # Compter le nombre de points dans chaque cluster
         unique_labels, counts = np.unique(df['cluster'], return_counts=True)
 
-        # Log the metrics in MLflow
         with mlflow.start_run() as run:
             for label, count in zip(unique_labels, counts):
                 if label == -1:
@@ -68,11 +59,9 @@ if uploaded_file is not None:
                 else:
                     mlflow.log_metric(f'cluster_{label}_size', count)
 
-        # Afficher les résultats du clustering
         st.subheader("Résultats du Clustering DBSCAN")
         st.dataframe(df[['date', 'région', 'cluster']].head())
 
-        # Afficher les comptes des clusters dans Streamlit
         st.subheader("Nombre de données dans chaque cluster")
         for label, count in zip(unique_labels, counts):
             if label == -1:
@@ -80,8 +69,6 @@ if uploaded_file is not None:
             else:
                 st.write(f"Cluster {label}: {count} points")
 
-
-        # Visualiser les clusters avec Plotly
         st.subheader("Visualisation des clusters")
         fig = px.scatter(
             df,
@@ -95,7 +82,6 @@ if uploaded_file is not None:
         )
         fig.update_layout(coloraxis_colorbar=dict(title="Cluster"))
 
-        # Add cluster counts as annotations inside or outside the graph
         for label, count in zip(unique_labels, counts):
             if label != -1:
                 label_data = df[df['cluster'] == label]
@@ -116,7 +102,6 @@ if uploaded_file is not None:
 
         st.plotly_chart(fig)
 
-        # Afficher les points marqués comme bruit (cluster = -1)
         st.subheader("Points marqués comme bruit")
         noise_points = df[df['cluster'] == -1]
         st.dataframe(noise_points[['date', 'région', 'cluster']])
