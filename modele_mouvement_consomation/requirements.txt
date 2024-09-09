@@ -81,6 +81,7 @@ sqlparse==0.5.1
 st-theme==1.2.3
 streamlit==1.38.0
 streamlit-navigation-bar==3.3.0
+streamlit-option-menu==0.3.13
 tenacity==8.5.0
 threadpoolctl==3.5.0
 toml==0.10.2

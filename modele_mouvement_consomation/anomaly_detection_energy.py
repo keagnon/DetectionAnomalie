@@ -9,25 +9,31 @@ import mlflow
 import mlflow.sklearn
 from mlflow.tracking import MlflowClient
 
-# Charger les variables d'environnement depuis le fichier .env
 load_dotenv()
 
-# Configurer les credentials Google Cloud
+
 google_credentials = os.getenv('GOOGLE_APPLICATION_CREDENTIALS')
 if google_credentials:
     os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = google_credentials
 else:
     print("Warning: GOOGLE_APPLICATION_CREDENTIALS non défini dans .env")
 
-# Configurer MLflow
 mlflow_tracking_uri = os.getenv('MLFLOW_TRACKING_URI')
 if mlflow_tracking_uri:
     mlflow.set_tracking_uri(mlflow_tracking_uri)
 else:
     print("Warning: MLFLOW_TRACKING_URI non défini dans .env")
 
-# Définir une fonction pour créer ou récupérer une expérience MLflow
 def create_mlflow_experiment(experiment_name, artifact_location, tags=None):
+    """
+    Créer une expérience MLflow si elle n'existe pas, sinon récupérer l'ID de l'expérience existante.
+    ::params
+        experiment_name: Nom de l'expérience
+        artifact_location: Emplacement des artefacts
+        tags: Dictionnaire de tags à ajouter à l'expérience
+
+    """
+
     client = MlflowClient()
     try:
         experiment = client.get_experiment_by_name(experiment_name)
@@ -46,42 +52,37 @@ def create_mlflow_experiment(experiment_name, artifact_location, tags=None):
         experiment_id = None
     return experiment_id
 
-# Fonction de nettoyage et prétraitement des données
 def preprocess_data(file_path):
+    """
+    Charger et prétraiter les données du fichier CSV.
+    :param file_path: Chemin du fichier CSV
+    """
     df = pd.read_csv(file_path)
-
-    # Supprimer la colonne 'Unnamed' si elle existe
     df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
-
-    # Convertir la colonne 'date' en format datetime
     df['date'] = pd.to_datetime(df['date'], errors='coerce')
 
-    # Sélectionner les colonnes horaires (00:00 à 23:00) et s'assurer qu'elles sont de type float
     hourly_columns = [f'{hour:02d}:00' for hour in range(24)]
     df[hourly_columns] = df[hourly_columns].apply(pd.to_numeric, errors='coerce')
-
-    # Supprimer les lignes avec des valeurs manquantes dans les colonnes horaires
     df.dropna(subset=hourly_columns, inplace=True)
-
-    # Créer une variable agrégée pour chaque jour et chaque région (moyenne des consommations horaires)
     df['consommation_moyenne_journalière'] = df[hourly_columns].mean(axis=1)
 
     return df, hourly_columns
 
-# Fonction de détection d'anomalies avec Isolation Forest et suivi avec MLflow
 def detect_anomalies(df, hourly_columns, contamination=0.01, experiment_id=None):
-    # Sélectionner les colonnes horaires pour l'entraînement
-    data = df[hourly_columns]
+    """
+    Détecter les anomalies dans les données de consommation énergétique.
+    ::params
+        df: DataFrame contenant les données
+        hourly_columns: Liste des colonnes horaires
+        contamination: Taux de contamination pour Isolation Forest
+        experiment_id: ID de l'expérience MLflow
+    """
 
-    # Initialisation du modèle Isolation Forest
+    data = df[hourly_columns]
     model = IsolationForest(contamination=contamination, random_state=42)
 
-    # Démarrage d'un run MLflow
-    with mlflow.start_run(run_name="IsolationForest_Anomaly_Detection", experiment_id=experiment_id):
-        # Entraînement du modèle
+    with mlflow.start_run(run_name="IsolationForest_Anomaly_Detection_2", experiment_id=experiment_id):
         model.fit(data)
-
-        # Prédiction des anomalies
         df['anomaly'] = model.predict(data)
 
         # Enregistrer le modèle et les paramètres dans MLflow
@@ -99,12 +100,14 @@ def detect_anomalies(df, hourly_columns, contamination=0.01, experiment_id=None)
 
     return df
 
-# Fonction principale qui orchestre le nettoyage, la détection d'anomalies et l'enregistrement dans MLflow
 def main(file_path):
-    # Prétraitement des données
-    df, hourly_columns = preprocess_data(file_path)
+    """
+    Fonction principale pour la détection des anomalies dans les données de consommation énergétique.
+    ::params
+        file_path: Chemin du fichier CSV
+    """
 
-    # Création ou récupération de l'expérience MLflow
+    df, hourly_columns = preprocess_data(file_path)
     experiment_name = "Anomaly_Detection_model"
     artifact_location = os.getenv('MLFLOW_ARTEFACTS_LOCATION')
     tags = {"env": "dev", "version": "1.0.0"}
@@ -120,15 +123,11 @@ def main(file_path):
 
     if not experiment_id:
         print("Erreur : Impossible de créer ou récupérer l'expérience MLflow.")
-        return df  # Retourner le DataFrame sans enregistrer les anomalies
+        return df
 
-    # Détection des anomalies avec enregistrement dans MLflow
     df = detect_anomalies(df, hourly_columns, contamination=0.01, experiment_id=experiment_id)
-
-    # Filtrer et afficher les anomalies détectées avec date et région
     anomalies_df = df[df['anomaly'] == -1]  # Garder uniquement les anomalies
 
-    # Retourner le DataFrame avec les anomalies détectées
     return df
 
 if __name__ == "__main__":

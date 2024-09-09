@@ -1,0 +1,6 @@
+artifact_location: file:///home/grace/Projects_training_CDI/Projet_Master2/DetectionAnomalie/dashboard_ui/mlruns/222036976337902124
+creation_time: 1725802437430
+experiment_id: '222036976337902124'
+last_update_time: 1725802437430
+lifecycle_stage: active
+name: Anomaly_Detection_model

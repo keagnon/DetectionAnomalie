@@ -1,0 +1,15 @@
+artifact_uri: file:///home/grace/Projects_training_CDI/Projet_Master2/DetectionAnomalie/dashboard_ui/mlruns/222036976337902124/d6592ec59fd947df9ad31255a5d6f465/artifacts
+end_time: 1725802491917
+entry_point_name: ''
+experiment_id: '222036976337902124'
+lifecycle_stage: active
+run_id: d6592ec59fd947df9ad31255a5d6f465
+run_name: IsolationForest_Anomaly_Detection
+run_uuid: d6592ec59fd947df9ad31255a5d6f465
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1725802489663
+status: 3
+tags: []
+user_id: grace
