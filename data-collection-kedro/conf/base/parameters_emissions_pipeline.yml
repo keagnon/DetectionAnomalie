@@ -1,0 +1,20 @@
+# This is a boilerplate parameters config generated for pipeline 'emissions_pipeline'
+# using Kedro 0.19.8.
+#
+# Documentation for this file format can be found in "Parameters"
+# Link: https://docs.kedro.org/en/0.19.8/configuration/parameters.html
+raw_emissions_data:
+  type: pandas.CSVDataSet
+  filepath: data/01_raw/emissions-c02.csv
+
+processed_emissions_data:
+  type: pandas.CSVDataSet
+  filepath: data/02_intermediate/processed_emissions_data.csv
+
+raw_energy_data:
+  type: pandas.CSVDataSet
+  filepath: data/01_raw/merge_courbe_mouvement.csv
+
+merged_data:
+  type: pandas.CSVDataSet
+  filepath: data/02_intermediate/merged_data.csv

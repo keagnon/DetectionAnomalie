@@ -53,18 +53,19 @@
 Le projet se concentre sur l'intégration de données provenant de diverses sources (API, fichiers CSV, XML), leur stockage et leur fusion dans des bases de données.
 
 
-
-
 ## **Architecture du projet** 🏗️ <a name="architecture-du-projet"></a>
 
 Le projet suit une architecture modulaire basée sur Kedro, où chaque tâche de traitement de données est encapsulée dans des pipelines distincts pour favoriser la flexibilité et la maintenance.
+
+Voici la mise à jour de votre **README** en tenant compte de la nouvelle pipeline :
+
+---
 
 ### **Vue d'ensemble des pipelines :**
 
 - **Pipeline ETL (`etl_pipeline`)** : Extraction, transformation et stockage des données dans MongoDB.
 - **Pipeline de Fusion de Données (`data_fusion_pipeline`)** : Fusion et stockage des données dans Elasticsearch.
-
-
+- **Pipeline de Traitement des Émissions et de Fusion (`emissions_pipeline`)** : Traitement des données d'émissions de CO₂ par région et année, suivi de la fusion avec les données énergétiques pour l'analyse de l'empreinte carbone.
 
 ## **Installation et configuration** ⚙️ <a name="installation-et-configuration"></a>
 
@@ -107,9 +108,7 @@ Le projet suit une architecture modulaire basée sur Kedro, où chaque tâche de
    ELASTIC_USERNAME=nom_utilisateur_elastic
    ELASTIC_PASSWORD=mot_de_passe_elastic
    ELASTIC_DEPLOYMENT_ENDPOINT=adresse_du_cluster_elastic
-
    ```
-
 
 ## **Structure du projet** 🗂️ <a name="structure-du-projet"></a>
 
@@ -123,6 +122,7 @@ data-collection-kedro/
 │   │   ├── catalog.yml                  # Définition des jeux de données et leurs emplacements
 │   │   ├── parameters_data_fusion_pipeline.yml
 │   │   ├── parameters_etl_pipeline.yml
+│   │   ├── parameters_emissions_pipeline.yml # Paramètres pour le pipeline des émissions
 │   │   └── parameters.yml               # Paramètres globaux du projet
 │   └── local/                           # Configuration spécifique à l'environnement local
 │
@@ -141,6 +141,7 @@ data-collection-kedro/
 │   ├── data_fusion/
 │   ├── elastic_search/
 │   ├── etl_pipeline/
+│   ├── emissions_pipeline/             # Captures d'écran pour le pipeline des émissions de CO2
 │   └── tests_unitaires/
 │
 ├── kedro-dataeng-env/                   # Environnement virtuel Kedro
@@ -153,10 +154,10 @@ data-collection-kedro/
 │   │   │   │   ├── pipeline.py          # Définition des pipelines
 │   │   │   ├── etl_pipeline/
 │   │   │   │   ├── nodes.py             # Fonctions spécifiques au pipeline ETL
-│   │   │   │   ├── transform.py         # Transformation des données pour ETL
-│   │   │   └── utils.py                 # Fonctions utilitaires
-│   │   ├── settings.py                  # Paramètres du projet Kedro
-│   └── pipeline_registry.py             # Enregistrement des pipelines Kedro
+│   │   │   ├── emissions_pipeline/      # Pipeline de traitement des émissions de CO2
+│   │   │   │   ├── nodes.py             # Fonctions spécifiques au traitement des données d'émissions
+│   │   │   │   ├── pipeline.py          # Définition de la pipeline des émissions
+│   │   └── pipeline_registry.py         # Enregistrement des pipelines Kedro
 │
 ├── tests/                               # Tests unitaires pour le projet
 │   ├── pipelines/
@@ -165,6 +166,8 @@ data-collection-kedro/
 │   │   ├── etl_pipeline/
 │   │   │   ├── test_pipeline.py         # Tests pour le pipeline ETL
 │   │   │   ├── test_transform.py        # Tests pour les transformations de données ETL
+│   │   ├── emissions_pipeline/
+│   │   │   ├── test_pipeline.py         # Tests pour le pipeline des émissions de CO2
 │
 ├── Dockerfile                           # Fichier Docker pour containeriser le projet
 ├── pyproject.toml                       # Fichier de configuration du projet et des dépendances
@@ -172,8 +175,6 @@ data-collection-kedro/
 └── requirements.txt                     # Liste des dépendances Python du projet
 
 ```
-
-
 
 ## **Exécution du projet** 🚀 <a name="exécution-du-projet"></a>
 
@@ -185,14 +186,22 @@ data-collection-kedro/
    ```
 
 - **Exécuter un pipeline spécifique :**
-   ```bash
-   kedro run --pipeline=etl_pipeline
-   ```
-   ou
+   - **Pipeline ETL** :
+     ```bash
+     kedro run --pipeline=etl_pipeline
+     ```
 
-   ```bash
-   kedro run --pipeline=data_fusion_pipeline
-   ```
+   - **Pipeline de Fusion de Données** :
+     ```bash
+     kedro run --pipeline=data_fusion_pipeline
+     ```
+
+   - **Pipeline de Traitement des Émissions** :
+     ```bash
+     kedro run --pipeline=emissions_pipeline
+     ```
+
+---
 
 ### **Exécuter avec Docker :**
 

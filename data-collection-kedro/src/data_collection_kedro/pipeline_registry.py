@@ -1,6 +1,7 @@
 from kedro.pipeline import Pipeline
 from data_collection_kedro.pipelines.data_fusion_pipeline import create_pipeline as create_data_fusion_pipeline
 from data_collection_kedro.pipelines.etl_pipeline import create_pipeline as create_etl_pipeline
+from data_collection_kedro.pipelines.emission_pipeline import create_pipeline as create_emission_pipeline
 
 def register_pipelines() -> dict[str, Pipeline]:
     """Register the project's pipelines.
@@ -13,5 +14,6 @@ def register_pipelines() -> dict[str, Pipeline]:
     return {
         "data_fusion_pipeline": data_fusion_pipeline,
         "etl_pipeline": etl_pipeline,
-        "__default__": etl_pipeline + data_fusion_pipeline,
+        "emission_pipeline": emission_pipeline(),
+        "__default__": etl_pipeline + data_fusion_pipeline + emission_pipeline(),
     }
