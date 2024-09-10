@@ -232,21 +232,19 @@ Ici vous trouverez les captures d'écran des exécutions de nos pipelines, ainsi
 
 ### **Exemple d'image - Tests unitaires et couverture :**
 
-```markdown
+
 ![Tests unitaires](images/tests_unitaires/im1.png)
 ![Coverage des tests](images/tests_unitaires/im2.png)
-```
+
 
 ### **Exemple d'image - Visualisation MongoDB :**
 
 Vous pouvez également ajouter une capture de la base de données MongoDB :
 
-```markdown
 ![MongoDB](images/mongodb/im1.png)
 ![MongoDB](images/mongodb/im2.png)
 ![MongoDB](images/mongodb/im3.png)
 ![MongoDB](images/mongodb/im4.png)
-```
 
 ### **Exemple d'image - Exécution du pipeline ETL :**
 
@@ -263,7 +261,6 @@ Vous pouvez également ajouter une capture de la base de données MongoDB :
 
 De la même manière, ajoutez une capture pour Elasticsearch :
 
-```markdown
 ![Elasticsearch](data-collection-kedro/images/elastic_search/im1.png)
 ![Elasticsearch](data-collection-kedro/images/elastic_search/im2.png)
 ![Elasticsearch](data-collection-kedro/images/elastic_search/im3.png)
@@ -271,12 +268,10 @@ De la même manière, ajoutez une capture pour Elasticsearch :
 ![Elasticsearch](data-collection-kedro/images/elastic_search/im5.png)
 ![Elasticsearch](data-collection-kedro/images/elastic_search/im6.png)
 ![Elasticsearch](data-collection-kedro/images/elastic_search/im7.png)
-```
 
 ### **Exemple d'image - Exécution du pipeline de fusion :**
 
 
-```markdown
 ![Pipeline de fusion](images/data_fusion/im1.png)
 ![Pipeline de fusion](images/data_fusion/im2.png)
 ![Pipeline de fusion](images/data_fusion/im3.png)
@@ -288,6 +283,6 @@ De la même manière, ajoutez une capture pour Elasticsearch :
 ![Pipeline de fusion](images/data_fusion/im9.png)
 ![Pipeline de fusion](images/data_fusion/im10.png)
 ![Pipeline de fusion](images/data_fusion/im11.png)
-```
+
 
 
