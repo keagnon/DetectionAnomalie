@@ -36,7 +36,6 @@ Cette partie de notre projet de **détection d'anomalies** se concentre sur les 
 - 📝 **Feedback utilisateur** pour améliorer les modèles en continu.
 - 🔍 **Suivi des résultats** et des métriques des modèles via **MLflow**.
 
----
 
 ## 📚 Sommaire
 
@@ -52,7 +51,6 @@ Cette partie de notre projet de **détection d'anomalies** se concentre sur les 
 5. [📁 Structure du projet](#structure-du-projet)
 6. [🖼️ Captures d'écran](#captures-d’écran)
 
----
 
 ## 📦 Installation <a name="installation"></a>
 
@@ -87,7 +85,6 @@ Avant de commencer, assurez-vous d'avoir **Python 3.9+** et **Docker** installé
     S3_REGION_NAME=eu-west-3
    ```
 
----
 
 ## 🚀 Lancer l'application <a name="lancer-lapplication"></a>
 
@@ -115,7 +112,6 @@ Le projet est entièrement **dockerisé** pour faciliter le déploiement dans di
 
 Accédez à l'application via [http://localhost:8501](http://localhost:8501).
 
----
 
 ## 📊 Fonctionnalités <a name="fonctionnalités"></a>
 
@@ -179,7 +175,6 @@ dashboard_ui/
 └── dashboard_ui_streamlit/        # Fichiers et assets supplémentaires
 ```
 
----
 
 ## 🖼️ Captures d'écran <a name="captures-d’écran"></a>
 
