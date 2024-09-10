@@ -141,7 +141,7 @@ Similaire à la prédiction de la consommation, cette section utilise des modèl
 
 ### 📝 Feedback utilisateur <a name="feedback-utilisateur"></a>
 
-Cette section permet aux utilisateurs d'envoyer des retours sur les prédictions et les anomalies détectées. Les retours utilisateurs sont stockés et utilisés pour améliorer les modèles.
+Cette section permet aux utilisateurs d'envoyer des retours sur les prédictions et les anomalies détectées. Les retours utilisateurs sont stockés dans **Aws** et utilisés pour améliorer les modèles.
 
 ![Feedback](images/feedback/feedback1-1.png)
 
