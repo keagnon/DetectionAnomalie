@@ -33,7 +33,6 @@
 ![Pygments](https://img.shields.io/badge/Pygments-2.18.0-yellow?style=for-the-badge&logo=python)
 ![Prompt_toolkit](https://img.shields.io/badge/Prompt--Toolkit-3.0.47-lightgrey?style=for-the-badge&logo=python)
 
----
 
 ## **Table des matières** 📚
 1. [Vue d'ensemble du projet](#vue-densemble-du-projet)
