@@ -256,18 +256,17 @@ Vous pouvez également ajouter une capture de la base de données MongoDB :
 ![Pipeline ETL](images/etl_pipeline/im6.png)
 
 
-
 ### **Exemple d'image - Visualisation Elasticsearch :**
 
 De la même manière, ajoutez une capture pour Elasticsearch :
 
-![Elasticsearch](data-collection-kedro/images/elastic_search/im1.png)
-![Elasticsearch](data-collection-kedro/images/elastic_search/im2.png)
-![Elasticsearch](data-collection-kedro/images/elastic_search/im3.png)
-![Elasticsearch](data-collection-kedro/images/elastic_search/im4.png)
-![Elasticsearch](data-collection-kedro/images/elastic_search/im5.png)
-![Elasticsearch](data-collection-kedro/images/elastic_search/im6.png)
-![Elasticsearch](data-collection-kedro/images/elastic_search/im7.png)
+![Elasticsearch](images/elastic_search/im1.png)
+![Elasticsearch](images/elastic_search/im2.png)
+![Elasticsearch](images/elastic_search/im3.png)
+![Elasticsearch](images/elastic_search/im4.png)
+![Elasticsearch](images/elastic_search/im5.png)
+![Elasticsearch](images/elastic_search/im6.png)
+![Elasticsearch](images/elastic_search/im7.png)
 
 ### **Exemple d'image - Exécution du pipeline de fusion :**
 
