@@ -275,6 +275,7 @@ De la même manière, ajoutez une capture pour Elasticsearch :
 
 ### **Exemple d'image - Exécution du pipeline de fusion :**
 
+
 ```markdown
 ![Pipeline de fusion](images/data_fusion/im1.png)
 ![Pipeline de fusion](images/data_fusion/im2.png)
