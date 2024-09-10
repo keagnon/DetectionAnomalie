@@ -1,5 +1,40 @@
 # **🚀 Data-collection-kedro - Projet Kedro**
 
+### Langage
+
+![Python](https://img.shields.io/badge/Python-3.9-blue?style=for-the-badge&logo=python)
+
+### Frameworks et Outils de Développement
+
+![Kedro](https://img.shields.io/badge/Kedro-0.19.8-green?style=for-the-badge&logo=kedro)
+![Dynaconf](https://img.shields.io/badge/Dynaconf-3.2.6-yellow?style=for-the-badge&logo=python)
+![Jinja2](https://img.shields.io/badge/Jinja2-3.1.4-red?style=for-the-badge&logo=jinja2)
+![Pre-commit Hooks](https://img.shields.io/badge/Pre--commit--hooks-4.6.0-blue?style=for-the-badge&logo=pre-commit)
+![GitPython](https://img.shields.io/badge/GitPython-3.1.43-orange?style=for-the-badge&logo=git)
+![Cookiecutter](https://img.shields.io/badge/Cookiecutter-2.6.0-green?style=for-the-badge&logo=cookiecutter)
+
+### Cloud & Bases de Données
+
+![Elasticsearch](https://img.shields.io/badge/Elasticsearch-8.15.0-005571?style=for-the-badge&logo=elasticsearch)
+![Pymongo](https://img.shields.io/badge/Pymongo-4.8.0-darkgreen?style=for-the-badge&logo=mongodb)
+![Dynaconf](https://img.shields.io/badge/Dynaconf-3.2.6-orange?style=for-the-badge&logo=python)
+
+### Bibliothèques de Données & Machine Learning
+
+![Pandas](https://img.shields.io/badge/Pandas-2.2.2-green?style=for-the-badge&logo=pandas)
+![Numpy](https://img.shields.io/badge/Numpy-2.1.0-blue?style=for-the-badge&logo=numpy)
+![Fsspec](https://img.shields.io/badge/Fsspec-2024.6.1-lightblue?style=for-the-badge&logo=python)
+![Matplotlib](https://img.shields.io/badge/Matplotlib--inline-0.1.7-blue?style=for-the-badge&logo=python)
+
+### Outils de Débogage et de Terminal
+
+![IPython](https://img.shields.io/badge/IPython-8.27.0-lightgrey?style=for-the-badge&logo=ipython)
+![Rich](https://img.shields.io/badge/Rich-13.8.0-blue?style=for-the-badge&logo=rich)
+![Pygments](https://img.shields.io/badge/Pygments-2.18.0-yellow?style=for-the-badge&logo=python)
+![Prompt_toolkit](https://img.shields.io/badge/Prompt--Toolkit-3.0.47-lightgrey?style=for-the-badge&logo=python)
+
+---
+
 ## **Table des matières** 📚
 1. [Vue d'ensemble du projet](#vue-densemble-du-projet)
 2. [Architecture du projet](#architecture-du-projet)
@@ -11,7 +46,6 @@
 8. [Tests du projet](#tests-du-projet)
 9. [Exemples d'images](#exemples-dimages)
 
----
 
 ## **Vue d'ensemble du projet** 🌍 <a name="vue-densemble-du-projet"></a>
 
@@ -19,7 +53,8 @@
 
 Le projet se concentre sur l'intégration de données provenant de diverses sources (API, fichiers CSV, XML), leur stockage et leur fusion dans des bases de données.
 
----
+
+
 
 ## **Architecture du projet** 🏗️ <a name="architecture-du-projet"></a>
 
@@ -30,7 +65,7 @@ Le projet suit une architecture modulaire basée sur Kedro, où chaque tâche de
 - **Pipeline ETL (`etl_pipeline`)** : Extraction, transformation et stockage des données dans MongoDB.
 - **Pipeline de Fusion de Données (`data_fusion_pipeline`)** : Fusion et stockage des données dans Elasticsearch.
 
----
+
 
 ## **Installation et configuration** ⚙️ <a name="installation-et-configuration"></a>
 
@@ -76,7 +111,6 @@ Le projet suit une architecture modulaire basée sur Kedro, où chaque tâche de
 
    ```
 
----
 
 ## **Structure du projet** 🗂️ <a name="structure-du-projet"></a>
 
@@ -140,7 +174,7 @@ data-collection-kedro/
 
 ```
 
----
+
 
 ## **Exécution du projet** 🚀 <a name="exécution-du-projet"></a>
 
@@ -173,7 +207,6 @@ data-collection-kedro/
    docker run -it kedro-data-engineering
    ```
 
----
 
 ## **Description des pipelines** 🔄 <a name="description-des-pipelines"></a>
 
@@ -194,7 +227,7 @@ data-collection-kedro/
   - `normalize_columns()`
   - `merge_data_store_in_elastic()`
 
----
+
 
 ## **Fichiers de configuration** 🛠️ <a name="fichiers-de-configuration"></a>
 
@@ -204,7 +237,7 @@ data-collection-kedro/
 ### **2. `parameters_etl_pipeline.yml`** :
 - Contient les paramètres globaux comme la taille des chunks ou les URL des API.
 
----
+
 
 ## **Tests du projet** 🧪 <a name="tests-du-projet"></a>
 
@@ -222,7 +255,7 @@ Les tests sont réalisés avec **pytest**. Les tests unitaires sont disponibles 
    pytest tests/pipelines/etl_pipeline/
    ```
 
----
+
 
 ## **Exemples d'images** 🖼️ <a name="exemples-dimages"></a>
 
