@@ -105,6 +105,12 @@ data-collection-kedro/
 │   │   └── prix_du_carburant_data_2018_2024.csv
 │   └── README.md                       # Documentation sur les données
 │
+├── images/                             # Captures d'écran
+│   ├── data_fusion/
+│   ├── elastic_search/
+│   ├── etl_pipeline/
+│   └── tests_unitaires/
+│
 ├── kedro-dataeng-env/                   # Environnement virtuel Kedro
 │
 ├── src/
@@ -209,7 +215,7 @@ Les tests sont réalisés avec **pytest**. Les tests unitaires sont disponibles 
 
 - **Tous les tests** :
    ```bash
-   pytest
+   pytest tests/
    ```
 
 - **Tester un pipeline spécifique** :
@@ -221,7 +227,26 @@ Les tests sont réalisés avec **pytest**. Les tests unitaires sont disponibles 
 
 ## **Exemples d'images** 🖼️ <a name="exemples-dimages"></a>
 
-Vous pouvez inclure des captures d'écran des exécutions de vos pipelines, ainsi que des résultats de tests ou du coverage :
+Ici vous trouverez les captures d'écran des exécutions de nos pipelines, ainsi que des résultats de tests ou du coverage :
+
+
+### **Exemple d'image - Tests unitaires et couverture :**
+
+```markdown
+![Tests unitaires](images/tests_unitaires/im1.png)
+![Coverage des tests](images/tests_unitaires/im2.png)
+```
+
+### **Exemple d'image - Visualisation MongoDB :**
+
+Vous pouvez également ajouter une capture de la base de données MongoDB :
+
+```markdown
+![MongoDB](images/mongodb/im1.png)
+![MongoDB](images/mongodb/im2.png)
+![MongoDB](images/mongodb/im3.png)
+![MongoDB](images/mongodb/im4.png)
+```
 
 ### **Exemple d'image - Exécution du pipeline ETL :**
 
@@ -232,32 +257,36 @@ Vous pouvez inclure des captures d'écran des exécutions de vos pipelines, ains
 ![Pipeline ETL](images/etl_pipeline/im5.png)
 ![Pipeline ETL](images/etl_pipeline/im6.png)
 
-### **Exemple d'image - Exécution du pipeline de fusion :**
 
-```markdown
-![Pipeline de fusion](./images/pipeline_fusion_execution.png)
-```
-
-### **Exemple d'image - Tests unitaires et couverture :**
-
-```markdown
-![Tests unitaires](./images/test_execution.png)
-![Coverage des tests](./images/coverage.png)
-```
-
-### **Exemple d'image - Visualisation MongoDB :**
-
-Vous pouvez également ajouter une capture de la base de données MongoDB :
-
-```markdown
-![MongoDB](./images/mongodb.png)
-```
 
 ### **Exemple d'image - Visualisation Elasticsearch :**
 
 De la même manière, ajoutez une capture pour Elasticsearch :
 
 ```markdown
-![Elasticsearch](./images/elasticsearch.png)
+![Elasticsearch](data-collection-kedro/images/elastic_search/im1.png)
+![Elasticsearch](data-collection-kedro/images/elastic_search/im2.png)
+![Elasticsearch](data-collection-kedro/images/elastic_search/im3.png)
+![Elasticsearch](data-collection-kedro/images/elastic_search/im4.png)
+![Elasticsearch](data-collection-kedro/images/elastic_search/im5.png)
+![Elasticsearch](data-collection-kedro/images/elastic_search/im6.png)
+![Elasticsearch](data-collection-kedro/images/elastic_search/im7.png)
 ```
+
+### **Exemple d'image - Exécution du pipeline de fusion :**
+
+```markdown
+![Pipeline de fusion](images/data_fusion/im1.png)
+![Pipeline de fusion](images/data_fusion/im2.png)
+![Pipeline de fusion](images/data_fusion/im3.png)
+![Pipeline de fusion](images/data_fusion/im4.png)
+![Pipeline de fusion](images/data_fusion/im5.png)
+![Pipeline de fusion](images/data_fusion/im6.png)
+![Pipeline de fusion](images/data_fusion/im7.png)
+![Pipeline de fusion](images/data_fusion/im8.png)
+![Pipeline de fusion](images/data_fusion/im9.png)
+![Pipeline de fusion](images/data_fusion/im10.png)
+![Pipeline de fusion](images/data_fusion/im11.png)
+```
+
 

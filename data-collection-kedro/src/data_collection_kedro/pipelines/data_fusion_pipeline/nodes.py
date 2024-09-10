@@ -101,7 +101,6 @@ def normalize_columns(dataframes):
         if "date" in df.columns and "00:00" in df.columns:
             df["date"] = pd.to_datetime(df["date"])
             df["région"] = df["région"].astype(str).str.lower().str.strip()
-            # Remplacer les NaN par une valeur par défaut, par exemple 0
             df = df.fillna(0)
             print(f"type colone region courbe {df['région'].dtypes}")
             print(f"type colone date courbe { df['date'].dtypes}")
@@ -223,19 +222,19 @@ def merge_data_store_in_elastic(dataframes):
         else:
             print("Connected to Elasticsearch.")
 
-        meteo_courbe_index = "meteo_courbe_index"
-        courbe_mouvement_index = "courbe_mouvement_index"
+        meteo_courbe_index = "meteo_courbe_indexx"
+        courbe_mouvement_index = "courbe_mouvement_indexx"
 
-        # Créatin index
+        # Création index
         create_index(es, meteo_courbe_index)
         create_index(es, courbe_mouvement_index)
 
-        # Charger les DataFrames
+        # Chargement des DataFrames
         df_meteo = dataframes[0]
         df_courbe = dataframes[1]
         df_mouvement = dataframes[2]
 
-        # Fusionner les DataFrames
+        # Fusion des DataFrames
         merge_meteo_courbe = pd.merge(
             df_meteo, df_courbe, on=["date", "région"], how="inner"
         )
@@ -257,12 +256,12 @@ def merge_data_store_in_elastic(dataframes):
             f"Nombre de lignes après fusion courbe-mouvement: {len(merge_courbe_mouvement)}"
         )
 
-        # Remplacer les valeurs NaN par 0 pour certaines colonnes dans merge_meteo_courbe
+        # Remplacement des valeurs NaN par 0 pour certaines colonnes dans merge_meteo_courbe
         merge_meteo_courbe["TempMax_Deg"].fillna(value=0, inplace=True)
         merge_meteo_courbe["TempMin_Deg"].fillna(value=0, inplace=True)
         merge_meteo_courbe["CloudCoverage_percent"].fillna(value=0, inplace=True)
 
-        # Remplacer les valeurs NaN par "inconnu" pour la colonne "motif" dans merge_courbe_mouvement
+        # Remplacement des valeurs NaN par "inconnu" pour la colonne "motif" dans merge_courbe_mouvement
         merge_courbe_mouvement["motif"].fillna(value="inconnu", inplace=True)
 
         store_in_elasticsearch(
