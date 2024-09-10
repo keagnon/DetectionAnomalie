@@ -27,7 +27,7 @@ Cette partie de notre projet de **détection d'anomalies** se concentre sur les 
    - [🔍 Détection d'anomalies](#détection-danomalies)
    - [🧠 Clustering](#clustering)
    - [🔮 Prédiction de la consommation en prenant en considération les mouvements sociaux](#prédiction-de-la-consommation)
-   - [☁️ Prédiction de la cosommation en prenant en compte kes conditions météorologiques](#prédiction-météo)
+   - [☁️ Prédiction de la cosommation en prenant en compte les conditions météorologiques](#prédiction-météo)
    - [📝 Feedback utilisateur](#feedback-utilisateur)
    - [📈 Suivi des résultats et des modèles](#suivi-des-résultats-et-des-modèles)
 5. [📁 Structure du projet](#structure-du-projet)
@@ -35,7 +35,7 @@ Cette partie de notre projet de **détection d'anomalies** se concentre sur les 
 
 ---
 
-## 📦 Installation
+## 📦 Installation <a name="installation"></a>
 
 Avant de commencer, assurez-vous d'avoir **Python 3.9+** et **Docker** installés sur votre machine.
 
@@ -70,7 +70,7 @@ Avant de commencer, assurez-vous d'avoir **Python 3.9+** et **Docker** installé
 
 ---
 
-## 🚀 Lancer l'application
+## 🚀 Lancer l'application <a name="lancer-lapplication"></a>
 
 ### Localement avec Python :
 
@@ -98,45 +98,45 @@ Accédez à l'application via [http://localhost:8501](http://localhost:8501).
 
 ---
 
-## 📊 Fonctionnalités
+## 📊 Fonctionnalités <a name="fonctionnalités"></a>
 
-### 🔍 Détection d'anomalies
+### 🔍 Détection d'anomalies <a name="détection-danomalies"></a>
 
 La section **détection d'anomalies** utilise des modèles comme **Isolation Forest** pour détecter des comportements anormaux dans les données de consommation. Lorsque des données sont chargées via l'interface, un tableau s'affiche avec les données chargées. Les anomalies sont soulignées en rouge.
 
 ![Détection d'anomalies](images/anomaly_detection/anomaly1.png)
 
-### 🧠 Clustering
+### 🧠 Clustering <a name="clustering"></a>
 
 Dans cette section, nous utilisons des algorithmes de clustering tels que **DBSCAN** et **K-means** pour regrouper les données en clusters distincts. L'utilisateur peut charger des données via notre interface, visualiser les clusters et analyser les tendances.
 
 ![Clustering](images/clustering/clustering1.png)
 
-### 🔮 Prédiction de la consommation prise en compte des mouvements sociaux
+### 🔮 Prédiction de la consommation prise en compte des mouvements sociaux <a name="prédiction-de-la-consommation"></a>
 
 Cette section permet de tester et de visualiser les résultats de différents modèles de prédiction de la consommation énergétique. L'utilisateur peut charger des données, tester les modèles et voir les prédictions sous forme de graphiques interactifs.
 
 ![Prédiction de la consommation](images/prediction_conso/mvt1.png)
 
-### ☁️ Prédiction dela consommation prise en compte météo
+### ☁️ Prédiction dela consommation prise en compte météo <a name="prédiction-météo"></a>
 
 Similaire à la prédiction de la consommation, cette section utilise des modèles pour prédire les conditions météorologiques et analyser leur impact sur la consommation d'énergie.
 
 ![Prédiction météo](images/prediction_conso_meteo/meteo1.png)
 
-### 📝 Feedback utilisateur
+### 📝 Feedback utilisateur <a name="feedback-utilisateur"></a>
 
 Cette section permet aux utilisateurs d'envoyer des retours sur les prédictions et les anomalies détectées. Les retours utilisateurs sont stockés et utilisés pour améliorer les modèles.
 
 ![Feedback](images/feedback/feedback1-1.png)
 
-### 📈 Suivi des résultats et des modèles
+### 📈 Suivi des résultats et des modèles <a name="suivi-des-résultats-et-des-modèles"></a>
 
 Le suivi des résultats est effectué avec **MLflow**, qui permet de visualiser les performances des modèles, de comparer les différentes versions, et de suivre l'historique des expériences via une interface dédiée. Au clic sur l'onglet  **Tracking**, vous serez rediriger vers notre serveur Mlflow mis en place pour notre équipe.
 
 ![Suivi des résultats](images/tracking/whenclickingMlflowonMenuUI.png)
 
-## 📁 Structure du projet
+## 📁 Structure du projet <a name="structure-du-projet"></a>
 
 Voici un aperçu de la structure du projet :
 
@@ -162,7 +162,7 @@ dashboard_ui/
 
 ---
 
-## 🖼️ Captures d'écran
+## 🖼️ Captures d'écran <a name="captures-d’écran"></a>
 
 1. **Détection d'anomalies**
 
