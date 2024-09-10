@@ -1,24 +1,31 @@
 # 📊 Anomaly Detection Dashboard (Streamlit)
 
-### Badges
+## Badges
+
+### Langage
 
 ![Python](https://img.shields.io/badge/Python-3.9-blue?style=for-the-badge&logo=python)
+
+### Frameworks et Outils de Développement
+
 ![Streamlit](https://img.shields.io/badge/Streamlit-1.38.0-red?style=for-the-badge&logo=streamlit)
+![Flask](https://img.shields.io/badge/Flask-3.0.3-black?style=for-the-badge&logo=flask)
+![Docker](https://img.shields.io/badge/Docker-Enabled-blue?style=for-the-badge&logo=docker)
+
+### Machine Learning & Data Science
+
 ![MLflow](https://img.shields.io/badge/MLflow-2.16.0-orange?style=for-the-badge&logo=mlflow)
 ![Pandas](https://img.shields.io/badge/Pandas-2.2.2-green?style=for-the-badge&logo=pandas)
 ![Scikit-learn](https://img.shields.io/badge/Scikit--Learn-1.5.1-orange?style=for-the-badge&logo=scikit-learn)
 ![Matplotlib](https://img.shields.io/badge/Matplotlib-3.9.2-blue?style=for-the-badge&logo=matplotlib)
 ![Plotly](https://img.shields.io/badge/Plotly-5.24.0-blue?style=for-the-badge&logo=plotly)
-![Docker](https://img.shields.io/badge/Docker-Enabled-blue?style=for-the-badge&logo=docker)
-![Flask](https://img.shields.io/badge/Flask-3.0.3-black?style=for-the-badge&logo=flask)
+
+### Cloud & Stockage
+
 ![Boto3](https://img.shields.io/badge/Boto3-1.35.14-005e00?style=for-the-badge&logo=amazonaws)
 ![Google Cloud Storage](https://img.shields.io/badge/Google%20Cloud%20Storage-2.18.2-orange?style=for-the-badge&logo=googlecloud)
 
----
 
-Ces badges permettent de rapidement visualiser les principales technologies et versions utilisées dans votre projet. Vous pouvez les inclure directement dans votre section **Badges** de votre README.
-
-Si vous souhaitez ajouter d'autres bibliothèques ou ajuster les versions, n'hésitez pas à me le faire savoir !
 ## 📑 Introduction
 
 Ce projet est le **tableau de bord final** développé avec **Streamlit** qui englobe toutes les fonctionnalités des différents modèles développés dans le cadre de notre projet de **détection d'anomalies**. Ce tableau de bord permet d'interagir avec plusieurs modèles de machine learning et d'observer leurs performances sur différentes tâches.
