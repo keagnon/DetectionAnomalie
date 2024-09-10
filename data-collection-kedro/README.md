@@ -11,7 +11,6 @@
 8. [Tests du projet](#tests-du-projet)
 9. [Exemples d'images](#exemples-dimages)
 
-
 ---
 
 ## **Vue d'ensemble du projet** 🌍 <a name="vue-densemble-du-projet"></a>
@@ -227,19 +226,16 @@ Les tests sont réalisés avec **pytest**. Les tests unitaires sont disponibles 
 
 ## **Exemples d'images** 🖼️ <a name="exemples-dimages"></a>
 
-Ici vous trouverez les captures d'écran des exécutions de nos pipelines, ainsi que des résultats de tests ou du coverage :
+Ici vous trouverez les captures d'écran des exécutions de nos pipelines, ainsi que des résultats de tests ou du coverage.
 
 
 ### **Exemple d'image - Tests unitaires et couverture :**
-
 
 ![Tests unitaires](images/tests_unitaires/im1.png)
 ![Coverage des tests](images/tests_unitaires/im2.png)
 
 
 ### **Exemple d'image - Visualisation MongoDB :**
-
-Vous pouvez également ajouter une capture de la base de données MongoDB :
 
 ![MongoDB](images/mongodb/im1.png)
 ![MongoDB](images/mongodb/im2.png)
@@ -258,8 +254,6 @@ Vous pouvez également ajouter une capture de la base de données MongoDB :
 
 ### **Exemple d'image - Visualisation Elasticsearch :**
 
-De la même manière, ajoutez une capture pour Elasticsearch :
-
 ![Elasticsearch](images/elastic_search/im1.png)
 ![Elasticsearch](images/elastic_search/im2.png)
 ![Elasticsearch](images/elastic_search/im3.png)
@@ -269,7 +263,6 @@ De la même manière, ajoutez une capture pour Elasticsearch :
 ![Elasticsearch](images/elastic_search/im7.png)
 
 ### **Exemple d'image - Exécution du pipeline de fusion :**
-
 
 ![Pipeline de fusion](images/data_fusion/im1.png)
 ![Pipeline de fusion](images/data_fusion/im2.png)
