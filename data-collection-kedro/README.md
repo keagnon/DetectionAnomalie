@@ -279,8 +279,7 @@ De la même manière, ajoutez une capture pour Elasticsearch :
 ![Pipeline de fusion](images/data_fusion/im6.png)
 ![Pipeline de fusion](images/data_fusion/im7.png)
 ![Pipeline de fusion](images/data_fusion/im8.png)
-![Pipeline de fusion](images/data_fusion/im9.png)
-![Pipeline de fusion](images/data_fusion/im10.png)
+![Pipeline de fusion](images/data_fusion/im12.png)
 ![Pipeline de fusion](images/data_fusion/im11.png)
 
 
