@@ -185,24 +185,13 @@ Pour plus de détails sur la mise en place de MLflow sur GCP, consultez le fichi
 2. **Clustering**
 
    ![Clustering](images/clustering/im1.png)
-
-<p align="center">
-  <img src="images/clustering/im2.png" alt="Image 1" width="45%" />
-  <img src="images/clustering/im3.png" alt="Image 2" width="45%" />
-</p>
-<p align="center">
-  <img src="images/clustering/im4.png" alt="Image 1" width="45%" />
-  <img src="images/clustering/im5.png" alt="Image 2" width="45%" />
-</p>
-
+   ![Clustering](images/clustering/im2.png)
+   ![Clustering](images/clustering/im3.png)
+   ![Clustering](images/clustering/im4.png)
+   ![Clustering](images/clustering/im5.png)
    ![Clustering](images/clustering/im6.png)
-
-<p align="center">
-  <img src="images/clustering/im7.png" alt="Image 1" width="45%" />
-  <img src="images/clustering/im8.png" alt="Image 2" width="45%" />
-</p>
-
-
+   ![Clustering](images/clustering/im7.png)
+   ![Clustering](images/clustering/im8.png)
    ![Clustering](images/clustering/im9.png)
    ![Clustering](images/clustering/im10.png)
 
