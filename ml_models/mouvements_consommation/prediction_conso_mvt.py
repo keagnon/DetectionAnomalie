@@ -120,6 +120,7 @@ def train_and_log_model(model, model_name, X_train, y_train, experiment_id):
     """
 
     with mlflow.start_run(run_name=model_name, experiment_id=experiment_id):
+        mlflow.sklearn.autolog()  # Auto-enregistrement des paramètres, métriques, et modèle
         model.fit(X_train, y_train)
         log_and_upload_model(model, model_name, experiment_id)
 

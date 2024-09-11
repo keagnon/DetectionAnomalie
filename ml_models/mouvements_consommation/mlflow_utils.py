@@ -13,11 +13,7 @@ def create_mlflow_experiment(experiment_name, artifact_location, tags=None):
         experiment_id = experiment.experiment_id
     return experiment_id
 
-def get_mlflow_experiment_id(experiment_name):
+def get_mlflow_experiment(experiment_name):
     client = MlflowClient()
     experiment = client.get_experiment_by_name(experiment_name)
-    if experiment:
-        return experiment.experiment_id
-    else:
-        print(f"L'expérience '{experiment_name}' n'existe pas.")
-        return None
+    return experiment

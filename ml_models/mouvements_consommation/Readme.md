@@ -16,7 +16,7 @@
 ![Random Forest](https://img.shields.io/badge/Random--Forest-Prediction-lightgreen?style=for-the-badge)
 
 ### ☁️ Cloud & Stockage
-![Google Cloud Platform](https://img.shields.io/badge/GCP-Cloud%20Storage-blue?style=for-the-badge&logo=google-cloud)
+![Google Cloud Storage](https://img.shields.io/badge/Google%20Cloud%20Storage-2.18.2-orange?style=for-the-badge&logo=googlecloud)
 
 ## 📑 Présentation du Projet
 
@@ -35,8 +35,7 @@ Le suivi et la gestion des modèles sont assurés via **MLflow**, qui permet une
 3. [📁 Structure du Projet](#structure-du-projet)
 4. [🖼️ Interface Utilisateur](#interface-utilisateur)
 5. [📈 Intégration avec MLflow](#intégration-mlflow)
-6. [🤝 Contribution](#contribution)
-7. [📜 License](#license)
+6. [🖼️ Captures d'écran](#captures-d’écran)
 
 
 ## 📦 Installation <a name="installation"></a>
@@ -98,7 +97,7 @@ L'application permet de :
 Le projet est organisé de manière modulaire pour garantir une maintenabilité et une évolutivité optimales. Voici la structure principale :
 
 ```bash
-models_mouvement_consommation/
+mouvement_consommation/
     mlruns/                       # Expériences MLflow
     tests_models/                 
         data_test/                # Jeux de données de test
@@ -169,3 +168,50 @@ Pour configurer MLflow sur GCP :
 Pour plus de détails sur la mise en place de MLflow sur GCP, consultez le fichier **PDF** dans le répertoire **documentation** :
 
 📄 [Documentation - Mise en place du serveur MLflow sur GCP](https://github.com/keagnon/DetectionAnomalie/blob/grace_clustering_mvt/documentation/etapes_mise_en_place.pdf)
+
+## 🖼️ Captures d'écran <a name="captures-d’écran"></a>
+
+1. **Détection d'Anomalies**
+
+   ![Détection d'anomalies](images/anomaly_detection/anomaly1.png)
+   ![Détection d'anomalies](images/anomaly_detection/anomaly2.png)
+   ![Détection d'anomalies](images/anomaly_detection/anomaly3.png)
+   ![Détection d'anomalies](images/anomaly_detection/anomaly_mlflow_communication.png)
+   ![Détection d'anomalies](images/anomaly_detection/anomaly4.png)
+   ![Détection d'anomalies](images/anomaly_detection/anomaly5.png)
+   ![Détection d'anomalies](images/anomaly_detection/anomaly6.png)
+   ![Détection d'anomalies](images/anomaly_detection/anomaly7.png)
+
+2. **Clustering**
+
+   ![Clustering](images/clustering/im1.png)
+
+<p align="center">
+  <img src="images/clustering/im2.png" alt="Image 1" width="45%" />
+  <img src="images/clustering/im3.png" alt="Image 2" width="45%" />
+</p>
+<p align="center">
+  <img src="images/clustering/im4.png" alt="Image 1" width="45%" />
+  <img src="images/clustering/im5.png" alt="Image 2" width="45%" />
+</p>
+
+   ![Clustering](images/clustering/im6.png)
+
+<p align="center">
+  <img src="images/clustering/im7.png" alt="Image 1" width="45%" />
+  <img src="images/clustering/im8.png" alt="Image 2" width="45%" />
+</p>
+
+
+   ![Clustering](images/clustering/im9.png)
+   ![Clustering](images/clustering/im10.png)
+
+
+
+3. **Prédiction de la consommation prise en compte des mouvements sociaux**
+
+   ![Prédiction de la consommation](images/prediction_conso/mvt1.png)
+   ![Prédiction de la consommation](images/prediction_conso/mvt2.png)
+
+
+

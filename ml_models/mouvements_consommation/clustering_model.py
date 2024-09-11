@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 import mlflow
 import mlflow.sklearn
 from mlflow.tracking import MlflowClient
+from mlflow_utils import create_mlflow_experiment,get_mlflow_experiment
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -23,24 +24,6 @@ if google_credentials:
 else:
     print("Warning: GOOGLE_APPLICATION_CREDENTIALS non défini dans .env")
 
-def create_mlflow_experiment(experiment_name, artifact_location, tags=None):
-    client = MlflowClient()
-    try:
-        experiment = client.get_experiment_by_name(experiment_name)
-        if experiment:
-            experiment_id = experiment.experiment_id
-            print(f"Expérience existante trouvée : {experiment_name} (ID: {experiment_id})")
-        else:
-            experiment_id = client.create_experiment(
-                name=experiment_name,
-                artifact_location=artifact_location,
-                tags=tags
-            )
-            print(f"Nouvelle expérience créée : {experiment_name} (ID: {experiment_id})")
-    except Exception as e:
-        print(f"Erreur lors de la création ou récupération de l'expérience : {e}")
-        experiment_id = None
-    return experiment_id
 
 experiment_name = "clustering_model_mouvement_consommation"
 artifact_location = os.getenv('MLFLOW_ARTEFACTS_LOCATION')
@@ -49,6 +32,8 @@ tags = {"env": "dev", "version": "1.0.0"}
 if not artifact_location:
     print("Warning: MLFLOW_ARTEFACTS_LOCATION non défini dans .env")
 experiment_id = create_mlflow_experiment(experiment_name, artifact_location, tags)
+#experiment_id = get_mlflow_experiment(experiment_name)
+
 
 def preprocess_data(file_path):
     df = pd.read_csv(file_path)
@@ -66,6 +51,7 @@ def run_kmeans_clustering(df, hourly_columns, num_clusters=3):
     kmeans = KMeans(n_clusters=num_clusters, random_state=42)
 
     with mlflow.start_run(run_name="KMeans_Clustering", experiment_id=experiment_id):
+        mlflow.sklearn.autolog()  # Auto-enregistrement des paramètres, métriques, et modèle
         df['cluster'] = kmeans.fit_predict(X)
         mlflow.log_param("num_clusters", num_clusters)
         mlflow.sklearn.log_model(kmeans, "kmeans_model")
@@ -99,6 +85,7 @@ def run_dbscan_clustering(df, hourly_columns, eps=0.5, min_samples=5):
     dbscan = DBSCAN(eps=eps, min_samples=min_samples)
 
     with mlflow.start_run(run_name="DBSCAN_Clustering", experiment_id=experiment_id):
+        mlflow.sklearn.autolog()  # Auto-enregistrement des paramètres, métriques, et modèle
         df['cluster'] = dbscan.fit_predict(X)
         mlflow.log_param("eps", eps)
         mlflow.log_param("min_samples", min_samples)
