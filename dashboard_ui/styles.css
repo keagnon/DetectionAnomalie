@@ -46,7 +46,7 @@
 
 /* Styles pour les champs de texte et la zone de texte */
 input, textarea {
-
+    border: 1px solid rgb(163, 163, 163) !important;  /* Bordure blanche par défaut */
     border-radius: 5px !important;
     padding: 8px !important;
     font-size: 16px !important;
