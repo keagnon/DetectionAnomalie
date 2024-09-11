@@ -21,7 +21,6 @@ jobs:
         pip install pylint isort black mypy pandas matplotlib
         pip install requests pandas pymongo python-dotenv
         python3 -m pip install pandas-stubs
-        mypy --install-types
 
     - name: Lint with pylint
       run: pylint **/*.py
