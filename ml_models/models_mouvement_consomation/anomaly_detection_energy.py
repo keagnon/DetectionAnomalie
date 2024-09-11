@@ -1,7 +1,7 @@
 # anomaly_detection_energy_mlflow.py
 
 import os
-from dotenv import load_dotenv  # Import de dotenv pour charger les variables d'environnement
+from dotenv import load_dotenv
 
 import pandas as pd
 from sklearn.ensemble import IsolationForest
@@ -85,14 +85,13 @@ def detect_anomalies(df, hourly_columns, contamination=0.01, experiment_id=None)
         model.fit(data)
         df['anomaly'] = model.predict(data)
 
-        # Enregistrer le modèle et les paramètres dans MLflow
+        #Enregistrement du modèle dans MLflow
         mlflow.log_param("contamination", contamination)
         anomalies_detected = df['anomaly'].value_counts().get(-1, 0)
         normal_data = df['anomaly'].value_counts().get(1, 0)
         mlflow.log_metric("anomalies_detected", anomalies_detected)
         mlflow.log_metric("normal_data", normal_data)
 
-        # Enregistrement du modèle dans MLflow
         mlflow.sklearn.log_model(model, "isolation_forest_model")
 
         print(f"Run ID: {mlflow.active_run().info.run_id}")
@@ -131,7 +130,7 @@ def main(file_path):
     return df
 
 if __name__ == "__main__":
-    file_path = 'merge_courbe_mouvement.csv'
+    file_path = 'tests_models/data_test/merge_courbe_mouvement.csv'
     df_with_anomalies = main(file_path)
     print(df_with_anomalies.head())
     print(df_with_anomalies['anomaly'].value_counts())

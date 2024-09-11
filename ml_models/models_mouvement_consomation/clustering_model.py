@@ -80,7 +80,7 @@ def run_kmeans_clustering(df, hourly_columns, num_clusters=3):
         df['pca1'] = df_pca[:, 0]
         df['pca2'] = df_pca[:, 1]
 
-        # Enregistrer un graphique dans MLflow
+        # Enregistrement d'un graphique dans MLflow
         plt.figure(figsize=(10, 6))
         plt.scatter(df['pca1'], df['pca2'], c=df['cluster'], cmap='viridis', s=50)
         plt.title("K-means Clustering")
@@ -107,7 +107,7 @@ def run_dbscan_clustering(df, hourly_columns, eps=0.5, min_samples=5):
         num_clusters = len(set(df['cluster']) - {-1})
         mlflow.log_metric("num_clusters", num_clusters)
 
-        # Enregistrer la proportion de points considérés comme "bruit" (outliers)
+        # Enregistrement de la proportion de points considérés comme "bruit" (outliers)
         noise_points = df['cluster'].value_counts().get(-1, 0)
         total_points = len(df)
         noise_ratio = noise_points / total_points
@@ -119,7 +119,7 @@ def run_dbscan_clustering(df, hourly_columns, eps=0.5, min_samples=5):
         df['pca1'] = df_pca[:, 0]
         df['pca2'] = df_pca[:, 1]
 
-        # Enregistrer un graphique dans MLflow
+        # Enregistrement d'un graphique dans MLflow
         plt.figure(figsize=(10, 6))
         plt.scatter(df['pca1'], df['pca2'], c=df['cluster'], cmap='viridis', s=50)
         plt.title("DBSCAN Clustering")
@@ -131,7 +131,7 @@ def run_dbscan_clustering(df, hourly_columns, eps=0.5, min_samples=5):
 
         return df, dbscan
 
-file_path = 'merge_courbe_mouvement.csv'
+file_path = 'tests_models/data_test/merge_courbe_mouvement.csv'
 df, hourly_columns = preprocess_data(file_path)
 
 method = 'DBSCAN'

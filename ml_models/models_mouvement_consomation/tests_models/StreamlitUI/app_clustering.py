@@ -78,7 +78,7 @@ if uploaded_file is not None:
             title="Clustering DBSCAN",
             labels={'pca1': 'PCA 1', 'pca2': 'PCA 2', 'cluster': 'Cluster'},
             hover_data=['date', 'région', 'consommation_moyenne_journalière', 'cluster'],
-            size=np.ones(len(df)) * 10  # Uniform size for all points
+            size=np.ones(len(df)) * 10
         )
         fig.update_layout(coloraxis_colorbar=dict(title="Cluster"))
 
