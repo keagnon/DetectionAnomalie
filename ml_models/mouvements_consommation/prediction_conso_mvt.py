@@ -14,35 +14,9 @@ from dotenv import load_dotenv
 import os
 import shutil
 from mlflow.tracking import MlflowClient
+from mlflow_utils import create_mlflow_experiment, get_mlflow_experiment_id
 
 load_dotenv()
-
-def create_mlflow_experiment(experiment_name, artifact_location, tags=None):
-    """
-    Création d'une expérience MLflow
-    ::params
-        experiment_name: nom de l'expérience
-        artifact_location: chemin de stockage des artefacts
-        tags: tags à ajouter à l'expérience
-
-    """
-    client = MlflowClient()
-    try:
-        experiment = client.get_experiment_by_name(experiment_name)
-        if experiment:
-            experiment_id = experiment.experiment_id
-            print(f"Expérience existante trouvée : {experiment_name} (ID: {experiment_id})")
-        else:
-            experiment_id = client.create_experiment(
-                name=experiment_name,
-                artifact_location=artifact_location,
-                tags=tags
-            )
-            print(f"Nouvelle expérience créée : {experiment_name} (ID: {experiment_id})")
-    except Exception as e:
-        print(f"Erreur lors de la création ou récupération de l'expérience : {e}")
-        experiment_id = None
-    return experiment_id
 
 # recupérer les credentials Google Cloud et Mlflow
 google_credentials = os.getenv('GOOGLE_APPLICATION_CREDENTIALS')

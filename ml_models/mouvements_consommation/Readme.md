@@ -98,21 +98,30 @@ Le projet est organisé de manière modulaire pour garantir une maintenabilité 
 
 ```bash
 mouvement_consommation/
-    mlruns/                       # Expériences MLflow
+    images/                       # Répertoire contenant des sous-répertoires d'images
+        anomaly_detection/        # Images pour la détection d'anomalies
+        clustering/               # Images pour le clustering
+        prediction_mouvement/     # Images pour la prédiction de mouvements
+    mlruns/                       # Répertoire pour les expériences MLflow
+    modele_mouvement_conso/       # Modèles de mouvement de consommation
     tests_models/                 
         data_test/                # Jeux de données de test
-        fusion_courbe_mouvement.csv
-        merge_courbe_movement.csv
+    anomaly_detection/            # Répertoire pour la détection d'anomalies
+        anomaly_detection_energy.py # Détection des anomalies dans la consommation
+    clustering/                   # Répertoire pour le clustering
+        clustering_model.py         # Implémentation des modèles de clustering
+    prediction_mouvement/         # Répertoire pour les prédictions de mouvements
+        prediction_conso_mvt.py     # Modèle de prédiction de la consommation
     StreamlitUI/                  # Fichiers pour l'interface Streamlit
         app_clustering.py         # Interface pour le clustering
         app_detection_anomalie.py # Interface pour la détection d'anomalies
-        app_prediction_conso_mvt.py # Interface pour la prédiction
-    clustering_model.py           # Implémentation des modèles de clustering
-    prediction_conso_mvt.py       # Modèle de prédiction de la consommation
-    anomaly_detection_energy.py   # Détection des anomalies dans la consommation
+        app_prediction_conso_mvt.py # Interface pour la prédiction de la consommation
+    mlflow_utils.py               # Utilitaires pour MLflow
+    register_model.py             # Script pour l'enregistrement des modèles
 .env                              # Variables d'environnement (non incluses dans le dépôt)
 requirements.txt                  # Liste des dépendances
 Readme.md                         # Fichier README
+
 ```
 
 
@@ -193,7 +202,6 @@ Pour plus de détails sur la mise en place de MLflow sur GCP, consultez le fichi
    ![Clustering](images/clustering/im8.png)
    ![Clustering](images/clustering/im9.png)
    ![Clustering](images/clustering/im10.png)
-
 
 
 3. **Prédiction de la consommation prise en compte des mouvements sociaux**
