@@ -11,14 +11,13 @@ if google_credentials:
 else:
     print("Warning: GOOGLE_APPLICATION_CREDENTIALS non défini dans .env")
 
-
 mlflow_tracking_uri = os.getenv('MLFLOW_TRACKING_URI')
 mlflow.set_tracking_uri(mlflow_tracking_uri)
 
 client = MlflowClient()
 
-model_name = "clustering_dbscan_choosen"
-run_id = "096e31c04a7e4beaa1054645122fc825"
+model_name = "prediction_conso_mouvement_model_choosen"
+run_id = "10b106adc80045c2846a32c23bb48f0e"
 source = f"{os.getenv('MLFLOW_ARTEFACTS_LOCATION')}/artifacts/best_estimator"
 
 try:

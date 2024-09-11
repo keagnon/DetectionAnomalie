@@ -173,21 +173,20 @@ Pour plus de détails sur la mise en place de MLflow sur GCP, consultez le fichi
 
 1. **Détection d'Anomalies**
 
-   ![Détection d'anomalies](images/anomaly_detection/anomaly1.png)
-   ![Détection d'anomalies](images/anomaly_detection/anomaly2.png)
-   ![Détection d'anomalies](images/anomaly_detection/anomaly3.png)
-   ![Détection d'anomalies](images/anomaly_detection/anomaly_mlflow_communication.png)
-   ![Détection d'anomalies](images/anomaly_detection/anomaly4.png)
-   ![Détection d'anomalies](images/anomaly_detection/anomaly5.png)
-   ![Détection d'anomalies](images/anomaly_detection/anomaly6.png)
-   ![Détection d'anomalies](images/anomaly_detection/anomaly7.png)
+   ![Détection d'anomalies](images/anomaly_detection/im1.png)
+   ![Détection d'anomalies](images/anomaly_detection/im2.png)
+   ![Détection d'anomalies](images/anomaly_detection/im3.png)
+   ![Détection d'anomalies](images/anomaly_detection/im4.png)
+   ![Détection d'anomalies](images/anomaly_detection/im5.png)
+   ![Détection d'anomalies](images/anomaly_detection/im6.png)
+   ![Détection d'anomalies](images/anomaly_detection/im7.png)
+   ![Détection d'anomalies](images/anomaly_detection/im8.png)
 
 2. **Clustering**
 
    ![Clustering](images/clustering/im1.png)
    ![Clustering](images/clustering/im2.png)
    ![Clustering](images/clustering/im3.png)
-   ![Clustering](images/clustering/im4.png)
    ![Clustering](images/clustering/im5.png)
    ![Clustering](images/clustering/im6.png)
    ![Clustering](images/clustering/im7.png)
@@ -199,8 +198,13 @@ Pour plus de détails sur la mise en place de MLflow sur GCP, consultez le fichi
 
 3. **Prédiction de la consommation prise en compte des mouvements sociaux**
 
-   ![Prédiction de la consommation](images/prediction_conso/mvt1.png)
-   ![Prédiction de la consommation](images/prediction_conso/mvt2.png)
+   ![Prédiction de la consommation](images/prediction_mouvement/im1.png)
+   ![Prédiction de la consommation](images/prediction_mouvement/im2.png)
+   ![Prédiction de la consommation](images/prediction_mouvement/im3.png)
+   ![Prédiction de la consommation](images/prediction_mouvement/im4.png)
+   ![Prédiction de la consommation](images/prediction_mouvement/im5.png)
+   ![Prédiction de la consommation](images/prediction_mouvement/im6.png)
+   ![Prédiction de la consommation](images/prediction_mouvement/im7.png)
 
 
 

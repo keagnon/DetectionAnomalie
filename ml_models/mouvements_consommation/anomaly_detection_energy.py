@@ -82,6 +82,7 @@ def detect_anomalies(df, hourly_columns, contamination=0.01, experiment_id=None)
     model = IsolationForest(contamination=contamination, random_state=42)
 
     with mlflow.start_run(run_name="IsolationForest_Anomaly_Detection_2", experiment_id=experiment_id):
+        mlflow.sklearn.autolog()
         model.fit(data)
         df['anomaly'] = model.predict(data)
 
