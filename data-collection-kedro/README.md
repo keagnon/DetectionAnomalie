@@ -65,7 +65,6 @@ Voici la mise à jour de votre **README** en tenant compte de la nouvelle pipeli
 
 - **Pipeline ETL (`etl_pipeline`)** : Extraction, transformation et stockage des données dans MongoDB.
 - **Pipeline de Fusion de Données (`data_fusion_pipeline`)** : Fusion et stockage des données dans Elasticsearch.
-- **Pipeline de Traitement des Émissions et de Fusion (`emissions_pipeline`)** : Traitement des données d'émissions de CO₂ par région et année, suivi de la fusion avec les données énergétiques pour l'analyse de l'empreinte carbone.
 
 ## **Installation et configuration** ⚙️ <a name="installation-et-configuration"></a>
 
@@ -154,9 +153,7 @@ data-collection-kedro/
 │   │   │   │   ├── pipeline.py          # Définition des pipelines
 │   │   │   ├── etl_pipeline/
 │   │   │   │   ├── nodes.py             # Fonctions spécifiques au pipeline ETL
-│   │   │   ├── emissions_pipeline/      # Pipeline de traitement des émissions de CO2
-│   │   │   │   ├── nodes.py             # Fonctions spécifiques au traitement des données d'émissions
-│   │   │   │   ├── pipeline.py          # Définition de la pipeline des émissions
+│   │   │   │   ├── pipeline.py          # Définition de la pipeline ETL
 │   │   └── pipeline_registry.py         # Enregistrement des pipelines Kedro
 │
 ├── tests/                               # Tests unitaires pour le projet
@@ -166,8 +163,6 @@ data-collection-kedro/
 │   │   ├── etl_pipeline/
 │   │   │   ├── test_pipeline.py         # Tests pour le pipeline ETL
 │   │   │   ├── test_transform.py        # Tests pour les transformations de données ETL
-│   │   ├── emissions_pipeline/
-│   │   │   ├── test_pipeline.py         # Tests pour le pipeline des émissions de CO2
 │
 ├── Dockerfile                           # Fichier Docker pour containeriser le projet
 ├── pyproject.toml                       # Fichier de configuration du projet et des dépendances
@@ -194,11 +189,6 @@ data-collection-kedro/
    - **Pipeline de Fusion de Données** :
      ```bash
      kedro run --pipeline=data_fusion_pipeline
-     ```
-
-   - **Pipeline de Traitement des Émissions** :
-     ```bash
-     kedro run --pipeline=emissions_pipeline
      ```
 
 ---
