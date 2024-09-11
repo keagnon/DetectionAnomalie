@@ -1,14 +1,15 @@
 
-# 📊 Modèles de Machine Learning pour la Prédiction et la Détection d'Anomalies Énergétiques
+# 📊 Modèles de ML pour la Prédiction et la Détection d'Anomalies Énergétiques
 
 ![Python](https://img.shields.io/badge/Python-3.10-blue?style=for-the-badge&logo=python)
 ![Streamlit](https://img.shields.io/badge/Streamlit-1.38.0-red?style=for-the-badge&logo=streamlit)
 ![MLflow](https://img.shields.io/badge/MLflow-v2.16.0-orange?style=for-the-badge&logo=mlflow)
+
 ![KMeans](https://img.shields.io/badge/KMeans-Clustering-yellow?style=for-the-badge)
 ![DBSCAN](https://img.shields.io/badge/DBSCAN-Clustering-green?style=for-the-badge)
-![Isolation Forest](https://img.shields.io/badge/Isolation--Forest-Anomaly%20Detection-lightblue?style=for-the-badge)
 
----
+![Ridge Regression](https://img.shields.io/badge/Ridge--Regression-Enabled-lightblue?style=for-the-badge)
+![Random Forest](https://img.shields.io/badge/Random--Forest-Enabled-lightgreen?style=for-the-badge)
 
 ## 📑 Présentation du Projet
 
@@ -19,7 +20,6 @@ Pour la **prédiction de la consommation future**, des modèles de régression t
 
 Le suivi et la gestion des modèles sont assurés via **MLflow**, qui permet une traçabilité complète des versions et des performances des modèles. Nous avons choisi de déployer MLflow sur une infrastructure cloud via **Google Cloud Platform (GCP)**, offrant ainsi un accès centralisé et une flexibilité dans la gestion des artefacts. L'URL du serveur MLflow est stockée dans nos fichiers `.env`, facilitant l'accès et l'utilisation de l'outil.
 
----
 
 ## 📚 Sommaire
 
@@ -31,7 +31,6 @@ Le suivi et la gestion des modèles sont assurés via **MLflow**, qui permet une
 6. [🤝 Contribution](#contribution)
 7. [📜 License](#license)
 
----
 
 ## 📦 Installation <a name="installation"></a>
 
@@ -86,7 +85,6 @@ L'application permet de :
 - **Lancer la détection d'anomalies** sur des périodes ou des régions spécifiques.
 - **Visualiser les clusters et les prédictions** de manière interactive.
 
----
 
 ## 📁 Structure du Projet <a name="structure-du-projet"></a>
 
@@ -108,10 +106,9 @@ models_mouvement_consommation/
     anomaly_detection_energy.py   # Détection des anomalies dans la consommation
 .env                              # Variables d'environnement (non incluses dans le dépôt)
 requirements.txt                  # Liste des dépendances
-Readme.md                         # Ce fichier README
+Readme.md                         # Fichier README
 ```
 
----
 
 ## 🖼️ Interface Utilisateur <a name="interface-utilisateur"></a>
 
@@ -127,8 +124,6 @@ L'interface **Streamlit** permet une interaction directe avec les modèles de ma
 3. **Prédiction de la Consommation** : La prédiction de la consommation énergétique est effectuée à l'aide de modèles comme **Ridge Regression** et **Random Forest**.
    - L'utilisateur peut ajuster les hyperparamètres et observer les performances du modèle.
 
-
----
 
 
 ## 📈 Intégration avec MLflow <a name="intégration-mlflow"></a>
@@ -166,4 +161,4 @@ Pour configurer MLflow sur GCP :
 
 Pour plus de détails sur la mise en place de MLflow sur GCP, consultez le fichier **PDF** dans le répertoire **documentation** :
 
-📄 [Documentation - Mise en place du serveur MLflow sur GCP](DetectionAnomalie/documentation/etapes_mise_en_place.pdf)
+📄 [Documentation - Mise en place du serveur MLflow sur GCP](https://github.com/keagnon/DetectionAnomalie/blob/grace_clustering_mvt/documentation/etapes_mise_en_place.pdf)
