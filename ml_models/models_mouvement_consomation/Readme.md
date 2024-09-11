@@ -7,8 +7,8 @@
 ![KMeans](https://img.shields.io/badge/KMeans-Clustering-yellow?style=for-the-badge)
 ![DBSCAN](https://img.shields.io/badge/DBSCAN-Clustering-green?style=for-the-badge)
 ![Isolation Forest](https://img.shields.io/badge/Isolation--Forest-Anomaly%20Detection-lightblue?style=for-the-badge)
-![Ridge Regression](https://img.shields.io/badge/Ridge--Regression-Enabled-lightblue?style=for-the-badge)
-![Random Forest](https://img.shields.io/badge/Random--Forest-Enabled-lightgreen?style=for-the-badge)
+![Ridge Regression](https://img.shields.io/badge/Ridge--Regression-Prediction-lightblue?style=for-the-badge)
+![Random Forest](https://img.shields.io/badge/Random--Forest-Prediction-lightgreen?style=for-the-badge)
 
 ## 📑 Présentation du Projet
 
