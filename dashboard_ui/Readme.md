@@ -131,7 +131,7 @@ Dans cette section, nous utilisons des algorithmes de clustering tels que **DBSC
 
 Cette section permet de tester et de visualiser les résultats de différents modèles de prédiction de la consommation énergétique. L'utilisateur peut charger des données, tester les modèles et voir les prédictions sous forme de graphiques interactifs.
 
-![Prédiction de la consommation](images/prediction_conso/mvt1.png)
+![Prédiction de la consommation](images/prediction_conso/im1.png)
 
 ### ☁️ Prédiction dela consommation prise en compte météo <a name="prédiction-météo"></a>
 
@@ -198,8 +198,9 @@ dashboard_ui/
 
 3. **Prédiction de la consommation prise en compte des mouvements sociaux**
 
-   ![Prédiction de la consommation](images/prediction_conso/mvt1.png)
-   ![Prédiction de la consommation](images/prediction_conso/mvt2.png)
+   ![Prédiction de la consommation](images/prediction_conso/im1.png)
+   ![Prédiction de la consommation](images/prediction_conso/im2.png)
+   ![Prédiction de la consommation](images/prediction_conso/im3.png)
 
 4. **Prédiction de la consommation prise en compte météo**
 
