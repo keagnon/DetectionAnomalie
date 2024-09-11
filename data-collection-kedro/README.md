@@ -57,9 +57,6 @@ Le projet se concentre sur l'intégration de données provenant de diverses sour
 
 Le projet suit une architecture modulaire basée sur Kedro, où chaque tâche de traitement de données est encapsulée dans des pipelines distincts pour favoriser la flexibilité et la maintenance.
 
-Voici la mise à jour de votre **README** en tenant compte de la nouvelle pipeline :
-
----
 
 ### **Vue d'ensemble des pipelines :**
 
@@ -121,7 +118,6 @@ data-collection-kedro/
 │   │   ├── catalog.yml                  # Définition des jeux de données et leurs emplacements
 │   │   ├── parameters_data_fusion_pipeline.yml
 │   │   ├── parameters_etl_pipeline.yml
-│   │   ├── parameters_emissions_pipeline.yml # Paramètres pour le pipeline des émissions
 │   │   └── parameters.yml               # Paramètres globaux du projet
 │   └── local/                           # Configuration spécifique à l'environnement local
 │
@@ -140,7 +136,6 @@ data-collection-kedro/
 │   ├── data_fusion/
 │   ├── elastic_search/
 │   ├── etl_pipeline/
-│   ├── emissions_pipeline/             # Captures d'écran pour le pipeline des émissions de CO2
 │   └── tests_unitaires/
 │
 ├── kedro-dataeng-env/                   # Environnement virtuel Kedro
