@@ -1,14 +1,22 @@
 
 # 📊 Modèles de ML pour la Prédiction et la Détection d'Anomalies Énergétiques
 
+### 🔗 Langage
 ![Python](https://img.shields.io/badge/Python-3.10-blue?style=for-the-badge&logo=python)
+
+### 🛠️ Frameworks et Outils de Développement
 ![Streamlit](https://img.shields.io/badge/Streamlit-1.38.0-red?style=for-the-badge&logo=streamlit)
 ![MLflow](https://img.shields.io/badge/MLflow-v2.16.0-orange?style=for-the-badge&logo=mlflow)
+
+### 📊 Machine Learning & Data Science
 ![KMeans](https://img.shields.io/badge/KMeans-Clustering-yellow?style=for-the-badge)
 ![DBSCAN](https://img.shields.io/badge/DBSCAN-Clustering-green?style=for-the-badge)
 ![Isolation Forest](https://img.shields.io/badge/Isolation--Forest-Anomaly%20Detection-lightblue?style=for-the-badge)
 ![Ridge Regression](https://img.shields.io/badge/Ridge--Regression-Prediction-lightblue?style=for-the-badge)
 ![Random Forest](https://img.shields.io/badge/Random--Forest-Prediction-lightgreen?style=for-the-badge)
+
+### ☁️ Cloud & Stockage
+![Google Cloud Platform](https://img.shields.io/badge/GCP-Cloud%20Storage-blue?style=for-the-badge&logo=google-cloud)
 
 ## 📑 Présentation du Projet
 
