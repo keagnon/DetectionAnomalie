@@ -145,6 +145,8 @@ L'interface utilisateur finale a été développée avec **Streamlit**. Elle per
 - La visualisation des résultats des modèles de machine learning.
 - La collecte de feedbacks utilisateurs.
 
+![First_page_dashboard_ui](images/dashboard/first_page.png)
+
 Cette interface est un sous projet de notre projet de détection d'anomalie.Il est déployée localement et sur **Streamlit Community**. Pour accéder à ce sous projet et avoir plus de détails,cliquer sur [README de l’interface Streamlit](https://github.com/keagnon/DetectionAnomalie/blob/grace_clustering_mvt/dashboard_ui/Readme.md).
 
 ## 11. 📊 Ordonnancement des Données avec Airflow <a name="ordonnancement-des-données-avec-airflow"></a>
