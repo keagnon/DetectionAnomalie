@@ -2,6 +2,7 @@
 This is a boilerplate pipeline 'data_fusion_pipeline'
 generated using Kedro 0.19.5
 """
+# mypy: ignore-errors
 import os
 import sys
 

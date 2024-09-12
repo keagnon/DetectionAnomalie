@@ -1,7 +1,6 @@
 # Variables pour les répertoires à vérifier
 MYPY_PATHS = data-collection-kedro/src/data_collection_kedro/pipelines/etl_pipeline \
              data-collection-kedro/src/data_collection_kedro/pipelines/data_fusion_pipeline \
-             dashboard_ui/
 
 PYLINT_PATHS = data-collection-kedro/src/data_collection_kedro/pipelines/etl_pipeline \
                data-collection-kedro/src/data_collection_kedro/pipelines/data_fusion_pipeline \

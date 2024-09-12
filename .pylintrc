@@ -9,13 +9,14 @@ analyse-fallback-blocks=no
 # Liste des erreurs, avertissements, et conventions à ignorer
 disable=C0114, C0116, R0801, W1514, W0613, R0913
 
+
 # C0114: Missing module docstring
 # C0116: Missing function or method docstring
 # R0801: Duplicate code
 # W1514: Using open without specifying encoding
 # W0613: Unused argument
 # R0913: Too many arguments
-s
+
 # Clear in-memory caches upon conclusion of linting. Useful if running pylint
 # in a server-like mode.
 clear-cache-post-run=no
