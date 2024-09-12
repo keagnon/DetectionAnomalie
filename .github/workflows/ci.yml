@@ -27,9 +27,10 @@ jobs:
     - name: Check code formatting with black
       run: black .
 
+    - name: Check type hints with mypy
+      run: mypy .
+
     - name: Lint with pylint
       run: pylint **/*.py
 
-    - name: Check type hints with mypy
-      run: mypy .
 

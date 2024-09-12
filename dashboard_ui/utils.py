@@ -5,6 +5,7 @@ Contient les fonctions pour charger les styles CSS et configurer les credentials
 
 import os
 import streamlit as st
+import pandas as pd
 from dotenv import load_dotenv
 
 load_dotenv()
