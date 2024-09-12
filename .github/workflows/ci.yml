@@ -50,8 +50,8 @@ jobs:
 
     - name: Generate full coverage report
       run: |
-        pytest --cov=. tests/ --cov-report=xml  # Couverture de tout le code et génération d'un rapport XML
-        pytest --cov=. tests/ --cov-report=html  # Génération d'un rapport HTML pour inspection visuelle
+        pytest --cov=. data-collection-kedro/tests/ --cov-report=xml  # Couverture de tout le code et génération d'un rapport XML
+        pytest --cov=. data-collection-kedro/tests/ --cov-report=html  # Génération d'un rapport HTML pour inspection visuelle
 
     - name: Upload coverage report artifact
       uses: actions/upload-artifact@v3  # Utilisation de la nouvelle version v3
