@@ -102,6 +102,7 @@ mouvement_consommation/
         anomaly_detection/        # Images pour la détection d'anomalies
         clustering/               # Images pour le clustering
         prediction_mouvement/     # Images pour la prédiction de mouvements
+        other/                    # Images autres
     mlruns/                       # Répertoire pour les expériences MLflow
     modele_mouvement_conso/       # Modèles de mouvement de consommation
     tests_models/                 
@@ -174,6 +175,7 @@ Pour configurer MLflow sur GCP :
 2. **Déployer MLflow sur une instance Compute Engine**.
 3. **Configurer les variables d'environnement** pour connecter MLflow au bucket et au serveur.
 
+![Bucket](images/other/bucket.png)
 Pour plus de détails sur la mise en place de MLflow sur GCP, consultez le fichier **PDF** dans le répertoire **documentation** :
 
 📄 [Documentation - Mise en place du serveur MLflow sur GCP](https://github.com/keagnon/DetectionAnomalie/blob/grace_clustering_mvt/documentation/etapes_mise_en_place.pdf)

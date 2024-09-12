@@ -13,6 +13,7 @@
 ![Kedro Badge](https://img.shields.io/badge/Kedro-0.19.8-brightgreen)
 ![Pre-commit Badge](https://img.shields.io/badge/Pre--Commit--Hooks-4.6.0-blue)
 ![GitPython Badge](https://img.shields.io/badge/GitPython-3.1.43-orange)
+![CodeCarbon](https://img.shields.io/badge/CodeCarbon-2.7.1-lightgreen?style=for-the-badge&logo=codecarbon)
 
 ### Machine Learning & Data Science
 
@@ -37,9 +38,10 @@
 ### CI/CD et Outils de Débogage
 
 ![Pre-Commit Badge](https://img.shields.io/badge/Pre--Commit--Hooks-4.6.0-blue)
-![Pylint Badge](https://img.shields.io/badge/Pylint-Enabled-green)
-![Isort Badge](https://img.shields.io/badge/Isort-Enabled-brightgreen)
-![Black Badge](https://img.shields.io/badge/Black-Enabled-black)
+![Pytest](https://img.shields.io/badge/Pytest-8.3.2-blue)
+![Mypy](https://img.shields.io/badge/Mypy-1.11.2-blue)
+![Black](https://img.shields.io/badge/Black-23.11.0-black)
+![Python](https://img.shields.io/badge/Python-3.11.5-blue)
 ![GitHub Actions Badge](https://img.shields.io/badge/GitHub--Actions-CI%2FCD-brightgreen)
 
 
@@ -49,20 +51,22 @@
 3. [🎯 Objectifs du Projet](#objectifs-du-projet)
 4. [🏗️ Architecture du Projet](#architecture-du-projet)
 5. [⚙️ Intégration Continue (CI) et Tests Unitaires](#intégration-continue-ci-et-tests-unitaires)
-6. [📂 Structure du Projet](#structure-du-projet)
-7. [🔄 Pipelines de Collecte de Données avec Kedro](#pipelines-de-collecte-de-données-avec-kedro)
-8. [💻 Traitement des Données et Utilisation de Google Colab](#traitement-des-données-et-utilisation-de-google-colab)
-9. [🤖 Modèles de Machine Learning](#modèles-de-machine-learning)
-10. [🖥️ Interface Utilisateur](#interface-utilisateur-avec-streamlit)
-11. [📊 Ordonnancement des Données](#ordonnancement-des-données-avec-airflow)
-12. [📜 Conclusion](#conclusion)
-13. [⚠️ Difficultés Rencontrées](#difficultés_rencontrées)
-14. [🚀 Prochaines Étapes : Phase 2 - Forecasting ](#prochaine_etapes)
+6. [🌍 Calcul de l'Empreinte Carbone du Projet](#co2)
+7. [📂 Structure du Projet](#structure-du-projet)
+8. [🔄 Pipelines de Collecte de Données avec Kedro](#pipelines-de-collecte-de-données-avec-kedro)
+9. [💻 Traitement des Données et Utilisation de Google Colab](#traitement-des-données-et-utilisation-de-google-colab)
+10. [🤖 Modèles de Machine Learning](#modèles-de-machine-learning)
+11. [🖥️ Interface Utilisateur](#interface-utilisateur-avec-streamlit)
+12. [📊 Ordonnancement des Données](#ordonnancement-des-données-avec-airflow)
+13. [📜 Conclusion](#conclusion)
+14. [⚠️ Difficultés Rencontrées](#difficultés_rencontrées)
+15. [🚀 Prochaines Étapes : Phase 2 - Forecasting ](#prochaine_etapes)
 
 
 
 ## 1. 🔍 Contexte du Projet<a name="contexte-du-projet"></a>
 La détection précoce des anomalies énergétiques est essentielle pour la gestion proactive de l'énergie, en particulier pendant les périodes de forte demande (hiver, été) ou durant des événements comme les mouvements sociaux. Ce projet vise à identifier ces anomalies en se basant sur des données variées (météorologiques, sociales, etc.) et à fournir une interface utilisateur permettant la visualisation et l'analyse des résultats. La solution est structurée en plusieurs sous-projets interconnectés, chacun avec des objectifs spécifiques.
+
 
 ## 2. 🎯 Pourquoi ce projet ? <a name="pourquoi-ce-projet"></a>
 Nous avons identifié plusieurs défis majeurs dans la gestion énergétique :
@@ -93,24 +97,43 @@ Le projet est divisé en plusieurs modules interconnectés, chacun jouant un rô
 
 ![Workflow_géneral](images/Workflow.png)
 
+Voici la version modifiée de la section avec l'ajout de la capture de la CI, du lien, de la note Pylint, et des informations sur le coverage des tests :
+
+---
+
 ## 5. ⚙️ Intégration Continue (CI) et Tests Unitaires <a name="intégration-continue-ci-et-tests-unitaires"></a>
-Nous avons mis en place une CI via **GitHub Actions**, qui exécute des tests unitaires pour chaque sous-projet à chaque commit.
+Nous avons mis en place une intégration continue (CI) via **GitHub Actions**, qui exécute des tests unitaires et des analyses statiques à chaque commit sur les différents sous-projets.
 
 ### Outils utilisés pour la CI :
-- **🧪 Pytest** pour les tests unitaires
-- **🔍 Pylint, Black, Mypy** pour l'analyse statique et le formatage du code
-- **📊 Coverage** pour mesurer la couverture des tests
+- **🧪 Pytest** pour l'exécution des tests unitaires.
+- **🔍 Pylint, Black, Mypy** pour l'analyse statique du code et le respect des conventions de style. Nous avons obtenu un score de **10/10 sur Pylint**, garantissant un code de haute qualité.
+- **📊 Coverage** pour mesurer la couverture des tests, avec un rapport généré après chaque exécution de CI afin d'assurer que l'ensemble du code est bien couvert par les tests.
 
-Le pipeline de CI est disponible dans le répertoire `.github/workflows`.
+Le pipeline de CI, configuré dans le répertoire `.github/workflows`, est accessible via [ce lien](https://github.com/keagnon/DetectionAnomalie/actions/runs/10837858597/job/30074776315).
 
-Chaque module du projet est `containerisé avec Docker` pour garantir la portabilité et la cohérence des environnements. Les fichiers `.env` sont utilisés pour configurer les variables d'environnement de manière flexible.
+### Résultats :
+- Score **Pylint** : 10/10
+- **Coverage** des tests : un rapport est généré automatiquement pour chaque commit, garantissant que nous maintenons un haut niveau de qualité de code.
 
-## 6. 📂 Structure du Projet <a name="structure-du-projet"></a>
+En outre, chaque module du projet est containerisé avec **Docker** pour assurer la portabilité et la cohérence des environnements. Les fichiers `.env` permettent une configuration flexible des variables d'environnement.
+
+## 6. Calcul de l'Empreinte Carbone du Projet <a name="co2"></a>
+
+Dans notre projet, nous avons intégré le calcul de l'empreinte carbone à chaque sous-projet afin d'évaluer l'impact environnemental de chaque composant. À travers l'utilisation d'outils tels que **CodeCarbon**, nous avons mesuré les émissions générées par les différentes étapes, allant du traitement des données à l'entraînement des modèles de machine learning, ainsi que l'exécution des pipelines. Chaque sous-projet a donc été conçu pour suivre l'empreinte carbone associée, permettant de comprendre où se concentrent les émissions les plus importantes et de proposer des solutions d'optimisation.
+
+En mesurant l'empreinte carbone générée par l'infrastructure du projet (serveurs, pipelines, ressources cloud) et les traitements des données (prévisions météorologiques, mouvements sociaux), nous avons pu :
+- Quantifier l'impact environnemental de chaque tâche et ajuster les ressources en conséquence.
+- Explorer des moyens de réduction, comme l'utilisation de sources d'énergie renouvelable, l'optimisation des algorithmes pour réduire leur consommation énergétique, ou encore le passage à des infrastructures plus économes en énergie.
+- Fournir aux entreprises une estimation de leur propre impact carbone, en leur permettant de prendre des décisions éclairées pour minimiser cet impact à chaque étape du processus.
+
+Cette approche `"green AI"` nous a permis de concilier performance algorithmique et responsabilité écologique dans l'ensemble du projet.
+
+## 7. 📂 Structure du Projet <a name="structure-du-projet"></a>
 (Insérer la structure détaillée du projet ici)
 
 Nous utilisons un **🛠️ Makefile** pour automatiser les processus de build, de tests et faciliter la gestion de la CI locale. De plus, nos variables suivre le style `snake_case` .
 
-## 7. 🔄 Pipelines de Collecte de Données avec Kedro <a name="pipelines-de-collecte-de-données-avec-kedro"></a>
+## 8. 🔄 Pipelines de Collecte de Données avec Kedro <a name="pipelines-de-collecte-de-données-avec-kedro"></a>
 Cette partie est un sous projet développer pour la partie ingestion des données et est inclus dans notre projet de détection d'anomalie .
 Deux pipelines Kedro ont été mis en place :
 1. **Pipeline ETL** : Ce pipeline collecte, transforme et stocke les données dans MongoDB.
@@ -119,13 +142,13 @@ Deux pipelines Kedro ont été mis en place :
 Pour accéder à ce sous projet et àvoir plus de détails, consultez le [Accéder au sous projet data-collection-kedro](https://github.com/keagnon/DetectionAnomalie/blob/grace_clustering_mvt/data-collection-kedro/README.md).
 
 
-## 8. 💻 Traitement des Données et Utilisation de Google Colab <a name="traitement-des-données-et-utilisation-de-google-colab"></a>
+## 9. 💻 Traitement des Données et Utilisation de Google Colab <a name="traitement-des-données-et-utilisation-de-google-colab"></a>
 Certaines données volumineuses ont été traitées avec **Google Colab**, notamment pour les membres de l'équipe ayant des limitations matérielles. Voici une capture d'écran de nos notebooks sur Google Colab ainsi que notre bucket GCP pour le stockage des données et artefacts.
 
 ![Capture du Bucket GCP](images/bucket.png)
 ![Capture google colab GCP](images/google_colab.png)
 
-## 9. 🤖 Modèles de Machine Learning <a name="modèles-de-machine-learning"></a>
+## 10. 🤖 Modèles de Machine Learning <a name="modèles-de-machine-learning"></a>
 Grâce ànos pipelines de collecte, stockage et fusion des données, les données ont été divisées en deux groupes :
 1. **Consommation journalière par région avec données météorologiques**.
 2. **Consommation journalière et mouvements sociaux** (avec une colonne "mouvement social" indiquant les jours avec des événements).
@@ -136,7 +159,7 @@ Ces deux groupes de données ont conduit à deux sous-projets distincts :
 
 Ces sous-projets, ainsi que notre interface Streamlit, utilisent **MLflow** pour le suivi et la mise en production des modèles. Un serveur **MLFlow** a été déployé sur une VM GCP pour permettre à l'équipe de suivre les performances des modèles.
 
-## 10. 🖥️ Interface Utilisateur <a name="interface-utilisateur-avec-streamlit"></a>
+## 11. 🖥️ Interface Utilisateur <a name="interface-utilisateur-avec-streamlit"></a>
 L'interface utilisateur finale a été développée avec **Streamlit**. Elle permet :
 - Le téléchargement de datasets.
 - La visualisation des résultats des modèles de machine learning.
@@ -146,30 +169,37 @@ L'interface utilisateur finale a été développée avec **Streamlit**. Elle per
 
 Cette interface est un sous projet de notre projet de détection d'anomalie. Elle est déployée localement et sur **Streamlit Community**. Pour accéder à ce sous projet et avoir plus de détails,cliquer sur [Sous projet Dashboard Streamlit](https://github.com/keagnon/DetectionAnomalie/blob/grace_clustering_mvt/dashboard_ui/Readme.md).
 
-## 11. 📊 Ordonnancement des Données <a name="ordonnancement-des-données-avec-airflow"></a>
+## 12. 📊 Ordonnancement des Données <a name="ordonnancement-des-données-avec-airflow"></a>
 Nous avons documenté plusieurs étapes critiques du projet :
 1. **Mise en place d’un serveur MLFlow sur GCP** : [documentation_mlflow](https://github.com/keagnon/DetectionAnomalie/blob/grace_clustering_mvt/documentation/etapes_mise_en_place.pdf)
 2. **Mise en place d’un serveur Airflow en local** : [documentation_airflow](https://github.com/keagnon/DetectionAnomalie/blob/grace_clustering_mvt/documentation/etapes_installation_airflow.txt)
 3. **Ordonnancement des Données** : [documentation_ordonnoncement](https://github.com/keagnon/DetectionAnomalie/blob/grace_clustering_mvt/documentation/Ordonnoncements_donn%C3%A9es.pdf)
 
-**Airflow** est utilisé pour orchestrer les pipelines de collecte de données via des DAGs. Un exemple de DAG est utilisé pour enrichir nos datasets avec des données d'API. Ce script Airflow s'exécute chaque jour à 20h pour une durée de 30 minutes. Voici des images de notre DAG et de notre interface Airflow :
+**Airflow** est utilisé pour orchestrer les pipelines de collecte de données via des DAGs. Un exemple de DAG est utilisé pour enrichir nos datasets avec des données d'API. Ce script Airflow s'exécute toute les 30 minutes. Voici des images de notre DAG et de notre interface Airflow :
 
 ![Capture dag airflow](images/airflow/im1.png)
 ![Capture dag airflow](images/airflow/im2.png)
 ![Capture dag airflow](images/airflow/im3.png)
 
 
-## 12. 📜 Conclusion <a name="conclusion"></a>
+## 13. 📜 Conclusion <a name="conclusion"></a>
 Le projet de détection d'anomalies dans la consommation d'énergie a permis de mettre en place une solution complète, modulaire et scalable. Grâce à l'intégration de diverses technologies, nous avons réussi à développer un système robuste capable d'identifier des anomalies dans les données de consommation énergétique. En combinant des données météorologiques, sociales et de consommation, nous avons pu générer des insights précieux qui aident les entreprises à optimiser leur utilisation d'énergie.
 
-## 13. ⚠️ Difficultés Rencontrées <a name="difficultés_rencontrées"></a>
+## 14. ⚠️ Difficultés Rencontrées <a name="difficultés_rencontrées"></a>
 Malgré les succès obtenus, plusieurs défis ont été rencontrés au cours du projet :
-- **Traitement de Données Volumineuses** : Gérer et traiter des datasets volumineux, en particulier ceux des prévisions météorologiques et des mouvements sociaux, a posé des problèmes de performance sur certaines machines locales. L'utilisation de Google Colab et GCP a permis de pallier ces limitations. Lors de la collecte des données avec Kedro, nous avons été obligés de stocker les données par lots (batch size) pour pallier ces contraintes, et même après la fusion des données, nous avons dû insérer les données fusionnées dans Elasticsearch par petits morceaux (chunks).
-- **Intégration de Technologies Diverses** : Le projet a nécessité l'intégration de plusieurs outils et frameworks (Kedro, MLflow, Docker, Elasticsearch), ce qui a parfois entraîné des difficultés de compatibilité et de gestion des dépendances. La mise en place du serveur MLflow a également posé des défis techniques.
-- **Disponibilité des Données** : Nous avons dû collecter des données provenant de différentes sources, comme des fichiers PDF, des captures d'écran, et des fichiers XML, pour créer un dataset complet. Cela a entraîné des difficultés lors de la fusion des données, car certaines dates ne correspondaient pas, et nous étions en manque réel de données pour certaines périodes.
-- **Problèmes de Budget** : Le manque de crédits GCP a également été un obstacle majeur, car certaines solutions étaient déployées sur des environnements "on-premise", ce qui a limité l'ampleur de nos expérimentations.
 
-## 14. 🚀 Prochaines Étapes : Phase 2 - Forecasting <a name="prochaine_etapes"></a>
+- **Gestion des Données Massives** : Le traitement de grands volumes de données, en particulier les prévisions météorologiques et les mouvements sociaux, a posé des problèmes de performance, notamment sur les machines locales. Pour contourner ces limites, nous avons utilisé Google Colab et Google Cloud Platform (GCP). Lors de la collecte des données avec Kedro, nous avons dû les traiter en lots (batch processing), et même après la fusion des données, l'insertion dans Elasticsearch s'est faite en petits morceaux (chunks) pour éviter des surcharges.
+
+- **Intégration de Technologies Multiples** : L'intégration de divers outils et frameworks (Kedro, MLflow, Docker, Elasticsearch) a été un défi, car certaines incompatibilités et la gestion des dépendances ont ralenti le développement. La configuration du serveur MLflow a également nécessité des ajustements techniques complexes.
+
+- **Disponibilité et Qualité des Données** : La collecte de données provenant de sources variées (PDF, captures d'écran, fichiers XML) a créé des difficultés, notamment lors de la fusion des ensembles de données. Certaines périodes manquaient de données, et certaines dates ne correspondaient pas, compliquant la création d'un dataset cohérent.
+
+- **Contraintes Budgétaires** : Le manque de crédits sur GCP a limité nos expérimentations, obligeant certaines parties du projet à être déployées sur des infrastructures locales ("on-premise"), ce qui a restreint les capacités et l'échelle des tests.
+
+- **Données sur l’Empreinte Carbone** : Nous avons envisagé d'incorporer des données sur l'empreinte carbone par région pour ajouter une dimension "green AI" au projet, où l’optimisation de la consommation énergétique des algorithmes serait un objectif. Cependant, ces données se sont avérées difficiles à trouver. Chaque région ou secteur pourrait avoir un facteur d'émission différent, selon la source d’énergie utilisée. Cela aurait permis de prédire la demande énergétique tout en tenant compte des mouvements sociaux et de fournir des recommandations pour minimiser l’impact carbone en ajustant les sources d’énergie (comme passer du charbon aux énergies renouvelables). Malheureusement, ces données étaient insuffisantes pour mener à bien cette analyse.
+
+
+## 15. 🚀 Prochaines Étapes : Phase 2 - Forecasting <a name="prochaine_etapes"></a>
 La prochaine étape du projet est de passer à la **Phase 2 : Forecasting**. Nous avons pour objectif d'étendre le système actuel pour inclure des modèles de prévision basés sur des séries temporelles, afin d'anticiper les incidents futurs en se basant sur des données historiques et actuelles.
 
 ### Objectifs de la Phase 2 :

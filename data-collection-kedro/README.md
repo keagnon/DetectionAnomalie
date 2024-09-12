@@ -12,6 +12,8 @@
 ![Pre-commit Hooks](https://img.shields.io/badge/Pre--commit--hooks-4.6.0-blue?style=for-the-badge&logo=pre-commit)
 ![GitPython](https://img.shields.io/badge/GitPython-3.1.43-orange?style=for-the-badge&logo=git)
 ![Cookiecutter](https://img.shields.io/badge/Cookiecutter-2.6.0-green?style=for-the-badge&logo=cookiecutter)
+![CodeCarbon](https://img.shields.io/badge/CodeCarbon-2.7.1-lightgreen?style=for-the-badge&logo=codecarbon)
+
 
 ### Cloud & Bases de Données
 
@@ -43,7 +45,8 @@
 6. [Description des pipelines](#description-des-pipelines)
 7. [Fichiers de configuration](#fichiers-de-configuration)
 8. [Tests du projet](#tests-du-projet)
-9. [Exemples d'images](#exemples-dimages)
+9. [Empreinte Carbone](#empreinte-carbone)
+10. [Exemples d'images](#exemples-dimages)
 
 
 ## **Vue d'ensemble du projet** 🌍 <a name="vue-densemble-du-projet"></a>
@@ -51,7 +54,7 @@
 `Data-collection-kedro` est un projet de pipeline de données construit autour du framework Kedro, utilisé pour automatiser les processus d'extraction, de transformation et de chargement (ETL). Il est inclure dans notre projet de détection d'anomalies dans des données temporelles et catégoriques, avec stockage des données dans MongoDB et Elasticsearch.
 
 Le projet se concentre sur l'intégration de données provenant de diverses sources (API, fichiers CSV, XML), leur stockage et leur fusion dans des bases de données.
-
+**Une fonctionnalité clé** du projet est le **suivi de l'empreinte carbone** des opérations de traitement, réalisé à l'aide de la bibliothèque **CodeCarbon**. Cela permet de mesurer l'impact environnemental des pipelines de données à chaque exécution, contribuant ainsi à un développement plus durable.
 
 ## **Architecture du projet** 🏗️ <a name="architecture-du-projet"></a>
 
@@ -137,6 +140,10 @@ data-collection-kedro/
 │   ├── elastic_search/
 │   ├── etl_pipeline/
 │   └── tests_unitaires/
+│
+├── logs/                               # Dossier de logs pour l'empreinte carbone et autres logs
+│   ├── carbon_logs/                    # Logs générés par CodeCarbon
+│   │   ├── emissions.csv               # Fichier CSV contenant les émissions de carbone
 │
 ├── kedro-dataeng-env/                   # Environnement virtuel Kedro
 │
@@ -252,6 +259,34 @@ Les tests sont réalisés avec **pytest**. Les tests unitaires sont disponibles 
    pytest tests/pipelines/etl_pipeline/
    ```
 
+## **Empreinte Carbone** 🌱 <a name="empreinte-carbone"></a>
+
+Ce projet utilise **CodeCarbon** pour suivre et enregistrer l'empreinte carbone des pipelines de traitement de données, afin de minimiser l'impact environnemental. Chaque exécution du pipeline suit la consommation d'énergie et calcule les émissions de CO2 générées par l'infrastructure de traitement.
+
+Les logs d'émission sont stockés dans le répertoire **`logs/carbon_logs`** et peuvent être visualisés pour chaque exécution.
+
+### **Exécuter le pipeline avec suivi de l'empreinte carbone :**
+
+Pour suivre l'empreinte carbone de l'exécution des pipelines, assurez-vous que **CodeCarbon** est bien installé et configurez votre pipeline pour capturer ces informations :
+
+```bash
+kedro run  # Lance le pipeline tout en suivant l'empreinte carbone
+```
+
+Les résultats seront enregistrés dans le fichier **`emissions.csv`** du répertoire **`logs/carbon_logs/`**.
+
+Voici un exemple d'information enregistrée dans les logs :
+
+```
+timestamp,duration (s),emissions (kg CO2e),energy_consumed (kWh)
+2024-09-12 15:30:45,360,0.15,0.3
+```
+
+### Capture d'écran du terminal affichant l'empreinte carbone :
+
+![Empreinte Carbone dans le Terminal](images/carbon_logs/im1.png)
+![Empreinte Carbone dans le Terminal](images/carbon_logs/im2.png)
+![Empreinte Carbone dans le Terminal](images/carbon_logs/im3.png)
 
 
 ## **Exemples d'images** 🖼️ <a name="exemples-dimages"></a>

@@ -1,6 +1,3 @@
-# This is a boilerplate parameters config generated for pipeline 'etl_pipeline'
-# using Kedro 0.19.5.
-
 api_urls:
   - "https://data.opendatasoft.com/api/explore/v2.1/catalog/datasets/courbe-de-charge-eldgrd-regional-grtgaz-terega@reseaux-energies-rte/records?limit=20"
   - "https://data.opendatasoft.com/api/explore/v2.1/catalog/datasets/prix-des-energies-en-france@akajoule/records?limit=20"

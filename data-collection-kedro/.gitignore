@@ -11,12 +11,11 @@ conf/**/*credentials*
 engiewatch.2024-09-02.private-key.pem
 # ignore everything in the following folders
 data/**
-logs/**
 compact-nirvana-431819-p9-80257f7ee128.json
 # except their sub-folders
 !data/**/
 !logs/**/
-
+!logs/carbon_logs/emissions.csvs
 # also keep all .gitkeep files
 !.gitkeep
 

@@ -1,3 +1,4 @@
+"""Data fusion pipeline module."""
 from kedro.pipeline import Pipeline, node
 
 from .nodes import (

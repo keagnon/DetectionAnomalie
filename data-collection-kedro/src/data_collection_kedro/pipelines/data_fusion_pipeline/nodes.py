@@ -1,15 +1,29 @@
 """
-This is a boilerplate pipeline 'data_fusion_pipeline'
-generated using Kedro 0.19.5
+Pipeline de fusion des données pour l'analyse de la consommation d'énergie
+
+Ce pipeline est responsable de la fusion des données provenant de plusieurs sources, notamment les données météorologiques,
+les courbes de charge, et les mouvements sociaux, pour créer des ensembles de données consolidés qui seront ensuite
+stockés dans Elasticsearch. Le pipeline réalise les tâches suivantes :
+
+1. Chargement des collections MongoDB sous forme de DataFrames.
+2. Sélection des colonnes pertinentes pour chaque DataFrame.
+3. Normalisation des colonnes, notamment les dates et les régions, afin d'assurer la cohérence entre les différentes sources de données.
+4. Fusion des jeux de données (météo, courbes de charge, mouvements sociaux) pour générer des jeux de données fusionnés.
+5. Stockage des jeux de données fusionnés dans Elasticsearch.
+6. Suivi et enregistrement de l'empreinte carbone des opérations de traitement et de stockage des données, avec les logs enregistrés dans le dossier `carbon_log_data_fusion`.
+
+Le suivi de l'empreinte carbone est intégré à chaque étape de traitement grâce à CodeCarbon, et les résultats sont enregistrés
+dans le dossier `carbon_logs`. Cela permet de surveiller l'impact environnemental de chaque exécution du pipeline.
 """
+
 import os
 import sys
-
 import numpy as np
 import pandas as pd
 from dotenv import load_dotenv
 from elasticsearch import Elasticsearch, exceptions, helpers
 from pymongo import MongoClient
+from codecarbon import EmissionsTracker
 
 
 def load_collections(collection_names, db_name, connect_timeout: int = 20000):
@@ -103,7 +117,7 @@ def normalize_columns(dataframes):
             df["région"] = df["région"].astype(str).str.lower().str.strip()
             df = df.fillna(0)
             print(f"type colone region courbe {df['région'].dtypes}")
-            print(f"type colone date courbe { df['date'].dtypes}")
+            print(f"type colone date courbe {df['date'].dtypes}")
             print(df.head())
             print("----------------------------------------------------")
         # Dataset "Mouvements Sociaux"
@@ -112,7 +126,7 @@ def normalize_columns(dataframes):
             df["motif"] = df["motif"].astype(str).str.lower().str.strip()
             df = df.fillna(0)
             df["motif"] = df["motif"].fillna(np.nan)
-            print(f"type colone mouvement courbe { df['date'].dtypes}")
+            print(f"type colone mouvement courbe {df['date'].dtypes}")
             print(df.head())
             print("----------------------------------------------------")
         # Dataset "Météo"
@@ -122,7 +136,7 @@ def normalize_columns(dataframes):
             df.rename(columns={"region": "région"}, inplace=True)
             df["région"] = df["région"].astype(str).str.lower().str.strip()
             df["région"] = df["région"].replace(region_mapping)
-            print(f"type colone date meteo { df['date'].dtypes}")
+            print(f"type colone date meteo {df['date'].dtypes}")
             print(f"type colone region meteo {df['région'].dtypes}")
             df = df.fillna(0)
             print(df.head())
@@ -201,6 +215,9 @@ def merge_data_store_in_elastic(dataframes):
         dataframes : List des DataFrames à fusionner
     """
 
+    tracker = EmissionsTracker(output_dir="logs/carbon_logs")
+    tracker.start()
+
     es_host = os.getenv("ELASTIC_DEPLOYMENT_ENDPOINT")
     es_username = os.getenv("ELASTIC_USERNAME")
     es_password = os.getenv("ELASTIC_PASSWORD")
@@ -222,8 +239,8 @@ def merge_data_store_in_elastic(dataframes):
         else:
             print("Connected to Elasticsearch.")
 
-        meteo_courbe_index = "meteo_courbe_indexx"
-        courbe_mouvement_index = "courbe_mouvement_indexx"
+        meteo_courbe_index = "meteo_courbe_indexxxxx"
+        courbe_mouvement_index = "courbe_mouvement_indexxxxx"
 
         # Création index
         create_index(es, meteo_courbe_index)
@@ -256,12 +273,9 @@ def merge_data_store_in_elastic(dataframes):
             f"Nombre de lignes après fusion courbe-mouvement: {len(merge_courbe_mouvement)}"
         )
 
-        # Remplacement des valeurs NaN par 0 pour certaines colonnes dans merge_meteo_courbe
         merge_meteo_courbe["TempMax_Deg"].fillna(value=0, inplace=True)
         merge_meteo_courbe["TempMin_Deg"].fillna(value=0, inplace=True)
         merge_meteo_courbe["CloudCoverage_percent"].fillna(value=0, inplace=True)
-
-        # Remplacement des valeurs NaN par "inconnu" pour la colonne "motif" dans merge_courbe_mouvement
         merge_courbe_mouvement["motif"].fillna(value="inconnu", inplace=True)
 
         store_in_elasticsearch(
@@ -278,9 +292,13 @@ def merge_data_store_in_elastic(dataframes):
         print(es.count(index="courbe_mouvement_index")["count"])
         print(es.count(index="meteo_courbe_index")["count"])
 
+
+
     except exceptions.ConnectionError as e:
         print(f"Error connecting to Elasticsearch: {str(e)}")
     except Exception as e:
         print(f"An error occurred: {str(e)}")
+    tracker.stop()
 
     return merge_meteo_courbe, merge_courbe_mouvement
+

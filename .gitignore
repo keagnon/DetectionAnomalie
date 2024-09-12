@@ -23,9 +23,12 @@ dahboard_ui_strealit/
 data_test/**
 modele_mouvement_conso/**
 fusion_courbe_mouvement.csv
-
+merge_courbe_mouvement.csv
+merge_meteo_courbe.csv
 # also keep all .gitkeep files
 !.gitkeep
+
+!logs/carbon_logs/emissions.csv
 
 # also keep the example dataset
 !data/01_raw/iris.csv
