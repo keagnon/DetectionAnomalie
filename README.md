@@ -130,7 +130,7 @@ Grâce ànos pipelines de collecte, stockage et fusion des données, les donnée
 1. **Consommation journalière par région avec données météorologiques**.
 2. **Consommation journalière et mouvements sociaux** (avec une colonne "mouvement social" indiquant les jours avec des événements).
 
-Ces deux groupes de données ont conduit à deux sous-projets distincts :
+Ces deux groupes de données ont conduit à deux sous-projets distincts. pour accéder à ces sous projets
 - [Sous-projet sur la consommation régionale et les données météo](lien_readme_conso_meteo).
 - [Sous-projet sur la consommation et les mouvements sociaux](https://github.com/keagnon/DetectionAnomalie/blob/grace_clustering_mvt/ml_models/mouvements_consommation/Readme.md).
 
