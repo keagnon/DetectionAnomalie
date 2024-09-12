@@ -2,7 +2,7 @@ from typing import Any
 
 import pandas as pd
 
-# mypy: ignore-errors
+
 class Transform:
     @staticmethod
     def normalize_column_names(data: pd.DataFrame) -> pd.DataFrame:
