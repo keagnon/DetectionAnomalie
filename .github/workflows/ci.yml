@@ -19,6 +19,7 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements_test.txt
+        pip install -r data-collection-kedro/requirements.txt
         pip install boto3 botocore
         python3 -m pip install types-requests
         pip install pytest pytest-cov  # Ajout de pytest et pytest-cov

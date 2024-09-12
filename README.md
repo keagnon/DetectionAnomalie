@@ -144,7 +144,7 @@ L'interface utilisateur finale a été développée avec **Streamlit**. Elle per
 
 ![First_page_dashboard_ui](images/dashboard/first_page.png)
 
-Cette interface est un sous projet de notre projet de détection d'anomalie.Il est déployée localement et sur **Streamlit Community**. Pour accéder à ce sous projet et avoir plus de détails,cliquer sur [README de l’interface Streamlit](https://github.com/keagnon/DetectionAnomalie/blob/grace_clustering_mvt/dashboard_ui/Readme.md).
+Cette interface est un sous projet de notre projet de détection d'anomalie. Elle est déployée localement et sur **Streamlit Community**. Pour accéder à ce sous projet et avoir plus de détails,cliquer sur [Sous projetl’interface Streamlit](https://github.com/keagnon/DetectionAnomalie/blob/grace_clustering_mvt/dashboard_ui/Readme.md).
 
 ## 11. 📊 Ordonnancement des Données <a name="ordonnancement-des-données-avec-airflow"></a>
 Nous avons documenté plusieurs étapes critiques du projet :
