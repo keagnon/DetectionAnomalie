@@ -119,7 +119,7 @@ En outre, chaque module du projet est containerisé avec **Docker** pour assurer
 
 ## 6. Calcul de l'Empreinte Carbone du Projet <a name="co2"></a>
 
-Dans notre projet, nous avons intégré le calcul de l'empreinte carbone à chaque sous-projet afin d'évaluer l'impact environnemental de chaque composant. À travers l'utilisation d'outils tels que **CodeCarbon**, nous avons mesuré les émissions générées par les différentes étapes, allant du traitement des données à l'entraînement des modèles de machine learning, ainsi que l'exécution des pipelines. Chaque sous-projet a donc été conçu pour suivre l'empreinte carbone associée, permettant de comprendre où se concentrent les émissions les plus importantes et de proposer des solutions d'optimisation.
+Dans notre projet, nous avons intégré le calcul de l'empreinte carbone à chaque sous-projet nécessitant beaucoup de calculs (comme l'entraînement des modèles et les pipelines ETL ) afin d'évaluer l'impact environnemental de chaque composant. À travers l'utilisation d'outils tels que **CodeCarbon**, nous avons mesuré les émissions générées par les différentes étapes, allant du traitement des données à l'entraînement des modèles de machine learning, ainsi que l'exécution des pipelines. Chaque sous-projet a donc été conçu pour suivre l'empreinte carbone associée, permettant de comprendre où se concentrent les émissions les plus importantes et de proposer des solutions d'optimisation.
 
 En mesurant l'empreinte carbone générée par l'infrastructure du projet (serveurs, pipelines, ressources cloud) et les traitements des données (prévisions météorologiques, mouvements sociaux), nous avons pu :
 - Quantifier l'impact environnemental de chaque tâche et ajuster les ressources en conséquence.
