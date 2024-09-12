@@ -17,22 +17,24 @@ from src.data_collection_kedro.pipelines.data_fusion_pipeline.nodes import store
 
 @patch('pymongo.MongoClient')
 def test_load_collections(mock_mongo_client):
+    # Mocking MongoDB Client and collections
     mock_db = MagicMock()
     mock_collection = MagicMock()
-    mock_collection.find.return_value = [{"col1": 1, "col2": 2}]  # Mock data with one record
+    mock_collection.find.return_value = [{"col1": 1, "col2": 2}]  # Mock data
 
     mock_db.__getitem__.return_value = mock_collection
     mock_mongo_client.return_value.__getitem__.return_value = mock_db
 
+    # Call the function to be tested
     collection_names = ["test_collection"]
     db_name = "test_db"
 
-    result = load_collections(collection_names, db_name)
+    result = load_collections(collection_names, db_name)  # Ensure the correct URI or parameters are passed
 
+    # Assertions
     assert isinstance(result[0], pd.DataFrame)
-    assert len(result[0]) == 6  # The DataFrame should have 1 record
-    assert list(result[0].columns) == ['_id', 'col1', 'col2']
-
+    assert len(result[0]) == 1  # Adjust this based on expected data
+    assert list(result[0].columns) == ['col1', 'col2']  # Adjust columns accordingly
 
 
 def test_select_columns():
@@ -100,21 +102,19 @@ def test_merge_data_store_in_elastic(mock_es, mock_bulk, mock_ping):
 
     dataframes = [df_meteo, df_courbe, df_mouvement]
 
-    # Appeler la fonction de fusion et de stockage
+    # Appeler la fonction à tester
     merge_meteo_courbe, merge_courbe_mouvement = merge_data_store_in_elastic(dataframes)
 
-    # Vérifier que les colonnes NaN ont bien été remplacées dans merge_meteo_courbe
+    # Vérifier les valeurs des colonnes après remplacement de NaN
     assert merge_meteo_courbe["TempMax_Deg"].iloc[0] == 0
     assert merge_meteo_courbe["TempMin_Deg"].iloc[0] == 0
     assert merge_meteo_courbe["CloudCoverage_percent"].iloc[0] == 0
 
-    # Vérifier que la colonne NaN 'motif' a bien été remplacée dans merge_courbe_mouvement
     assert merge_courbe_mouvement["motif"].iloc[0] == "inconnu"
 
-    # Vérifier que la méthode bulk a été appelée
+    # Vérifier que la méthode bulk a bien été appelée
     assert mock_bulk.called
 
     # Vérifier que la longueur des DataFrames fusionnés est correcte
     assert len(merge_meteo_courbe) == 1
     assert len(merge_courbe_mouvement) == 1
-
