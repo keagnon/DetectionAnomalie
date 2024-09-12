@@ -10,32 +10,14 @@ import mlflow
 from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
 import plotly.express as px
-from dotenv import load_dotenv
+from utils import local_css, configure_google_credentials
 
-load_dotenv()
-
-# Configurer MLflow
-mlflow_tracking_uri = os.getenv('MLFLOW_TRACKING_URI')
-if mlflow_tracking_uri:
-    mlflow.set_tracking_uri(mlflow_tracking_uri)
+local_css("styles.css")
+configure_google_credentials()
 
 # Charger le modèle DBSCAN depuis MLflow
 LOGGED_MODEL = 'runs:/096e31c04a7e4beaa1054645122fc825/dbscan_model'
 loaded_model = mlflow.sklearn.load_model(LOGGED_MODEL)
-
-
-def local_css(file_name):
-    """
-    Charge et applique un fichier CSS pour styliser l'application.
-
-    Args:
-        file_name (str): Chemin vers le fichier CSS.
-    """
-    with open(file_name, 'r', encoding='utf-8') as f:
-        st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
-
-
-local_css("styles.css")
 
 
 def preprocess_data(file_path):

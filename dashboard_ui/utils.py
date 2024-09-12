@@ -1,3 +1,8 @@
+"""
+Module utilitaire pour les fonctions réutilisables dans l'application.
+Contient les fonctions pour charger les styles CSS et configurer les credentials Google Cloud.
+"""
+
 import os
 import streamlit as st
 from dotenv import load_dotenv

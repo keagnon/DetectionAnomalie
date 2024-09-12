@@ -5,23 +5,10 @@ Module pour afficher la page de tracking et ouvrir l'interface utilisateur de ML
 import os
 import webbrowser
 import streamlit as st
-from dotenv import load_dotenv
-
-# Charger les variables d'environnement
-load_dotenv()
-
-def local_css(file_name):
-    """
-    Charge et applique un fichier CSS pour styliser l'application.
-
-    Args:
-        file_name (str): Chemin vers le fichier CSS.
-    """
-    with open(file_name, 'r', encoding='utf-8') as f:
-        st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
+from utils import local_css, configure_google_credentials
 
 local_css("styles.css")
-
+configure_google_credentials()
 
 def open_mlflow_ui():
     """

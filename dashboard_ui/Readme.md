@@ -170,6 +170,7 @@ dashboard_ui/
 ├── page_prediction_conso.py      # Page pour les prédictions de consommation
 ├── page_prediction_meteo.py      # Page pour les prédictions météo
 ├── page_tracking.py              # Page pour le suivi des résultats avec MLflow
+├── utils.py                      # Module utilitaire pour les fonctions réutilisables dans l'application
 │
 ├── mlruns/                       # Répertoire de suivi MLflow
 └── dashboard_ui_streamlit/        # Fichiers et assets supplémentaires

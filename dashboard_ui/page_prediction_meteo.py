@@ -1,11 +1,10 @@
 import streamlit as st
 import numpy as np
-
-def local_css(file_name):
-    with open(file_name) as f:
-        st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
+from utils import local_css, configure_google_credentials
 
 local_css("styles.css")
+configure_google_credentials()
+
 
 def show_prediction_meteo():
     """

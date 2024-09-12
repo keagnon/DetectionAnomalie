@@ -7,28 +7,11 @@ import streamlit as st
 import mlflow
 import pandas as pd
 import plotly.graph_objects as go
-from dotenv import load_dotenv
 
-load_dotenv()
-
-
-def local_css(file_name):
-    """
-    Charge et applique un fichier CSS pour styliser l'application.
-
-    Args:
-        file_name (str): Chemin vers le fichier CSS.
-    """
-    with open(file_name, 'r', encoding='utf-8') as f:
-        st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
-
+from utils import local_css, configure_google_credentials
 
 local_css("styles.css")
-
-# Configurer les credentials Google Cloud
-google_credentials = os.getenv('GOOGLE_APPLICATION_CREDENTIALS')
-if google_credentials:
-    os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = google_credentials
+configure_google_credentials()
 
 # Configuration MLflow
 mlflow_tracking_uri = os.getenv('MLFLOW_TRACKING_URI')
