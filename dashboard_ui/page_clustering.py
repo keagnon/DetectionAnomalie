@@ -10,7 +10,7 @@ import mlflow
 from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
 import plotly.express as px
-from utils import local_css, configure_google_credentials
+from utils import local_css, configure_google_credentials, preprocess_data
 
 local_css("styles.css")
 configure_google_credentials()
@@ -18,27 +18,6 @@ configure_google_credentials()
 # Charger le modèle DBSCAN depuis MLflow
 LOGGED_MODEL = 'runs:/096e31c04a7e4beaa1054645122fc825/dbscan_model'
 loaded_model = mlflow.sklearn.load_model(LOGGED_MODEL)
-
-
-def preprocess_data(file_path):
-    """
-    Charger et prétraiter les données du fichier CSV.
-
-    Args:
-        file_path (str): Chemin vers le fichier CSV.
-
-    Returns:
-        tuple: DataFrame prétraité et liste des colonnes horaires.
-    """
-    df = pd.read_csv(file_path)
-    df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
-    df['date'] = pd.to_datetime(df['date'], errors='coerce')
-    hourly_columns = [f'{hour:02d}:00' for hour in range(24)]
-    df[hourly_columns] = df[hourly_columns].apply(pd.to_numeric,
-    errors='coerce').fillna(df[hourly_columns].mean())
-    df['consommation_moyenne_journalière'] = df[hourly_columns].mean(axis=1)
-    return df, hourly_columns
-
 
 def log_cluster_metrics(unique_labels, counts):
     """

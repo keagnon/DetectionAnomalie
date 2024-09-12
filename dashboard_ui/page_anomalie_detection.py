@@ -8,7 +8,7 @@ import mlflow
 import pandas as pd
 import plotly.graph_objects as go
 
-from utils import local_css, configure_google_credentials
+from utils import local_css, configure_google_credentials, preprocess_data
 
 local_css("styles.css")
 configure_google_credentials()
@@ -20,27 +20,6 @@ if mlflow_tracking_uri:
 
 LOGGED_MODEL = 'runs:/a01b4b5c87f14c55b24cd5910fc7a874/isolation_forest_model'
 loaded_model = mlflow.pyfunc.load_model(LOGGED_MODEL)
-
-
-def preprocess_data(file_path):
-    """
-    Prétraite les données en chargeant un fichier CSV et en nettoyant les colonnes.
-
-    Args:
-        file_path (str): Le chemin vers le fichier CSV à traiter.
-
-    Returns:
-        tuple: Un tuple contenant le dataframe prétraité et la liste des colonnes horaires.
-    """
-    df = pd.read_csv(file_path)
-    df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
-    df['date'] = pd.to_datetime(df['date'], errors='coerce')
-    hourly_columns = [f'{hour:02d}:00' for hour in range(24)]
-    df[hourly_columns] = df[hourly_columns].apply(pd.to_numeric, errors='coerce')\
-        .fillna(df[hourly_columns].mean())
-    df['consommation_moyenne_journalière'] = df[hourly_columns].mean(axis=1)
-    return df, hourly_columns
-
 
 def display_anomalies_info(df):
     """
