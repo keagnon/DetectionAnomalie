@@ -221,6 +221,10 @@ data-collection-kedro/
   - `merge_data_store_in_elastic()`
 
 
+Les données brutes stockées dans Elasticsearch sont visualisées dans un tableau de bord **Kibana** hébergé sur une machine virtuelle **GCP**. Voici une capture d'écran du dashboard Kibana :
+
+![Capture du Dashboard Kibana](lien_capture_kibana)
+
 
 ## **Fichiers de configuration** 🛠️ <a name="fichiers-de-configuration"></a>
 

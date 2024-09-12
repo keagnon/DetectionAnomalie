@@ -56,7 +56,6 @@
 10. [🖥️ Interface Utilisateur avec Streamlit](#10-interface-utilisateur-avec-streamlit)
 11. [📊 Ordonnancement des Données avec Airflow](#11-ordonnancement-des-données-avec-airflow)
 
----
 
 ## 1. 🔍 Contexte du Projet
 La détection précoce des anomalies énergétiques est essentielle pour la gestion proactive de l'énergie, en particulier pendant les périodes de forte demande (hiver, été) ou durant des événements comme les mouvements sociaux. Ce projet vise à identifier ces anomalies en se basant sur des données variées (météorologiques, sociales, etc.) et à fournir une interface utilisateur permettant la visualisation et l'analyse des résultats. La solution est structurée en plusieurs sous-projets interconnectés, chacun avec des objectifs spécifiques.
@@ -82,18 +81,14 @@ Notre projet se concentre sur six grands objectifs :
 ## 4. 🏗️ Architecture du Projet
 Le projet est divisé en plusieurs modules interconnectés, chacun jouant un rôle clé dans l'ensemble du système.
 
-### Workflow Général
-![Workflow](images/Workflow.png)
+- **🛠️ Module Collecte et Stockage des Données**
+- **🛠️ Module Traitement, Stockage et Visualisation**
+- **🛠️ Module Entraînement et Suivi des Modèles**
+- **🛠️ Module Déploiement et Feedback**
+- **🛠️ Module d'Orchestration et Conteneurisation**
+- **🛠️ Module Intégration Continue (CI) et Tests Unitaires**
 
-### 🛠️ Module Collecte et Stockage des Données
-
-### 🛠️ Module Traitement, Stockage et Visualisation
-
-### 🛠️ Module Entraînement et Suivi des Modèles
-
-### 🛠️ Module Déploiement et Feedback
-
-### 🛠️ Module d'Orchestration et Conteneurisation
+![Workflow_géneral](images/Workflow.png)
 
 ## 5. ⚙️ Intégration Continue (CI) et Tests Unitaires
 Nous avons mis en place une CI via GitHub Actions, qui exécute des tests unitaires pour chaque sous-projet à chaque commit.
@@ -113,20 +108,19 @@ Chaque module du projet est containerisé avec Docker pour garantir la portabili
 Nous utilisons un **🛠️ Makefile** pour automatiser les processus de build, de tests et faciliter la gestion de la CI locale.
 
 ## 7. 🔄 Pipelines de Collecte de Données avec Kedro
+Cette partie est un sous projet développer pour la partie ingestion des données est inclus dans notre projet de détection d'anomalie .
 Deux pipelines Kedro ont été mis en place :
 1. **Pipeline ETL** : Ce pipeline collecte, transforme et stocke les données dans MongoDB.
 2. **Pipeline d'Enrichissement** : Ce pipeline charge les données, les fusionne et les stocke dans Elasticsearch.
 
-Les données brutes stockées dans Elasticsearch sont visualisées dans un tableau de bord **Kibana** hébergé sur une machine virtuelle **GCP**. Voici une capture d'écran du dashboard Kibana :
+Pour accéder à ce sous projet et àvoir plus de détails, consultez le [README de la partie Kedro](https://github.com/keagnon/DetectionAnomalie/blob/grace_clustering_mvt/data-collection-kedro/README.md).
 
-![Capture du Dashboard Kibana](lien_capture_kibana)
-
-Pour plus de détails, consultez le [README de la partie Kedro](lien_readme_kedro).
 
 ## 8. 💻 Traitement des Données et Utilisation de Google Colab
 Certaines données volumineuses ont été traitées avec **Google Colab**, notamment pour les membres de l'équipe ayant des limitations matérielles. Voici une capture d'écran de nos notebooks sur Google Colab ainsi que notre bucket GCP pour le stockage des données et artefacts. Nous utilisons MLflow pour le tracking de nos modèles :
 
-![Capture du Bucket GCP](lien_capture_bucket)
+![Capture du Bucket GCP](images/bucket.png)
+![Capture google colab GCP](images/google_colab.png)
 
 ## 9. 🤖 Modèles de Machine Learning
 Les données ont été divisées en deux groupes :
@@ -135,7 +129,7 @@ Les données ont été divisées en deux groupes :
 
 Ces deux groupes de données ont conduit à deux sous-projets distincts :
 - [Sous-projet sur la consommation régionale et les données météo](lien_readme_conso_meteo).
-- [Sous-projet sur la consommation et les mouvements sociaux](lien_readme_conso_social).
+- [Sous-projet sur la consommation et les mouvements sociaux](https://github.com/keagnon/DetectionAnomalie/blob/grace_clustering_mvt/ml_models/mouvements_consommation/Readme.md).
 
 Ces sous-projets, ainsi que notre interface Streamlit, utilisent **MLflow** pour le suivi et la mise en production des modèles. Un serveur **MLFlow** a été déployé sur une VM GCP pour permettre à l'équipe de suivre les performances des modèles.
 
@@ -145,12 +139,16 @@ L'interface utilisateur finale a été développée avec **Streamlit**. Elle per
 - La visualisation des résultats des modèles de machine learning.
 - La collecte de feedbacks utilisateurs.
 
-Cette interface est déployée localement et sur **Streamlit Community**. Pour plus de détails, voir le [README de l’interface Streamlit](lien_readme_streamlit).
+Cette interface est un sous projet de notre projet de détection d'anomalie.Il est déployée localement et sur **Streamlit Community**. Pour accéder à ce sous projet et avoir plus de détails,cliquer sur [README de l’interface Streamlit](https://github.com/keagnon/DetectionAnomalie/blob/grace_clustering_mvt/dashboard_ui/Readme.md).
 
 ## 11. 📊 Ordonnancement des Données avec Airflow
 Nous avons documenté plusieurs étapes critiques du projet :
-1. **Mise en place d’un serveur MLFlow sur GCP** : [lien_documentation_mlflow]
-2. **Mise en place d’un serveur Airflow en local** : [lien_documentation_airflow]
-3. **Ordonnancement des Données avec Airflow** : [lien_documentation_airflow]
+1. **Mise en place d’un serveur MLFlow sur GCP** : [lien_documentation_mlflow](https://github.com/keagnon/DetectionAnomalie/blob/grace_clustering_mvt/documentation/etapes_mise_en_place.pdf)
+2. **Mise en place d’un serveur Airflow en local** : [lien_documentation_airflow](https://github.com/keagnon/DetectionAnomalie/blob/grace_clustering_mvt/documentation/etapes_installation_airflow.txt)
+3. **Ordonnancement des Données avec Airflow** : [lien_documentation_airflow](https://github.com/keagnon/DetectionAnomalie/blob/grace_clustering_mvt/documentation/Ordonnoncements_donn%C3%A9es.pdf)
 
 **Airflow** est utilisé pour orchestrer les pipelines de collecte de données via des DAGs. Un exemple de DAG est utilisé pour enrichir nos datasets avec des données d'API. Ce script Airflow s'exécute chaque jour à 20h pour une durée de 30 minutes. Voici des images de notre DAG et de notre interface Airflow :
+
+![Capture dag airflow](images/airflow/im1.png)
+![Capture dag airflow](images/airflow/im2.png)
+![Capture dag airflow](images/airflow/im3.png)
