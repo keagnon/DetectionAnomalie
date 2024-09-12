@@ -1,0 +1,13 @@
+pylint
+isort
+black
+mypy
+pandas
+pandas-stubs
+matplotlib
+requests
+pymongo
+python-dotenv
+streamlit
+streamlit-option-menu
+mlflow

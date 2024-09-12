@@ -13,14 +13,12 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: '3.8'
+        python-version: '3.9'
 
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install pylint isort black mypy pandas matplotlib
-        pip install requests pandas pymongo python-dotenv
-        python3 -m pip install pandas-stubs
+        pip install -r requirements_test.txt
 
     - name: Lint with pylint
       run: pylint **/*.py
@@ -30,3 +28,7 @@ jobs:
 
     - name: Check code formatting with black
       run: black .
+
+    - name: Check type hints with mypy
+      run: mypy .
+
