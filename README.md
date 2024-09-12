@@ -109,7 +109,7 @@ Chaque module du projet est containerisé avec Docker pour garantir la portabili
 ## 6. 📂 Structure du Projet <a name="structure-du-projet"></a>
 (Insérer la structure détaillée du projet ici)
 
-Nous utilisons un **🛠️ Makefile** pour automatiser les processus de build, de tests et faciliter la gestion de la CI locale.
+Nous utilisons un **🛠️ Makefile** pour automatiser les processus de build, de tests et faciliter la gestion de la CI locale. De plus, nos variables suivre le style `snake_case` .
 
 ## 7. 🔄 Pipelines de Collecte de Données avec Kedro <a name="pipelines-de-collecte-de-données-avec-kedro"></a>
 Cette partie est un sous projet développer pour la partie ingestion des données est inclus dans notre projet de détection d'anomalie .
