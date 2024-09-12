@@ -21,15 +21,14 @@ jobs:
         pip install -r requirements_test.txt
         pip install boto3 botocore
 
-
-    - name: Lint with pylint
-      run: pylint **/*.py
-
     - name: Check import formatting with isort
       run: isort .
 
     - name: Check code formatting with black
       run: black .
+
+    - name: Lint with pylint
+      run: pylint **/*.py
 
     - name: Check type hints with mypy
       run: mypy .
