@@ -52,7 +52,8 @@ def preprocess_data(file_path):
     df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
     df['date'] = pd.to_datetime(df['date'], errors='coerce')
     hourly_columns = [f'{hour:02d}:00' for hour in range(24)]
-    df[hourly_columns] = df[hourly_columns].apply(pd.to_numeric, errors='coerce').fillna(df[hourly_columns].mean())
+    df[hourly_columns] = df[hourly_columns].apply(pd.to_numeric,
+    errors='coerce').fillna(df[hourly_columns].mean())
     df['consommation_moyenne_journalière'] = df[hourly_columns].mean(axis=1)
     return df, hourly_columns
 

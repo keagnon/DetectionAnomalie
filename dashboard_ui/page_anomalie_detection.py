@@ -159,7 +159,10 @@ def show_anomalie_detection():
             # Afficher les informations d'anomalies
             display_anomalies_info(df)
 
-            selected_columns = ['date', 'région', 'consommation_moyenne_journalière', 'statut', 'anomaly']
+            selected_columns = [
+                'date', 'région',
+                'consommation_moyenne_journalière',
+                'statut', 'anomaly']
             st.dataframe(df[selected_columns].style.apply(highlight_anomalies, axis=1), width=1400)
 
             st.markdown(
@@ -174,7 +177,8 @@ def show_anomalie_detection():
                 selected_rows = st.multiselect(
                     "Choisissez les anomalies à afficher",
                     anomalies_df.index,
-                    format_func=lambda idx: f"{anomalies_df.loc[idx, 'date']} - Région: {anomalies_df.loc[idx, 'région']}"
+                    format_func=lambda idx:
+                    f"{anomalies_df.loc[idx, 'date']} - Région: {anomalies_df.loc[idx, 'région']}"
                 )
 
                 if selected_rows:

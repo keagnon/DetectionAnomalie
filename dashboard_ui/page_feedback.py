@@ -1,14 +1,19 @@
-import json
-import boto3
-import streamlit as st
+"""
+Module pour le formulaire de feedback des utilisateurs, permettant de soumettre des commentaires
+et de les stocker dans un bucket S3 via l'API boto3.
+"""
+
 import os
 from datetime import datetime
-from botocore.exceptions import NoCredentialsError, PartialCredentialsError, InvalidRegionError
 
+import boto3
+import streamlit as st
+from botocore.exceptions import NoCredentialsError, PartialCredentialsError, InvalidRegionError
 from dotenv import load_dotenv
 
 load_dotenv()
 
+# Clés AWS et configuration du bucket S3
 AWS_ACCESS_KEY = os.getenv('AWS_ACCESS_KEY')
 AWS_SECRET_KEY = os.getenv('AWS_SECRET_KEY')
 S3_BUCKET_NAME = os.getenv('S3_BUCKET_NAME')
@@ -25,6 +30,10 @@ s3_client = boto3.client(
 def upload_feedback_to_s3(username, feedback):
     """
     Envoie le feedback de l'utilisateur à un bucket S3.
+
+    Args:
+        username (str): Le nom de l'utilisateur.
+        feedback (str): Les commentaires de l'utilisateur.
     """
     try:
         # Créez un nom de fichier basé sur le nom d'utilisateur et la date
@@ -33,6 +42,7 @@ def upload_feedback_to_s3(username, feedback):
 
         content = f"Nom d'utilisateur: {username}\nFeedback: {feedback}"
 
+        # Upload du fichier de feedback sur S3
         s3_client.put_object(
             Bucket=S3_BUCKET_NAME,
             Key=file_name,
@@ -48,13 +58,12 @@ def upload_feedback_to_s3(username, feedback):
     except InvalidRegionError:
         st.error(f"Nom de région invalide : {S3_REGION_NAME}")
     except Exception as e:
-        st.error(f"Une erreur s'est produite : {e}")
+        st.error(f"Une erreur inattendue s'est produite : {e}")
 
 def show_feedback():
     """
     Affiche un formulaire pour envoyer des commentaires.
     """
-
     st.title("💬 Feedback des Utilisateurs")
     st.markdown("<br>", unsafe_allow_html=True)
     st.write("Vous pouvez envoyer vos commentaire via ce formulaire.")
@@ -65,12 +74,14 @@ def show_feedback():
     name = st.text_input("Votre nom")
     feedback = st.text_area("Vos commentaires / suggestions")
 
-
     if st.button("Envoyer le Feedback"):
         if name and feedback:
             upload_feedback_to_s3(name, feedback)
         else:
             st.error("Veuillez remplir tous les champs avant de soumettre.")
 
-    st.image("https://cdn-icons-png.flaticon.com/512/1256/1256650.png", width=100, caption="Feedback Utilisateurs")
-
+    st.image(
+        "https://cdn-icons-png.flaticon.com/512/1256/1256650.png",
+        width=100,
+        caption="Feedback Utilisateurs"
+    )
