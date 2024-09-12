@@ -131,8 +131,8 @@ Grâce ànos pipelines de collecte, stockage et fusion des données, les donnée
 2. **Consommation journalière et mouvements sociaux** (avec une colonne "mouvement social" indiquant les jours avec des événements).
 
 Ces deux groupes de données ont conduit à deux sous-projets distincts :
-- [Sous-projet sur la consommation régionale et les données météo](lien_readme_conso_meteo).
-- [Sous-projet sur la consommation et les mouvements sociaux](https://github.com/keagnon/DetectionAnomalie/blob/grace_clustering_mvt/ml_models/mouvements_consommation/Readme.md).
+- [Accéder au sous-projet sur la consommation régionale et les données météo](lien_readme_conso_meteo).
+- [Accéder au sous-projet sur la consommation et les mouvements sociaux](https://github.com/keagnon/DetectionAnomalie/blob/grace_clustering_mvt/ml_models/mouvements_consommation/Readme.md).
 
 Ces sous-projets, ainsi que notre interface Streamlit, utilisent **MLflow** pour le suivi et la mise en production des modèles. Un serveur **MLFlow** a été déployé sur une VM GCP pour permettre à l'équipe de suivre les performances des modèles.
 
