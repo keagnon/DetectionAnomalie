@@ -6,8 +6,14 @@
 analyse-fallback-blocks=no
 
 [MESSAGES CONTROL]
-# Liste des erreurs, avertissements, et conventions à ignorer
-disable=C0114, C0116, R0801, W1514, W0613, R0913,C0301, W0611, W0613, W0718, C0411, R0913, C0114, C0116, F0011
+disable=
+    C0301,  # Line too long
+    W0611,  # Unused import
+    W0613,  # Unused argument
+    W0718,  # Catching too general exception
+    C0411   # Wrong import order
+    R0913:  # Too many arguments
+    W1514:  # Using open without specifying encoding
 
 [FORMAT]
 # Max line length for Pylint (permissive)
