@@ -29,7 +29,7 @@ jobs:
       run: black .
 
     - name: Check type hints with mypy
-      run: mypy --explicit-package-bases data-collection-kedro/src/pipelines/etl_pipeline/nodes.py
+      run: mypy --explicit-package-bases data-collection-kedro/src/data_collection_kedro/pipelines/data_fusion_pipeline
 
     - name: Lint with pylint
       run: pylint **/*.py
