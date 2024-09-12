@@ -144,13 +144,13 @@ L'interface utilisateur finale a été développée avec **Streamlit**. Elle per
 
 ![First_page_dashboard_ui](images/dashboard/first_page.png)
 
-Cette interface est un sous projet de notre projet de détection d'anomalie. Elle est déployée localement et sur **Streamlit Community**. Pour accéder à ce sous projet et avoir plus de détails,cliquer sur [Sous projetl’interface Streamlit](https://github.com/keagnon/DetectionAnomalie/blob/grace_clustering_mvt/dashboard_ui/Readme.md).
+Cette interface est un sous projet de notre projet de détection d'anomalie. Elle est déployée localement et sur **Streamlit Community**. Pour accéder à ce sous projet et avoir plus de détails,cliquer sur [Sous projet Dashboard Streamlit](https://github.com/keagnon/DetectionAnomalie/blob/grace_clustering_mvt/dashboard_ui/Readme.md).
 
 ## 11. 📊 Ordonnancement des Données <a name="ordonnancement-des-données-avec-airflow"></a>
 Nous avons documenté plusieurs étapes critiques du projet :
 1. **Mise en place d’un serveur MLFlow sur GCP** : [documentation_mlflow](https://github.com/keagnon/DetectionAnomalie/blob/grace_clustering_mvt/documentation/etapes_mise_en_place.pdf)
 2. **Mise en place d’un serveur Airflow en local** : [documentation_airflow](https://github.com/keagnon/DetectionAnomalie/blob/grace_clustering_mvt/documentation/etapes_installation_airflow.txt)
-3. **Ordonnancement des Données avec Airflow** : [documentation_airflow](https://github.com/keagnon/DetectionAnomalie/blob/grace_clustering_mvt/documentation/Ordonnoncements_donn%C3%A9es.pdf)
+3. **Ordonnancement des Données** : [documentation_ordonnoncement](https://github.com/keagnon/DetectionAnomalie/blob/grace_clustering_mvt/documentation/Ordonnoncements_donn%C3%A9es.pdf)
 
 **Airflow** est utilisé pour orchestrer les pipelines de collecte de données via des DAGs. Un exemple de DAG est utilisé pour enrichir nos datasets avec des données d'API. Ce script Airflow s'exécute chaque jour à 20h pour une durée de 30 minutes. Voici des images de notre DAG et de notre interface Airflow :
 
@@ -160,7 +160,7 @@ Nous avons documenté plusieurs étapes critiques du projet :
 
 
 ## 12. 📜 Conclusion <a name="conclusion"></a>
-Le projet de détection d'anomalies dans la consommation d'énergie a permis de mettre en place une solution complète, modulaire et scalable. Grâce à l'intégration de diverses technologies comme Kedro, MLflow, Elasticsearch, et Streamlit, nous avons réussi à développer un système robuste capable d'identifier des anomalies dans les données de consommation énergétique. En combinant des données météorologiques, sociales et de consommation, nous avons pu générer des insights précieux qui aident les entreprises à optimiser leur utilisation d'énergie.
+Le projet de détection d'anomalies dans la consommation d'énergie a permis de mettre en place une solution complète, modulaire et scalable. Grâce à l'intégration de diverses technologies, nous avons réussi à développer un système robuste capable d'identifier des anomalies dans les données de consommation énergétique. En combinant des données météorologiques, sociales et de consommation, nous avons pu générer des insights précieux qui aident les entreprises à optimiser leur utilisation d'énergie.
 
 ## 13. ⚠️ Difficultés Rencontrées <a name="difficultés_rencontrées"></a>
 Malgré les succès obtenus, plusieurs défis ont été rencontrés au cours du projet :
