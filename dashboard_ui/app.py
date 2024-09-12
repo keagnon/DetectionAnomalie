@@ -1,6 +1,7 @@
 """
 Application Streamlit pour l'analyse de la consommation d'énergie et la détection d'anomalies.
-Ce module définit la structure de l'interface utilisateur et charge les pages en fonction de la sélection.
+Ce module définit la structure de l'interface utilisateur et charge les pages en fonction de
+la sélection.
 """
 
 import os
