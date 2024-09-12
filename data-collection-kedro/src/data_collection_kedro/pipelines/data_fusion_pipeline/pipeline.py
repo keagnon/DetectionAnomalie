@@ -1,8 +1,12 @@
 from kedro.pipeline import Pipeline, node
 
-from .nodes import (display_dataframes, load_collections,
-                    merge_data_store_in_elastic, normalize_columns,
-                    select_columns)
+from .nodes import (
+    display_dataframes,
+    load_collections,
+    merge_data_store_in_elastic,
+    normalize_columns,
+    select_columns,
+)
 
 
 def create_pipeline(**kwargs) -> Pipeline:

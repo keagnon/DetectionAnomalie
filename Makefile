@@ -1,41 +1,44 @@
-PYTHON_FILES = data-collection-kedro/src/data_collection_kedro/pipelines/
+# Variables pour les répertoires à vérifier
+MYPY_PATHS = data-collection-kedro/src/data_collection_kedro/pipelines/etl_pipeline \
+             data-collection-kedro/src/data_collection_kedro/pipelines/data_fusion_pipeline \
+             dashboard_ui/
 
-.PHONY: lint
-lint: pylint black-check isort-check mypy
+PYLINT_PATHS = data-collection-kedro/src/data_collection_kedro/pipelines/etl_pipeline \
+               data-collection-kedro/src/data_collection_kedro/pipelines/data_fusion_pipeline \
+               dashboard_ui/
 
-.PHONY: pylint
-pylint:
-	@echo "Running pylint..."
-	pylint $(PYTHON_FILES)
+ISORT_PATHS = data-collection-kedro/src/data_collection_kedro/pipelines/etl_pipeline \
+              data-collection-kedro/src/data_collection_kedro/pipelines/data_fusion_pipeline \
+              dashboard_ui/
 
-.PHONY: black-check
-black-check:
-	@echo "Running black check..."
-	black --check $(PYTHON_FILES)
+# Répertoire contenant les tests unitaires
+TEST_PATH = tests/
 
-.PHONY: isort-check
-isort-check:
-	@echo "Running isort check..."
-	isort --check-only $(PYTHON_FILES)
-
-.PHONY: mypy
+# Commande pour lancer mypy
 mypy:
-	@echo "Running mypy..."
-	mypy $(PYTHON_FILES)
+	mypy $(MYPY_PATHS)
 
-.PHONY: format
-format: black isort
+# Commande pour lancer Pylint
+pylint:
+	pylint $(PYLINT_PATHS)
 
-.PHONY: black
-black:
-	@echo "Running black..."
-	black $(PYTHON_FILES)
-
-.PHONY: isort
+# Commande pour trier les imports avec isort
 isort:
-	@echo "Running isort..."
-	isort $(PYTHON_FILES)
+	isort $(ISORT_PATHS)
 
-.PHONY: all
-all: lint coverage
-	@echo "All checks passed!"
+# Commande pour formater le code avec black
+black:
+	black $(PYLINT_PATHS)
+
+# Commande pour exécuter les tests unitaires avec pytest
+test:
+	pytest $(TEST_PATH) --disable-warnings
+
+# Commande pour exécuter tous les outils (mypy, pylint, isort, black, pytest)
+check: mypy pylint isort black test
+
+# Nettoyage des fichiers temporaires
+clean:
+	rm -rf __pycache__
+	rm -rf .mypy_cache
+	rm -rf .pytest_cache

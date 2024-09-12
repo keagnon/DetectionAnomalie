@@ -19,6 +19,7 @@ from page_tracking import open_mlflow_ui, show_tracking_page
 
 load_dotenv()
 
+
 def local_css(file_name):
     """
     Charge et applique un fichier CSS pour styliser l'application.
@@ -26,15 +27,16 @@ def local_css(file_name):
     Args:
         file_name (str): Le chemin vers le fichier CSS.
     """
-    with open(file_name, 'r', encoding='utf-8') as f:
-        st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
+    with open(file_name, "r", encoding="utf-8") as f:
+        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
 
 local_css("styles.css")
 
 # Configurer les credentials Google Cloud
-google_credentials = os.getenv('GOOGLE_APPLICATION_CREDENTIALS')
+google_credentials = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
 if google_credentials:
-    os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = google_credentials
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = google_credentials
 
 # structure de la page
 with st.sidebar:
@@ -46,7 +48,7 @@ with st.sidebar:
             "Prédiction Consommation",
             "Clustering",
             "Feedback",
-            "Tracking"
+            "Tracking",
         ],
         icons=[
             "cloud-sun",
@@ -54,7 +56,7 @@ with st.sidebar:
             "signal",
             "circle",
             "envelope",
-            "map"
+            "map",
         ],
         menu_icon="cast",
         default_index=0,
@@ -62,11 +64,13 @@ with st.sidebar:
             "container": {"padding": "5px", "background-color": "#ffffff"},
             "icon": {"color": "#333333", "font-size": "20px"},
             "nav-link": {
-                "font-size": "16px", "text-align": "left", "margin": "0px",
-                "--hover-color": "#f0f0f0"
+                "font-size": "16px",
+                "text-align": "left",
+                "margin": "0px",
+                "--hover-color": "#f0f0f0",
             },
-            "nav-link-selected": {"background-color": "#e74c3c", "color": "white"}
-        }
+            "nav-link-selected": {"background-color": "#e74c3c", "color": "white"},
+        },
     )
 
 # Afficher la page sélectionnée

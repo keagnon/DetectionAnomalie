@@ -10,6 +10,7 @@ from utils import local_css, configure_google_credentials
 local_css("styles.css")
 configure_google_credentials()
 
+
 def open_mlflow_ui():
     """
     Ouvre l'interface utilisateur MLflow dans un nouvel onglet du navigateur.

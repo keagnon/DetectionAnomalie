@@ -8,24 +8,29 @@ from datetime import datetime
 
 import boto3
 import streamlit as st
-from botocore.exceptions import NoCredentialsError, PartialCredentialsError, InvalidRegionError
+from botocore.exceptions import (
+    NoCredentialsError,
+    PartialCredentialsError,
+    InvalidRegionError,
+)
 from dotenv import load_dotenv
 
 load_dotenv()
 
 # Clés AWS et configuration du bucket S3
-AWS_ACCESS_KEY = os.getenv('AWS_ACCESS_KEY')
-AWS_SECRET_KEY = os.getenv('AWS_SECRET_KEY')
-S3_BUCKET_NAME = os.getenv('S3_BUCKET_NAME')
-S3_REGION_NAME = os.getenv('S3_REGION_NAME')
+AWS_ACCESS_KEY = os.getenv("AWS_ACCESS_KEY")
+AWS_SECRET_KEY = os.getenv("AWS_SECRET_KEY")
+S3_BUCKET_NAME = os.getenv("S3_BUCKET_NAME")
+S3_REGION_NAME = os.getenv("S3_REGION_NAME")
 
 # Initialisation du client S3 avec boto3.client
 s3_client = boto3.client(
-    's3',
+    "s3",
     aws_access_key_id=AWS_ACCESS_KEY,
     aws_secret_access_key=AWS_SECRET_KEY,
-    region_name=S3_REGION_NAME
+    region_name=S3_REGION_NAME,
 )
+
 
 def upload_feedback_to_s3(username, feedback):
     """
@@ -37,20 +42,17 @@ def upload_feedback_to_s3(username, feedback):
     """
     try:
         # Créez un nom de fichier basé sur le nom d'utilisateur et la date
-        timestamp = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
-        file_name = f'{username}_{timestamp}.txt'
+        timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+        file_name = f"{username}_{timestamp}.txt"
 
         content = f"Nom d'utilisateur: {username}\nFeedback: {feedback}"
 
         # Upload du fichier de feedback sur S3
         s3_client.put_object(
-            Bucket=S3_BUCKET_NAME,
-            Key=file_name,
-            Body=content,
-            ContentType='text/plain'
+            Bucket=S3_BUCKET_NAME, Key=file_name, Body=content, ContentType="text/plain"
         )
 
-        st.success('Feedback envoyé avec succès !')
+        st.success("Feedback envoyé avec succès !")
     except NoCredentialsError:
         st.error("Aucune information d'identification AWS fournie.")
     except PartialCredentialsError:
@@ -59,6 +61,7 @@ def upload_feedback_to_s3(username, feedback):
         st.error(f"Nom de région invalide : {S3_REGION_NAME}")
     except Exception as e:
         st.error(f"Une erreur inattendue s'est produite : {e}")
+
 
 def show_feedback():
     """
@@ -83,5 +86,5 @@ def show_feedback():
     st.image(
         "https://cdn-icons-png.flaticon.com/512/1256/1256650.png",
         width=100,
-        caption="Feedback Utilisateurs"
+        caption="Feedback Utilisateurs",
     )
