@@ -75,12 +75,11 @@ Nos cibles principales incluent :
 
 ## 3. 🎯 Objectifs du Projet <a name="objectifs-du-projet"></a>
 Notre projet se concentre sur six grands objectifs :
-1. **🔍 Détection des Anomalies** : Identifier en temps réel les anomalies de consommation et les cyberattaques potentielles.
-2. **📈 Prédiction des Incidents** : Utiliser des modèles prédictifs pour anticiper les risques futurs.
+1. **🔍 Détection des Anomalies** : Identifier en temps réel les anomalies de consommation.
+2. **📈 Prédiction de la consommation** : Utiliser des modèles prédictifs pour prédire la consommation.
 3. **⚡ Optimisation des Ressources** : Aider les entreprises à optimiser leur consommation énergétique.
 4. **🔄 Amélioration Continue** : Intégrer les retours des utilisateurs pour perfectionner notre système.
 5. **🌍 Réduction de l'Empreinte Carbone** : Calculer l'impact carbone de nos serveurs et de nos traitements de données.
-6. **📅 Prévision et Planification** : Utiliser des séries temporelles pour prédire les besoins futurs en énergie.
 
 ## 4. 🏗️ Architecture du Projet <a name="architecture-du-projet"></a>
 Le projet est divisé en plusieurs modules interconnectés, chacun jouant un rôle clé dans l'ensemble du système.
