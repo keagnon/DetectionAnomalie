@@ -53,8 +53,8 @@
 7. [🔄 Pipelines de Collecte de Données avec Kedro](#pipelines-de-collecte-de-données-avec-kedro)
 8. [💻 Traitement des Données et Utilisation de Google Colab](#traitement-des-données-et-utilisation-de-google-colab)
 9. [🤖 Modèles de Machine Learning](#modèles-de-machine-learning)
-10. [🖥️ Interface Utilisateur avec Streamlit](#interface-utilisateur-avec-streamlit)
-11. [📊 Ordonnancement des Données avec Airflow](#ordonnancement-des-données-avec-airflow)
+10. [🖥️ Interface Utilisateur](#interface-utilisateur-avec-streamlit)
+11. [📊 Ordonnancement des Données](#ordonnancement-des-données-avec-airflow)
 12. [📜 Conclusion](#conclusion)
 13. [⚠️ Difficultés Rencontrées](#difficultés_rencontrées)
 14. [🚀 Prochaines Étapes : Phase 2 - Forecasting ](#prochaine_etapes)
@@ -130,13 +130,13 @@ Grâce ànos pipelines de collecte, stockage et fusion des données, les donnée
 1. **Consommation journalière par région avec données météorologiques**.
 2. **Consommation journalière et mouvements sociaux** (avec une colonne "mouvement social" indiquant les jours avec des événements).
 
-Ces deux groupes de données ont conduit à deux sous-projets distincts. pour accéder à ces sous projets
+Ces deux groupes de données ont conduit à deux sous-projets distincts :
 - [Sous-projet sur la consommation régionale et les données météo](lien_readme_conso_meteo).
 - [Sous-projet sur la consommation et les mouvements sociaux](https://github.com/keagnon/DetectionAnomalie/blob/grace_clustering_mvt/ml_models/mouvements_consommation/Readme.md).
 
 Ces sous-projets, ainsi que notre interface Streamlit, utilisent **MLflow** pour le suivi et la mise en production des modèles. Un serveur **MLFlow** a été déployé sur une VM GCP pour permettre à l'équipe de suivre les performances des modèles.
 
-## 10. 🖥️ Interface Utilisateur avec Streamlit <a name="interface-utilisateur-avec-streamlit"></a>
+## 10. 🖥️ Interface Utilisateur <a name="interface-utilisateur-avec-streamlit"></a>
 L'interface utilisateur finale a été développée avec **Streamlit**. Elle permet :
 - Le téléchargement de datasets.
 - La visualisation des résultats des modèles de machine learning.
@@ -146,7 +146,7 @@ L'interface utilisateur finale a été développée avec **Streamlit**. Elle per
 
 Cette interface est un sous projet de notre projet de détection d'anomalie.Il est déployée localement et sur **Streamlit Community**. Pour accéder à ce sous projet et avoir plus de détails,cliquer sur [README de l’interface Streamlit](https://github.com/keagnon/DetectionAnomalie/blob/grace_clustering_mvt/dashboard_ui/Readme.md).
 
-## 11. 📊 Ordonnancement des Données avec Airflow <a name="ordonnancement-des-données-avec-airflow"></a>
+## 11. 📊 Ordonnancement des Données <a name="ordonnancement-des-données-avec-airflow"></a>
 Nous avons documenté plusieurs étapes critiques du projet :
 1. **Mise en place d’un serveur MLFlow sur GCP** : [documentation_mlflow](https://github.com/keagnon/DetectionAnomalie/blob/grace_clustering_mvt/documentation/etapes_mise_en_place.pdf)
 2. **Mise en place d’un serveur Airflow en local** : [documentation_airflow](https://github.com/keagnon/DetectionAnomalie/blob/grace_clustering_mvt/documentation/etapes_installation_airflow.txt)
