@@ -1,7 +1,3 @@
-Voici la version mise à jour de ton README avec des liens cliquables qui redirigent vers les sections appropriées :
-
----
-
 # 🚀 Détection d'Anomalies dans la Consommation d'Énergie
 
 ### Langage
@@ -48,20 +44,20 @@ Voici la version mise à jour de ton README avec des liens cliquables qui rediri
 
 
 ## 📑 Sommaire
-1. [🔍 Contexte du Projet](#1-contexte-du-projet)
-2. [🎯 Pourquoi ce projet ?](#2-pourquoi-ce-projet)
-3. [🎯 Objectifs du Projet](#3-objectifs-du-projet)
-4. [🏗️ Architecture du Projet](#4-architecture-du-projet)
-5. [⚙️ Intégration Continue (CI) et Tests Unitaires](#5-intégration-continue-ci-et-tests-unitaires)
-6. [📂 Structure du Projet](#6-structure-du-projet)
-7. [🔄 Pipelines de Collecte de Données avec Kedro](#7-pipelines-de-collecte-de-données-avec-kedro)
-8. [💻 Traitement des Données et Utilisation de Google Colab](#8-traitement-des-données-et-utilisation-de-google-colab)
-9. [🤖 Modèles de Machine Learning](#9-modèles-de-machine-learning)
-10. [🖥️ Interface Utilisateur avec Streamlit](#10-interface-utilisateur-avec-streamlit)
-11. [📊 Ordonnancement des Données avec Airflow](#11-ordonnancement-des-données-avec-airflow)
-12. [📜 Conclusion](#12-conclusion)
-13. [⚠️ Difficultés Rencontrées](#13-difficultés_rencontrées)
-14. [🚀 Prochaines Étapes : Phase 2 - Forecasting ](#14-prochaine_etapes)
+1. [🔍 Contexte du Projet](#contexte-du-projet)
+2. [🎯 Pourquoi ce projet ?](#pourquoi-ce-projet)
+3. [🎯 Objectifs du Projet](#objectifs-du-projet)
+4. [🏗️ Architecture du Projet](#architecture-du-projet)
+5. [⚙️ Intégration Continue (CI) et Tests Unitaires](#intégration-continue-ci-et-tests-unitaires)
+6. [📂 Structure du Projet](structure-du-projet)
+7. [🔄 Pipelines de Collecte de Données avec Kedro](pipelines-de-collecte-de-données-avec-kedro)
+8. [💻 Traitement des Données et Utilisation de Google Colab](traitement-des-données-et-utilisation-de-google-colab)
+9. [🤖 Modèles de Machine Learning](modèles-de-machine-learning)
+10. [🖥️ Interface Utilisateur avec Streamlit](interface-utilisateur-avec-streamlit)
+11. [📊 Ordonnancement des Données avec Airflow](ordonnancement-des-données-avec-airflow)
+12. [📜 Conclusion](conclusion)
+13. [⚠️ Difficultés Rencontrées](difficultés_rencontrées)
+14. [🚀 Prochaines Étapes : Phase 2 - Forecasting ](prochaine_etapes)
 
 
 
