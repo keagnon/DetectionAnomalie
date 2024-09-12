@@ -3,14 +3,15 @@ Module pour le clustering des données de consommation énergétique.
 """
 
 import os
-import streamlit as st
-import pandas as pd
-import numpy as np
+
 import mlflow
-from sklearn.preprocessing import StandardScaler
-from sklearn.decomposition import PCA
+import numpy as np
+import pandas as pd
 import plotly.express as px
-from utils import local_css, configure_google_credentials, preprocess_data
+import streamlit as st
+from sklearn.decomposition import PCA
+from sklearn.preprocessing import StandardScaler
+from utils import configure_google_credentials, local_css, preprocess_data
 
 local_css("styles.css")
 configure_google_credentials()

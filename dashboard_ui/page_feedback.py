@@ -4,15 +4,11 @@ et de les stocker dans un bucket S3 via l'API boto3.
 """
 
 import os
-from datetime import datetime
 
 import boto3
 import streamlit as st
-from botocore.exceptions import (
-    NoCredentialsError,
-    PartialCredentialsError,
-    InvalidRegionError,
-)
+from botocore.exceptions import InvalidRegionError, NoCredentialsError, PartialCredentialsError
+from datetime import datetime
 from dotenv import load_dotenv
 
 load_dotenv()

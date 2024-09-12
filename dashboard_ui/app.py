@@ -5,17 +5,16 @@ la sélection.
 """
 
 import os
-from dotenv import load_dotenv
 
 import streamlit as st
-from streamlit_option_menu import option_menu
-
+from dotenv import load_dotenv
 from page_anomalie_detection import show_anomalie_detection
 from page_clustering import show_clustering
 from page_feedback import show_feedback
 from page_prediction_conso import show_prediction_conso
 from page_prediction_meteo import show_prediction_meteo
 from page_tracking import open_mlflow_ui, show_tracking_page
+from streamlit_option_menu import option_menu
 
 load_dotenv()
 

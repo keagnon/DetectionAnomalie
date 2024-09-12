@@ -3,12 +3,12 @@ This is a boilerplate pipeline 'etl_pipeline'
 generated using Kedro 0.19.5
 """
 import os
-from typing import Any, Dict, List
 
 import pandas as pd
 import requests
 from dotenv import load_dotenv
 from pymongo import MongoClient
+from typing import Any, Dict, List
 
 from .transform import Transform
 

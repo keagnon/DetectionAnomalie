@@ -1,6 +1,6 @@
-import streamlit as st
 import numpy as np
-from utils import local_css, configure_google_credentials
+import streamlit as st
+from utils import configure_google_credentials, local_css
 
 local_css("styles.css")
 configure_google_credentials()

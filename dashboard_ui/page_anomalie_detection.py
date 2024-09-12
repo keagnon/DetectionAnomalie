@@ -3,12 +3,12 @@ Module pour la détection d'anomalies dans les données de consommation énergé
 """
 
 import os
-import streamlit as st
+
 import mlflow
 import pandas as pd
 import plotly.graph_objects as go
-
-from utils import local_css, configure_google_credentials, preprocess_data
+import streamlit as st
+from utils import configure_google_credentials, local_css, preprocess_data
 
 local_css("styles.css")
 configure_google_credentials()

@@ -23,6 +23,8 @@ jobs:
         pip install boto3 botocore
         python3 -m pip install types-requests
         pip install pytest pytest-cov  # Ajout de pytest et pytest-cov
+        pip install pytest-mock
+
 
     - name: Set up environment variables for testing
       run: |

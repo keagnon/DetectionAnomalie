@@ -3,9 +3,10 @@ Module pour afficher la page de tracking et ouvrir l'interface utilisateur de ML
 """
 
 import os
-import webbrowser
+
 import streamlit as st
-from utils import local_css, configure_google_credentials
+import webbrowser
+from utils import configure_google_credentials, local_css
 
 local_css("styles.css")
 configure_google_credentials()

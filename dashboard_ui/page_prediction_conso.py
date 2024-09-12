@@ -4,13 +4,13 @@ Il permet d'utiliser un modèle MLflow pour faire des prédictions basées sur l
 fournies par l'utilisateur.
 """
 
-from datetime import datetime
 import os
-import streamlit as st
-import pandas as pd
-import mlflow
 
-from utils import local_css, configure_google_credentials
+import mlflow
+import pandas as pd
+import streamlit as st
+from datetime import datetime
+from utils import configure_google_credentials, local_css
 
 local_css("styles.css")
 configure_google_credentials()
