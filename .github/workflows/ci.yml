@@ -21,9 +21,6 @@ jobs:
         pip install -r requirements_test.txt
         pip install boto3 botocore
         python3 -m pip install types-requests
-        mypy --install-types
-
-
 
     - name: Check import formatting with isort
       run: isort .
