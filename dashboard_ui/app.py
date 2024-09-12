@@ -23,7 +23,7 @@ def local_css(file_name):
     """
     Charge et applique un fichier CSS pour styliser l'application.
 
-    Args:
+    ::Params:
         file_name (str): Le chemin vers le fichier CSS.
     """
     with open(file_name, "r", encoding="utf-8") as f:
