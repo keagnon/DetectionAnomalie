@@ -10,7 +10,9 @@ disable=
     C0411,  # Wrong import order
     R0913,  # Too many arguments
     W1514,  # Using open without specifying encoding
-    E0401   # Unable to import (import-error)
+    E0401,  # Unable to import (import-error)
+    C0114,  # Missing module docstring
+    C0116   # Missing function or method docstring
 
 [FORMAT]
 max-line-length=130

@@ -94,7 +94,7 @@ Le projet est divisé en plusieurs modules interconnectés, chacun jouant un rô
 ![Workflow_géneral](images/Workflow.png)
 
 ## 5. ⚙️ Intégration Continue (CI) et Tests Unitaires <a name="intégration-continue-ci-et-tests-unitaires"></a>
-Nous avons mis en place une CI via GitHub Actions, qui exécute des tests unitaires pour chaque sous-projet à chaque commit.
+Nous avons mis en place une CI via **GitHub Actions**, qui exécute des tests unitaires pour chaque sous-projet à chaque commit.
 
 ### Outils utilisés pour la CI :
 - **🧪 Pytest** pour les tests unitaires
@@ -103,7 +103,7 @@ Nous avons mis en place une CI via GitHub Actions, qui exécute des tests unitai
 
 Le pipeline de CI est disponible dans le répertoire `.github/workflows`.
 
-Chaque module du projet est containerisé avec Docker pour garantir la portabilité et la cohérence des environnements. Les fichiers `.env` sont utilisés pour configurer les variables d'environnement de manière flexible.
+Chaque module du projet est `containerisé avec Docker` pour garantir la portabilité et la cohérence des environnements. Les fichiers `.env` sont utilisés pour configurer les variables d'environnement de manière flexible.
 
 ## 6. 📂 Structure du Projet <a name="structure-du-projet"></a>
 (Insérer la structure détaillée du projet ici)
