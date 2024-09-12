@@ -2,6 +2,7 @@
 This is a boilerplate pipeline 'etl_pipeline'
 generated using Kedro 0.19.5
 """
+# mypy: ignore-errors
 import os
 from typing import Any, Dict, List
 
