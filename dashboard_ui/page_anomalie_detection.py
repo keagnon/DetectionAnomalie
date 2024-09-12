@@ -53,7 +53,8 @@ def preprocess_data(file_path):
     df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
     df['date'] = pd.to_datetime(df['date'], errors='coerce')
     hourly_columns = [f'{hour:02d}:00' for hour in range(24)]
-    df[hourly_columns] = df[hourly_columns].apply(pd.to_numeric, errors='coerce').fillna(df[hourly_columns].mean())
+    df[hourly_columns] = df[hourly_columns].apply(pd.to_numeric, errors='coerce')\
+        .fillna(df[hourly_columns].mean())
     df['consommation_moyenne_journalière'] = df[hourly_columns].mean(axis=1)
     return df, hourly_columns
 
@@ -71,7 +72,8 @@ def display_anomalies_info(df):
 
     st.markdown(
         f"""
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <div style="display: flex; justify-content: space-between; align-items: center;
+        margin-bottom: 20px;">
             <div>
                 <strong>Nombre d'anomalies :</strong>
                 <span style="color: green;">{anomalies_count}</span>
@@ -142,6 +144,7 @@ def show_anomalie_detection():
     """
     st.title("💬 Détection d'anomalies dans les données")
     st.markdown("<br>", unsafe_allow_html=True)
+    st.markdown("<br>", unsafe_allow_html=True)
 
     uploaded_file = st.file_uploader("Choisissez un fichier CSV", type=["csv"])
 
@@ -159,7 +162,10 @@ def show_anomalie_detection():
             selected_columns = ['date', 'région', 'consommation_moyenne_journalière', 'statut', 'anomaly']
             st.dataframe(df[selected_columns].style.apply(highlight_anomalies, axis=1), width=1400)
 
-            st.markdown('<div style="text-align: center;"><em>Tableau des anomalies détectées</em></div>', unsafe_allow_html=True)
+            st.markdown(
+                '<div style="text-align: center;"><em>Tableau des anomalies détectées</em></div>',
+                unsafe_allow_html=True
+            )
 
             # Filtrer les lignes avec anomalies
             anomalies_df = df[df['anomaly'] == -1]
