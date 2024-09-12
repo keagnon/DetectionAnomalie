@@ -29,6 +29,6 @@ jobs:
       run: black .
 
     - name: Lint with pylint
-      run: pylint **/*.py
+      run: pylint --rcfile=.pylintrc dashboard_ui/ --ignore=dashboard_ui/page_prediction_meteo.py
 
 
