@@ -7,8 +7,11 @@ analyse-fallback-blocks=no
 
 [MESSAGES CONTROL]
 # Liste des erreurs, avertissements, et conventions à ignorer
-disable=C0114, C0116, R0801, W1514, W0613, R0913
+disable=C0114, C0116, R0801, W1514, W0613, R0913,C0301, W0611, W0613, W0718, C0411, R0913, C0114, C0116, F0011
 
+[FORMAT]
+# Max line length for Pylint (permissive)
+max-line-length=130
 
 # C0114: Missing module docstring
 # C0116: Missing function or method docstring
