@@ -111,24 +111,22 @@ Chaque module du projet est `containerisé avec Docker` pour garantir la portabi
 Nous utilisons un **🛠️ Makefile** pour automatiser les processus de build, de tests et faciliter la gestion de la CI locale. De plus, nos variables suivre le style `snake_case` .
 
 ## 7. 🔄 Pipelines de Collecte de Données avec Kedro <a name="pipelines-de-collecte-de-données-avec-kedro"></a>
-Cette partie est un sous projet développer pour la partie ingestion des données est inclus dans notre projet de détection d'anomalie .
+Cette partie est un sous projet développer pour la partie ingestion des données et est inclus dans notre projet de détection d'anomalie .
 Deux pipelines Kedro ont été mis en place :
 1. **Pipeline ETL** : Ce pipeline collecte, transforme et stocke les données dans MongoDB.
-2. **Pipeline d'Enrichissement** : Ce pipeline charge les données, les fusionne et les stocke dans Elasticsearch.
+2. **Pipeline data fusion** : Ce pipeline charge les données, les fusionne et les stocke dans Elasticsearch.
 
-Pour accéder à ce sous projet et àvoir plus de détails, consultez le [README de la partie Kedro](https://github.com/keagnon/DetectionAnomalie/blob/grace_clustering_mvt/data-collection-kedro/README.md).
+Pour accéder à ce sous projet et àvoir plus de détails, consultez le [Accéder au sous projet data-collection-kedro](https://github.com/keagnon/DetectionAnomalie/blob/grace_clustering_mvt/data-collection-kedro/README.md).
 
 
 ## 8. 💻 Traitement des Données et Utilisation de Google Colab <a name="traitement-des-données-et-utilisation-de-google-colab"></a>
-Certaines données volumineuses ont été traitées avec **Google Colab**, notamment pour les membres de l'équipe ayant des limitations matérielles. Voici une capture d'écran de nos notebooks sur Google Colab ainsi que notre bucket GCP pour le stockage des données et artefacts. Nous
-
- utilisons MLflow pour le tracking de nos modèles :
+Certaines données volumineuses ont été traitées avec **Google Colab**, notamment pour les membres de l'équipe ayant des limitations matérielles. Voici une capture d'écran de nos notebooks sur Google Colab ainsi que notre bucket GCP pour le stockage des données et artefacts.
 
 ![Capture du Bucket GCP](images/bucket.png)
 ![Capture google colab GCP](images/google_colab.png)
 
 ## 9. 🤖 Modèles de Machine Learning <a name="modèles-de-machine-learning"></a>
-Les données ont été divisées en deux groupes :
+Grâce ànos pipelines de collecte, stockage et fusion des données, les données ont été divisées en deux groupes :
 1. **Consommation journalière par région avec données météorologiques**.
 2. **Consommation journalière et mouvements sociaux** (avec une colonne "mouvement social" indiquant les jours avec des événements).
 

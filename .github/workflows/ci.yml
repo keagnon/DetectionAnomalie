@@ -1,4 +1,4 @@
-name: Python Lint and Type Check
+name: Python Lint, Type Check, and Tests
 
 on: [push, pull_request]
 
@@ -21,6 +21,7 @@ jobs:
         pip install -r requirements_test.txt
         pip install boto3 botocore
         python3 -m pip install types-requests
+        pip install pytest pytest-cov  # Ajout de pytest et pytest-cov
 
     - name: Check import formatting with isort
       run: isort .
@@ -30,3 +31,18 @@ jobs:
 
     - name: Lint with pylint
       run: pylint --rcfile=.pylintrc dashboard_ui/ --ignore=dashboard_ui/page_prediction_meteo.py
+
+    - name: Run tests with pytest
+      run: |
+        pytest --disable-warnings --maxfail=5  # Exécuter les tests dans le dossier tests/
+
+    - name: Generate full coverage report
+      run: |
+        pytest --cov=. tests/ --cov-report=xml  # Couverture de tout le code et génération d'un rapport XML
+        pytest --cov=. tests/ --cov-report=html  # Génération d'un rapport HTML pour inspection visuelle
+
+    - name: Upload coverage report artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: coverage-report
+        path: htmlcov/  # Téléverse le rapport de couverture HTML en tant qu'artéfact
