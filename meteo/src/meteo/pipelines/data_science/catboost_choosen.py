@@ -1,32 +1,33 @@
 import os
 import pandas as pd
 from sklearn.model_selection import train_test_split, RandomizedSearchCV
-from sklearn.metrics import mean_squared_error, r2_score
+from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_error
 from catboost import CatBoostRegressor
 import mlflow
 from mlflow.tracking import MlflowClient
 from dotenv import load_dotenv
+from codecarbon import EmissionsTracker  # Importer CodeCarbon
 
-# Charger les variables d'environnement depuis le fichier .env
+"Charger les variables d'environnement depuis le fichier .env"
 load_dotenv()
 
-# Chargement des données
+" Chargement des données "
 data = pd.read_csv('/home/adib/DetectionAnomalie/meteo/data/03_primary/preprocessed_energy_data.csv')
 
-# Conversion des colonnes entières en flottants pour éviter les problèmes de valeurs manquantes
+" Conversion des colonnes entières en flottants pour éviter les problèmes de valeurs manquantes "
 data = data.astype({'TempMax_Deg': 'float64', 'TempMin_Deg': 'float64', 'Wind_kmh': 'float64', 
                     'Wet_percent': 'float64', 'Visibility_km': 'float64', 'CloudCoverage_percent': 'float64'})
 
-# Division des données
+" Division des données "
 X = data[['TempMax_Deg', 'TempMin_Deg', 'Wind_kmh', 'Wet_percent', 'Visibility_km', 'CloudCoverage_percent']]
 y = data['Consommation journalière (MWh - PCS 0°C)']
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-# Initialisation du client MLflow
+"Initialisation du client MLflow" 
 experiment_id = 6
 client = MlflowClient()
 
-# Définition des hyperparamètres pour la recherche aléatoire
+"Définition des hyperparamètres pour la recherche aléatoire"
 param_grid = {
     'iterations': [500, 1000, 1500],
     'learning_rate': [0.005, 0.01, 0.03],
@@ -38,8 +39,12 @@ param_grid = {
     'feature_border_type': ['GreedyLogSum', 'Median']
 }
 
-# Fonction d'entraînement et d'évaluation du modèle CatBoost avec RandomizedSearchCV
+" Fonction d'entraînement et d'évaluation du modèle CatBoost avec RandomizedSearchCV"
 def train_and_evaluate_catboost(X_train, X_test, y_train, y_test, param_grid):
+    # Initialiser le tracker d'émissions
+    tracker = EmissionsTracker()
+    tracker.start()
+
     with mlflow.start_run(run_name="CatBoost Regressor (Tuned)", experiment_id=experiment_id) as run:
         mlflow.sklearn.autolog()  # Enregistrer automatiquement les paramètres et les métriques
 
@@ -87,6 +92,10 @@ def train_and_evaluate_catboost(X_train, X_test, y_train, y_test, param_grid):
         model_version = mlflow.register_model(model_uri, "CatBoostEnergyModel")
 
         print(f"Model registered with version: {model_version.version}")
+    
+    # Arrêter le tracker et obtenir les émissions
+    emissions = tracker.stop()
+    print(f"Emissions (kg CO₂eq): {emissions}")
 
 # Entraîner et évaluer le modèle CatBoost amélioré
 train_and_evaluate_catboost(X_train, X_test, y_train, y_test, param_grid)
