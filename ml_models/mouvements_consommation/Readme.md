@@ -8,6 +8,9 @@
 ![Streamlit](https://img.shields.io/badge/Streamlit-1.38.0-red?style=for-the-badge&logo=streamlit)
 ![MLflow](https://img.shields.io/badge/MLflow-v2.16.0-orange?style=for-the-badge&logo=mlflow)
 
+### Empreinte Carbone
+![CodeCarbon](https://img.shields.io/badge/CODECARBON-v1.2.0-brightgreen)
+
 ### 📊 Machine Learning & Data Science
 ![KMeans](https://img.shields.io/badge/KMeans-Clustering-yellow?style=for-the-badge)
 ![DBSCAN](https://img.shields.io/badge/DBSCAN-Clustering-green?style=for-the-badge)

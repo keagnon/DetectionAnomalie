@@ -12,7 +12,10 @@
 ![Pre-commit Hooks](https://img.shields.io/badge/Pre--commit--hooks-4.6.0-blue?style=for-the-badge&logo=pre-commit)
 ![GitPython](https://img.shields.io/badge/GitPython-3.1.43-orange?style=for-the-badge&logo=git)
 ![Cookiecutter](https://img.shields.io/badge/Cookiecutter-2.6.0-green?style=for-the-badge&logo=cookiecutter)
-![CodeCarbon](https://img.shields.io/badge/CodeCarbon-2.7.1-lightgreen?style=for-the-badge&logo=codecarbon)
+
+### Empreinte Carbone
+
+![CodeCarbon](https://img.shields.io/badge/CODECARBON-v1.2.0-brightgreen)
 
 
 ### Cloud & Bases de Données
