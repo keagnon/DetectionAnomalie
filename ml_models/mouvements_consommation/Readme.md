@@ -36,7 +36,7 @@ Le suivi et la gestion des modèles sont assurés via **MLflow**, qui permet une
 1. [📦 Installation](#installation)
 2. [🚀 Utilisation de l'Application](#utilisation)
 3. [📁 Structure du Projet](#structure-du-projet)
-4. [🌍 Calcul empreinte carbone](#empreinte-carbone)
+4. [🌍 Calcul empreinte carbone](#empreinte_carbone)
 5. [🖼️ Interface Utilisateur](#interface-utilisateur)
 6. [📈 Intégration avec MLflow](#intégration-mlflow)
 7. [🖼️ Captures d'écran](#captures-d’écran)
@@ -134,11 +134,11 @@ mouvements_consommation/
 
 ```
 
-## 🌍 Calcul empreinte carbone<a name="empreinte-carbone"></a>
+## 🌍 Calcul empreinte carbone <a name="empreinte_carbone"></a>
 
 Dans le cadre de ce sous-projet dédié à la **détection d'anomalies** dans la consommation énergétique, nous avons intégré le suivi de l'empreinte carbone à travers **CodeCarbon**. Ce suivi a permis de mesurer l'impact environnemental des différents algorithmes utilisés, tels que **Isolation Forest** pour la détection d'anomalies, et les méthodes de **clustering** comme **K-means** et **DBSCAN**. De plus, des modèles de régression tels que **Ridge Regression** et **Random Forest**, qui prennent en compte des facteurs comme les **mouvements sociaux**, ont été évalués en termes d'émissions de CO2eq lors de leur exécution.
 
-Les résultats de ces suivis sont stockés dans des logs pour analyser et optimiser l'efficacité énergétique de chaque composant.[voir section capture d'écran](#captures-d’écran)
+Les résultats de ces suivis sont stockés dans des logs pour analyser et optimiser l'efficacité énergétique de chaque composant. [voir section capture d'écran](#captures-d’écran)
 
 
 ## 🖼️ Interface Utilisateur <a name="interface-utilisateur"></a>
