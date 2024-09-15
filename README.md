@@ -13,7 +13,10 @@
 ![Kedro Badge](https://img.shields.io/badge/Kedro-0.19.8-brightgreen)
 ![Pre-commit Badge](https://img.shields.io/badge/Pre--Commit--Hooks-4.6.0-blue)
 ![GitPython Badge](https://img.shields.io/badge/GitPython-3.1.43-orange)
-![CodeCarbon](https://img.shields.io/badge/CodeCarbon-2.7.1-lightgreen?style=for-the-badge&logo=codecarbon)
+
+### Empreinte Carbone
+
+![CodeCarbon](https://img.shields.io/badge/CODECARBON-v1.2.0-brightgreen)
 
 ### Machine Learning & Data Science
 
@@ -131,7 +134,7 @@ Deux pipelines Kedro ont été mis en place :
 1. **Pipeline ETL** : Ce pipeline collecte, transforme et stocke les données dans MongoDB.
 2. **Pipeline data fusion** : Ce pipeline charge les données, les fusionne et les stocke dans Elasticsearch.
 
-Pour accéder à ce sous projet et àvoir plus de détails, consultez le [Accéder au sous projet data-collection-kedro](https://github.com/keagnon/DetectionAnomalie/blob/grace_clustering_mvt/data-collection-kedro/README.md).
+Pour accéder à ce sous projet et àvoir plus de détails, consultez le [Accéder au sous projet data-collection-kedro](https://github.com/keagnon/DetectionAnomalie/blob/main/data-collection-kedro/README.md).
 
 
 ## 9. 💻 Traitement des Données et Utilisation de Google Colab <a name="traitement-des-données-et-utilisation-de-google-colab"></a>
@@ -147,7 +150,7 @@ Grâce ànos pipelines de collecte, stockage et fusion des données, les donnée
 
 Ces deux groupes de données ont conduit à deux sous-projets distincts :
 - [Accéder au sous-projet sur la consommation régionale et les données météo](lien_readme_conso_meteo).
-- [Accéder au sous-projet sur la consommation et les mouvements sociaux](https://github.com/keagnon/DetectionAnomalie/blob/grace_clustering_mvt/ml_models/mouvements_consommation/Readme.md).
+- [Accéder au sous-projet sur la consommation et les mouvements sociaux](https://github.com/keagnon/DetectionAnomalie/blob/main/ml_models/mouvements_consommation/Readme.md).
 
 Ces sous-projets, ainsi que notre interface Streamlit, utilisent **MLflow** pour le suivi et la mise en production des modèles. Un serveur **MLFlow** a été déployé sur une VM GCP pour permettre à l'équipe de suivre les performances des modèles.
 
@@ -159,15 +162,16 @@ L'interface utilisateur finale a été développée avec **Streamlit**. Elle per
 
 ![First_page_dashboard_ui](images/dashboard/first_page.png)
 
-Cette interface est un sous projet de notre projet de détection d'anomalie. Elle est déployée localement et sur **Streamlit Community**. Pour accéder à ce sous projet et avoir plus de détails,cliquer sur [Sous projet Dashboard Streamlit](https://github.com/keagnon/DetectionAnomalie/blob/grace_clustering_mvt/dashboard_ui/Readme.md).
+Cette interface est un sous projet de notre projet de détection d'anomalie. Elle est déployée localement et sur **Streamlit Community**. Pour accéder à ce sous projet et avoir plus de détails,cliquer sur [Sous projet Dashboard Streamlit](https://github.com/keagnon/DetectionAnomalie/blob/main/dashboard_ui/Readme.md).
 
 ## 12. 📊 Documentation<a name="documentation"></a>
 Nous avons documenté plusieurs étapes critiques du projet :
-1. **Mise en place d’un serveur MLFlow sur GCP** : [documentation_mlflow](https://github.com/keagnon/DetectionAnomalie/blob/grace_clustering_mvt/documentation/etapes_mise_en_place.pdf)
-2. **Mise en place d’un serveur Airflow en local** : [documentation_airflow](https://github.com/keagnon/DetectionAnomalie/blob/grace_clustering_mvt/documentation/etapes_installation_airflow.txt)
-3. **Ordonnancement des Données** : [documentation_ordonnoncement](https://github.com/keagnon/DetectionAnomalie/blob/grace_clustering_mvt/documentation/Ordonnoncements_donn%C3%A9es.pdf)
-4. **Documentation amazone** : [documentation_amazone](https://github.com/keagnon/DetectionAnomalie/blob/grace_clustering_mvt/documentation/Documentation_amazone S3.odt)
-4. **Mise en place elastic search** : [documentation_elastic](https://github.com/keagnon/DetectionAnomalie/blob/grace_clustering_mvt/documentation/Documentation mise en place elastic.pdf)
+1. **Mise en place d’un serveur MLFlow sur GCP** : [documentation_mlflow](https://github.com/keagnon/DetectionAnomalie/blob/main/documentation/etapes_mise_en_place.pdf)
+2. **Mise en place d’un serveur Airflow en local** : [documentation_airflow](https://github.com/keagnon/DetectionAnomalie/blob/main/documentation/etapes_installation_airflow.txt)
+3. **Ordonnancement des Données** : [documentation_ordonnoncement](https://github.com/keagnon/DetectionAnomalie/blob/main/documentation/Ordonnoncements_donn%C3%A9es.pdf)
+4. **Documentation amazone** : [documentation_amazone](https://github.com/keagnon/DetectionAnomalie/blob/main/documentation/Documentation_amazone%20S3.odt)
+4. **Mise en place elastic search** : [documentation_elastic](https://github.com/keagnon/DetectionAnomalie/blob/main/documentation/Documentation%20mise%20en%20place%20elastic.pdf)
+4. **Installation et configuration streamlit** : [documentation_elastic](https://github.com/keagnon/DetectionAnomalie/blob/main/documentation/Documentation%20mise%20en%20place%20elastic.pdf)
 
 **Airflow** est utilisé pour orchestrer les pipelines de collecte de données via des DAGs. Un exemple de DAG est utilisé pour enrichir nos datasets avec des données d'API. Ce script Airflow s'exécute toute les 30 minutes. Voici des images de notre DAG et de notre interface Airflow :
 

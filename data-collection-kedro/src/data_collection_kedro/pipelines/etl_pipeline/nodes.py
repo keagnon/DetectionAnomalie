@@ -25,7 +25,7 @@ from typing import Any, Dict, List
 from codecarbon import EmissionsTracker
 from .transform import Transform
 
-log_dir = "logs/carbon_logs"
+log_dir = "logs/logs_etl_pipeline"
 if not os.path.exists(log_dir):
     os.makedirs(log_dir)
 
