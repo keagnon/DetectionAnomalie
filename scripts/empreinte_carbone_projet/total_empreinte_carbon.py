@@ -15,15 +15,14 @@ L'empreinte carbone totale est affichée en kgCO2eq.
 import pandas as pd
 import os
 
-# Liste des fichiers CSV
 csv_files = [
-    'emissions/emissions_catboosting.csv',
-    'emissions/emissions_data_fusion_pipeline.csv',
-    'emissions/emissions_dbscan.csv',
-    'emissions/emissions_etl_pipeline.csv',
-    'emissions/emissions_isolationforest.csv',
-    'emissions/emissions_random_forest.csv',
-    'emissions/emissions_ridge_model.csv'
+    'scripts/empreinte_carbone_projet/emissions/emissions_catboosting.csv',
+    'scripts/empreinte_carbone_projet/emissions/emissions_data_fusion_pipeline.csv',
+    'scripts/empreinte_carbone_projet/emissions/emissions_dbscan.csv',
+    'scripts/empreinte_carbone_projet/emissions/emissions_etl_pipeline.csv',
+    'scripts/empreinte_carbone_projet/emissions/emissions_isolationforest.csv',
+    'scripts/empreinte_carbone_projet/emissions/emissions_random_forest.csv',
+    'scripts/empreinte_carbone_projet/emissions/emissions_ridge_model.csv'
 ]
 
 def calculate_total_emissions(files, use_last_run=True):
@@ -58,4 +57,4 @@ def calculate_total_emissions(files, use_last_run=True):
 
 total_emissions = calculate_total_emissions(csv_files, use_last_run=True)
 
-print(f"\nEmpreinte carbone totale du projet: {total_emissions:.2f} kgCO2eq")
+print(f"\nEmpreinte carbone totale du projet: {total_emissions:.5f} kgCO2eq")
