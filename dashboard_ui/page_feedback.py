@@ -63,6 +63,7 @@ def show_feedback():
     """
     Affiche un formulaire pour envoyer des commentaires.
     """
+    st.markdown("<br>", unsafe_allow_html=True)
     st.title("💬 Feedback des Utilisateurs")
     st.markdown("<br>", unsafe_allow_html=True)
     st.write("Vous pouvez envoyer vos commentaire via ce formulaire.")

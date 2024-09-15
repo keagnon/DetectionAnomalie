@@ -71,9 +71,10 @@ def show_prediction_conso():
     """
     Affiche la page de prédiction de la consommation journalière avec mouvements sociaux.
     """
-    st.title("⚡ Prédiction de la Consommation Journalière avec Mouvement Social")
     st.markdown("<br>", unsafe_allow_html=True)
-    st.write("Ceci est la page de Prédiction de la consommation.")
+    st.title("⚡ Prédiction d'énergie consommée ")
+    st.markdown("<br>", unsafe_allow_html=True)
+    st.write("Dans cette section, nous faisons la prédiction en prenant en compte les mouvements sociaux.")
     st.markdown("<br>", unsafe_allow_html=True)
     st.markdown("<br>", unsafe_allow_html=True)
 

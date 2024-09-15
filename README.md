@@ -160,7 +160,7 @@ L'interface utilisateur finale a été développée avec **Streamlit**. Elle per
 - La visualisation des résultats des modèles de machine learning.
 - La collecte de feedbacks utilisateurs.
 
-![First_page_dashboard_ui](images/dashboard/first_page.png)
+![First_page_dashboard_ui](images/dashboard/interface_utilisateur.png)
 
 Cette interface est un sous projet de notre projet de détection d'anomalie. Elle est déployée localement et sur **Streamlit Community**. Pour accéder à ce sous projet et avoir plus de détails,cliquer sur [Sous projet Dashboard Streamlit](https://github.com/keagnon/DetectionAnomalie/blob/main/dashboard_ui/Readme.md).
 
