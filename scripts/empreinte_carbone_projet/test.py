@@ -8,7 +8,7 @@ peut choisir de soit :
 2. Utiliser tous les runs de chaque fichier et les additionner.
 
 Retour :
-- L'empreinte carbone totale est affichée en kgCO2eq.
+L'empreinte carbone totale est affichée en kgCO2eq.
 
 """
 
@@ -29,7 +29,7 @@ csv_files = [
 def calculate_total_emissions(files, use_last_run=True):
     """
     Calcule l'empreinte carbone totale d'un projet à partir de plusieurs fichiers d'émissions.
-    ::parms:
+    ::params:
         files : Liste des fichiers CSV contenant les émissions carbone.
         use_last_run : Booléen pour indiquer si on doit utiliser uniquement le dernier run de chaque fichier.
     """
