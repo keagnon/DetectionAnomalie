@@ -46,8 +46,6 @@ Les modèles sont gérés via MLflow, offrant une traçabilité complète des ve
 
 Voici l'arborescence du projet pour vous guider à travers les différentes parties :
 
-bash
-
 📦 DETECTIONANOMALIE/
 ├── 📁 conf/                      # Fichiers de configuration
 ├── 📁 data/                      # Données utilisées dans le projet
@@ -68,8 +66,9 @@ bash
 │   │   │   ├── 📁 data_processing/  # Scripts de traitement des données
 │   │   │   ├── 📁 data_science/     # Scripts liés aux modèles
 │   │   │   └── 📁 data_viz/         # Scripts de visualisation
-├── 📁 mlflow-artifacts/          # Artifacts générés par MLflow
-└── 📁 mlruns/                    # Logs et informations sur les runs MLflow
+├── 📁 mlflow-artifacts/          # Artifacts générés par MLFlow
+└── 📁 mlruns/                    # Logs et informations sur les runs MLFlow
+
 
 # 📈 Intégration avec MLflow
 
