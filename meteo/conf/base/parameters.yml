@@ -1,0 +1,7 @@
+box_output_path: "data/08_reporting/box_plots"
+scatter_output_path: "data/08_reporting/scatter_plot.png"
+correlation_output_path: "data/08_reporting/correlation_matrix.png"
+output_path: "data/08_reporting/xgb_predictions.csv"
+
+test_size: 0.2
+random_state: 42

@@ -1,0 +1,34 @@
+preprocessed_energy_data:
+  type: pandas.CSVDataset
+  filepath: data/03_primary/preprocessed_energy_data.csv
+
+X_train:
+  type: MemoryDataset
+
+X_test:
+  type: MemoryDataset
+
+y_train:
+  type: MemoryDataset
+
+y_test:
+  type: MemoryDataset
+
+linear_model:
+  type: MemoryDataset
+
+rf_model:
+  type: MemoryDataset
+
+linear_rmse:
+  type: MemoryDataset
+
+rf_rmse:
+  type: MemoryDataset
+
+rf_predictions:
+  type: MemoryDataset
+
+output_predictions:
+  type: pandas.CSVDataset
+  filepath: data/03_primary/output_prediction.csv
