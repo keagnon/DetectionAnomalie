@@ -48,8 +48,8 @@ Cette partie de notre projet de **détection d'anomalies** se concentre sur les 
    - [☁️ Prédiction de la cosommation en prenant en compte les conditions météorologiques](#prédiction-météo)
    - [📝 Feedback utilisateur](#feedback-utilisateur)
    - [📈 Suivi des résultats et des modèles](#suivi-des-résultats-et-des-modèles)
-5. [📁 Structure du projet](#structure-du-projet)
-6. [🖼️ Captures d'écran](#captures-d’écran)
+4. [📁 Structure du projet](#structure-du-projet)
+5. [🖼️ Captures d'écran](#captures-d’écran)
 
 
 ## 📦 Installation <a name="installation"></a>
