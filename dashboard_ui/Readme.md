@@ -117,7 +117,7 @@ Accédez à l'application via [http://localhost:8501](http://localhost:8501).
 
 ### 🔍 Détection d'anomalies <a name="détection-danomalies"></a>
 
-La section **détection d'anomalies** utilise des modèles comme **Isolation Forest** pour détecter des comportements anormaux dans les données de consommation. Lorsque des données sont chargées via l'interface, un tableau s'affiche avec les données chargées. Les anomalies sont soulignées en rouge.
+La section **détection d'anomalies** utilise des modèles comme **Isolation Forest** pour détecter des comportements anormaux dans les données de consommation. Lorsque des données sont chargées via l'interface, un tableau s'affiche avec les données chargées. Les anomalies sont soulignées en <span style="color:red">rouge</span>.
 
 ![Détection d'anomalies](images/anomaly_detection/anomaly1.png)
 
@@ -129,13 +129,13 @@ Dans cette section, nous utilisons des algorithmes de clustering tels que **DBSC
 
 ### 🔮 Prédiction de la consommation prise en compte des mouvements sociaux <a name="prédiction-de-la-consommation"></a>
 
-Cette section permet de tester et de visualiser les résultats de différents modèles de prédiction de la consommation énergétique. L'utilisateur peut charger des données, tester les modèles et voir les prédictions sous forme de graphiques interactifs.
+Cette section permet de tester et de visualiser les résultats de différents modèles de prédiction de la consommation énergétique.
 
 ![Prédiction de la consommation](images/prediction_conso/im1.png)
 
-### ☁️ Prédiction dela consommation prise en compte météo <a name="prédiction-météo"></a>
+### ☁️ Prédiction de la consommation prise en compte météo <a name="prédiction-météo"></a>
 
-Similaire à la prédiction de la consommation, cette section utilise des modèles pour prédire les conditions météorologiques et analyser leur impact sur la consommation d'énergie.
+Similaire à la prédiction de la consommation, cette section utilise des modèles pour prédire la consommation en prénant en compte les conditions météorologiques.
 
 ![Prédiction météo](images/prediction_conso_meteo/meteo1.png)
 

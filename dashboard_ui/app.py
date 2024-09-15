@@ -1,11 +1,11 @@
 """
 Application Streamlit pour l'analyse de la consommation d'énergie et la détection d'anomalies.
+
 Ce module définit la structure de l'interface utilisateur et charge les pages en fonction de
-la sélection.
+la sélection dans la barre latérale.
 """
 
 import os
-
 import streamlit as st
 from dotenv import load_dotenv
 from page_anomalie_detection import show_anomalie_detection
@@ -18,17 +18,19 @@ from streamlit_option_menu import option_menu
 
 load_dotenv()
 
+# Créer un répertoire pour les logs s'il n'existe pas
+if not os.path.exists("logs"):
+    os.makedirs("logs")
 
 def local_css(file_name):
     """
     Charge et applique un fichier CSS pour styliser l'application.
 
-    Args:
+    ::Params:
         file_name (str): Le chemin vers le fichier CSS.
     """
     with open(file_name, "r", encoding="utf-8") as f:
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
-
 
 local_css("styles.css")
 

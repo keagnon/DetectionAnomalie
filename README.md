@@ -97,10 +97,6 @@ Le projet est divisé en plusieurs modules interconnectés, chacun jouant un rô
 
 ![Workflow_géneral](images/Workflow.png)
 
-Voici la version modifiée de la section avec l'ajout de la capture de la CI, du lien, de la note Pylint, et des informations sur le coverage des tests :
-
----
-
 ## 5. ⚙️ Intégration Continue (CI) et Tests Unitaires <a name="intégration-continue-ci-et-tests-unitaires"></a>
 Nous avons mis en place une intégration continue (CI) via **GitHub Actions**, qui exécute des tests unitaires et des analyses statiques à chaque commit sur les différents sous-projets.
 
@@ -111,15 +107,11 @@ Nous avons mis en place une intégration continue (CI) via **GitHub Actions**, q
 
 Le pipeline de CI, configuré dans le répertoire `.github/workflows`, est accessible via [ce lien](https://github.com/keagnon/DetectionAnomalie/actions/runs/10837858597/job/30074776315).
 
-### Résultats :
-- Score **Pylint** : 10/10
-- **Coverage** des tests : un rapport est généré automatiquement pour chaque commit, garantissant que nous maintenons un haut niveau de qualité de code.
-
 En outre, chaque module du projet est containerisé avec **Docker** pour assurer la portabilité et la cohérence des environnements. Les fichiers `.env` permettent une configuration flexible des variables d'environnement.
 
 ## 6. Calcul de l'Empreinte Carbone du Projet <a name="co2"></a>
 
-Dans notre projet, nous avons intégré le calcul de l'empreinte carbone à chaque sous-projet afin d'évaluer l'impact environnemental de chaque composant. À travers l'utilisation d'outils tels que **CodeCarbon**, nous avons mesuré les émissions générées par les différentes étapes, allant du traitement des données à l'entraînement des modèles de machine learning, ainsi que l'exécution des pipelines. Chaque sous-projet a donc été conçu pour suivre l'empreinte carbone associée, permettant de comprendre où se concentrent les émissions les plus importantes et de proposer des solutions d'optimisation.
+Dans notre projet, nous avons intégré le calcul de l'empreinte carbone à chaque sous-projet nécessitant beaucoup de calculs (comme l'entraînement des modèles et les pipelines ETL ) afin d'évaluer l'impact environnemental de chaque composant. À travers l'utilisation d'outils tels que **CodeCarbon**, nous avons mesuré les émissions générées par les différentes étapes, allant du traitement des données à l'entraînement des modèles de machine learning, ainsi que l'exécution des pipelines. Chaque sous-projet a donc été conçu pour suivre l'empreinte carbone associée, permettant de comprendre où se concentrent les émissions les plus importantes et de proposer des solutions d'optimisation.
 
 En mesurant l'empreinte carbone générée par l'infrastructure du projet (serveurs, pipelines, ressources cloud) et les traitements des données (prévisions météorologiques, mouvements sociaux), nous avons pu :
 - Quantifier l'impact environnemental de chaque tâche et ajuster les ressources en conséquence.
@@ -131,7 +123,7 @@ Cette approche `"green AI"` nous a permis de concilier performance algorithmique
 ## 7. 📂 Structure du Projet <a name="structure-du-projet"></a>
 (Insérer la structure détaillée du projet ici)
 
-Nous utilisons un **🛠️ Makefile** pour automatiser les processus de build, de tests et faciliter la gestion de la CI locale. De plus, nos variables suivre le style `snake_case` .
+Nous utilisons un **🛠️ Makefile** pour automatiser les processus de build, de tests et faciliter la gestion de la CI en local. De plus, nos variables suivent le style `snake_case` et nous avons ajouté des `docstrings` dans toutes les parties du projet.
 
 ## 8. 🔄 Pipelines de Collecte de Données avec Kedro <a name="pipelines-de-collecte-de-données-avec-kedro"></a>
 Cette partie est un sous projet développer pour la partie ingestion des données et est inclus dans notre projet de détection d'anomalie .
@@ -169,11 +161,13 @@ L'interface utilisateur finale a été développée avec **Streamlit**. Elle per
 
 Cette interface est un sous projet de notre projet de détection d'anomalie. Elle est déployée localement et sur **Streamlit Community**. Pour accéder à ce sous projet et avoir plus de détails,cliquer sur [Sous projet Dashboard Streamlit](https://github.com/keagnon/DetectionAnomalie/blob/grace_clustering_mvt/dashboard_ui/Readme.md).
 
-## 12. 📊 Ordonnancement des Données <a name="ordonnancement-des-données-avec-airflow"></a>
+## 12. 📊 Documentation<a name="documentation"></a>
 Nous avons documenté plusieurs étapes critiques du projet :
 1. **Mise en place d’un serveur MLFlow sur GCP** : [documentation_mlflow](https://github.com/keagnon/DetectionAnomalie/blob/grace_clustering_mvt/documentation/etapes_mise_en_place.pdf)
 2. **Mise en place d’un serveur Airflow en local** : [documentation_airflow](https://github.com/keagnon/DetectionAnomalie/blob/grace_clustering_mvt/documentation/etapes_installation_airflow.txt)
 3. **Ordonnancement des Données** : [documentation_ordonnoncement](https://github.com/keagnon/DetectionAnomalie/blob/grace_clustering_mvt/documentation/Ordonnoncements_donn%C3%A9es.pdf)
+4. **Documentation amazone** : [documentation_amazone](https://github.com/keagnon/DetectionAnomalie/blob/grace_clustering_mvt/documentation/Documentation_amazone S3.odt)
+4. **Mise en place elastic search** : [documentation_elastic](https://github.com/keagnon/DetectionAnomalie/blob/grace_clustering_mvt/documentation/Documentation mise en place elastic.pdf)
 
 **Airflow** est utilisé pour orchestrer les pipelines de collecte de données via des DAGs. Un exemple de DAG est utilisé pour enrichir nos datasets avec des données d'API. Ce script Airflow s'exécute toute les 30 minutes. Voici des images de notre DAG et de notre interface Airflow :
 

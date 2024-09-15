@@ -94,9 +94,9 @@ def show_prediction_conso():
         )
         st.markdown("<br>", unsafe_allow_html=True)
         moyenne_conso_horaire = st.number_input(
-            "Entrez la moyenne de consommation horaire",
+            "Entrez la plage horaire souhaitée (0-23h59)",
             min_value=0.0,
-            max_value=10000.0,
+            max_value=23.59,
             value=0.0,
         )
 

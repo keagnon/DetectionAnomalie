@@ -1,3 +1,21 @@
+"""
+Ce script entraîne deux modèles (Ridge et Random Forest) pour la prédiction de la consommation énergétique
+en fonction de caractéristiques telles que les mouvements sociaux et les données temporelles.
+Les résultats sont enregistrés dans MLflow, avec un suivi de l'empreinte carbone via CodeCarbon.
+
+Étapes principales :
+1. Prétraitement des données et encodage des variables catégorielles.
+2. Entraînement des modèles Ridge et Random Forest, avec optimisation des hyperparamètres pour Ridge.
+3. Suivi des émissions de carbone pendant l'entraînement.
+4. Enregistrement des modèles et des métriques dans MLflow et Google Cloud Storage (GCS).
+
+Variables d'environnement :
+- GOOGLE_APPLICATION_CREDENTIALS : Chemin vers les clés d'authentification Google Cloud.
+- MLFLOW_TRACKING_URI : URI du serveur MLflow.
+- MLFLOW_ARTEFACTS_LOCATION : Emplacement des artefacts MLflow dans GCS.
+"""
+
+
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split, GridSearchCV
@@ -6,7 +24,6 @@ from sklearn.linear_model import Ridge
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.pipeline import Pipeline
 from sklearn.compose import ColumnTransformer
-from sklearn.metrics import mean_squared_error, r2_score
 import mlflow
 import mlflow.sklearn
 from google.cloud import storage
@@ -14,11 +31,12 @@ from dotenv import load_dotenv
 import os
 import shutil
 from mlflow.tracking import MlflowClient
-from mlflow_utils import create_mlflow_experiment, get_mlflow_experiment_id
+from mlflow_utils import create_mlflow_experiment
+from codecarbon import EmissionsTracker
 
 load_dotenv()
 
-# recupérer les credentials Google Cloud et Mlflow
+# Recupérer les credentials Google Cloud et Mlflow
 google_credentials = os.getenv('GOOGLE_APPLICATION_CREDENTIALS')
 if google_credentials:
     os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = google_credentials
@@ -46,17 +64,10 @@ experiment_id = create_mlflow_experiment(
     tags=tags
 )
 
-
 def upload_to_gcs(local_model_path, gcs_path, timeout=600):
     """
-    Téléversement d'un fichier local vers Google Cloud Storage
-    ::params
-        local_model_path: chemin du fichier local
-        gcs_path: chemin du fichier dans GCS
-        timeout: délai d'attente pour le
-
+    Téléversement d'un fichier local vers Google Cloud Storage.
     """
-
     client = storage.Client()
     bucket_name = mlflow_artifacts_location.split('//')[1].split('/')[0]
     bucket = client.bucket(bucket_name)
@@ -66,11 +77,7 @@ def upload_to_gcs(local_model_path, gcs_path, timeout=600):
 
 def log_and_upload_model(model, model_name, experiment_id):
     """
-    Enregistrement et téléversement d'un modèle dans MLflow et GCS
-    ::params
-        model: modèle entraîné
-        model_name: nom du modèle
-        experiment_id: ID de l'expérience MLflow
+    Enregistrement et téléversement d'un modèle dans MLflow et GCS.
     """
     local_model_path = f"{model_name}.pkl"
     if os.path.isdir(local_model_path):
@@ -84,26 +91,31 @@ def log_and_upload_model(model, model_name, experiment_id):
 
 def train_and_log_model(model, model_name, X_train, y_train, experiment_id):
     """
-    Entraînement et enregistrement d'un modèle dans MLflow et GCS
-    ::params
-        model: modèle à entraîner
-        model_name: nom du modèle
-        X_train: features d'entraînement
-        y_train: target d'entraînement
-        experiment_id: ID de l'expérience MLflow
+    Entraînement et enregistrement d'un modèle dans MLflow et GCS, suivi des émissions de carbone.
     """
+    log_dir = f"log/log_carbon_{model_name}"
+    if not os.path.exists(log_dir):
+        os.makedirs(log_dir)
+
+    tracker = EmissionsTracker(output_dir=log_dir)
+    tracker.start()
 
     with mlflow.start_run(run_name=model_name, experiment_id=experiment_id):
-        mlflow.sklearn.autolog()  # Auto-enregistrement des paramètres, métriques, et modèle
+        mlflow.sklearn.autolog()
         model.fit(X_train, y_train)
         log_and_upload_model(model, model_name, experiment_id)
 
-        print(f"Modèle {model_name} enregistré et téléversé dans GCS.")
+        emissions = tracker.stop()
+        if emissions is not None:
+            mlflow.log_metric("carbon_emissions", emissions)
+        else:
+            print(f"Warning: Emissions for {model_name} were not calculated.")
 
+        print(f"Modèle {model_name} enregistré et téléversé dans GCS.")
 
 df = pd.read_csv('tests_models/data_test/fusion_courbe_mouvement.csv', delimiter=';', encoding='utf-8')
 df.columns = df.columns.str.strip()
- 
+
 # Ajout de caractéristiques temporelles
 df['mois'] = pd.to_datetime(df['date'], format='%d/%m/%Y').dt.month
 df['jour_semaine'] = pd.to_datetime(df['date'], format='%d/%m/%Y').dt.dayofweek
@@ -141,7 +153,7 @@ grid_search = GridSearchCV(ridge_model, param_grid, cv=5)
 grid_search.fit(X_train, y_train)
 best_ridge_model = grid_search.best_estimator_
 train_and_log_model(best_ridge_model, "ridge_model", X_train, y_train, experiment_id)
- 
+
 # Modèle Random Forest
 random_forest_model = Pipeline(steps=[
     ('preprocessor', preprocessor),
