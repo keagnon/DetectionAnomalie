@@ -157,7 +157,6 @@ L'interface **Streamlit** permet une interaction directe avec les modèles de ma
    - L'utilisateur peut ajuster les hyperparamètres et observer les performances du modèle.
 
 
-
 ## 📈 Intégration avec MLflow <a name="intégration-mlflow"></a>
 
 **MLflow** est utilisé pour le suivi, la gestion et la comparaison des modèles de machine learning développés dans ce projet. Il enregistre des métriques comme l'**inertie** pour **K-means**, la taille des clusters ou encore le **taux de contamination** pour **Isolation Forest**, permettant ainsi une traçabilité complète des expériences et une optimisation des hyperparamètres.
