@@ -1,0 +1,17 @@
+api_urls:
+  - "https://data.opendatasoft.com/api/explore/v2.1/catalog/datasets/courbe-de-charge-eldgrd-regional-grtgaz-terega@reseaux-energies-rte/records?limit=20"
+  - "https://data.opendatasoft.com/api/explore/v2.1/catalog/datasets/prix-des-energies-en-france@akajoule/records?limit=20"
+
+csv_file_paths:
+  - "data/prix_du_carburant_data_2018_2024.csv"
+  - "data/combined_meteo_data.csv"
+  - "data/courbe_de_charge_data_2018_2024.csv"
+  - "data/movement_data_2018_2024.csv"
+
+collection_names:
+  - "csv_prix_du_carburant_data_2018_2024"
+  - "csv_combined_meteo_data.csv"
+  - "csv_courbe_de_charge_data_2018_2024"
+  - "csv_mouvements_sociaux_data_2018_2024"
+
+db_name: "DBEnergy"

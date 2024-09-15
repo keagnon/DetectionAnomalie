@@ -1,0 +1,12 @@
+db_name1: "DBEnergy"
+
+collection_names1:
+  - "csv_combined_meteo_data"
+  - "csv_courbe_de_charge_data_2018_2024"
+  - "csv_mouvements_sociaux_data_2018_2024"
+
+columns_to_select:
+  - ['TempMax_Deg', 'TempMin_Deg', 'Wind_kmh','Wet_percent', 'Visibility_km', 'CloudCoverage_percent','Dayduration_hour', 'region', 'day']
+  - ["date", "opérateur", "secteur_d'activité","région", "00:00","01:00","02:00","03:00","04:00","05:00","06:00","07:00","08:00","09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00","20:00","21:00","22:00","23:00","consommation_journalière_(mwh_-_pcs_0°c)", "statut"]
+  - ["date_de_debut","date_de_fin","motif"]
+

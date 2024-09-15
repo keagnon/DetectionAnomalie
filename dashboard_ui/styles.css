@@ -1,0 +1,76 @@
+/* Styles généraux pour l'application */
+[data-testid="stAppViewContainer"] {
+    overflow: auto;
+}
+.stDataFrame div[data-testid="stHorizontalBlock"] {
+    width: 100% !important;
+}
+
+/* Header fixable en haut de la page */
+[data-testid="stHeader"] {
+    position: relative !important;
+    background: rgba(0, 0, 0, 0);
+    z-index: 1 !important;
+    top: auto;
+}
+
+/* Customisation du conteneur principal */
+[data-testid="stAppViewContainer"] > .main {
+    background-color: #F0F2F6;
+    max-width: 100%;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    overflow: auto;
+    position: relative !important;
+}
+
+/* Suppression de la position fixe de la toolbar */
+[data-testid="stToolbar"] {
+    right: 2rem;
+    position: relative !important;
+}
+
+.block-container {
+    padding: 5rem 1rem 2rem 1rem;
+    max-width: 80%;
+}
+
+[data-testid="stSidebar"] > div:first-child {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    padding-top: 50px;
+}
+
+/* Styles pour les champs de texte et la zone de texte */
+input, textarea {
+    border : 1px solid #ccc !important;
+    border-radius: 5px !important;
+    padding: 8px !important;
+    font-size: 16px !important;
+    width: 100% !important;
+    box-sizing: border-box;  /* S'assurer que le padding ne dépasse pas */
+}
+
+input:focus, textarea:focus {
+    border: 2px solid #ff4b4b !important;  /* Bordure rouge au clic (focus) */
+    outline: none !important;
+}
+
+/* Customizing the selectbox (and multiselect) - remove border and shadows */
+[data-testid="stSelectbox"], [data-testid="stMultiSelect"] {
+    border: none !important;
+    box-shadow: none !important;
+}
+
+[data-testid="stSelectbox"] div[role="combobox"], [data-testid="stMultiSelect"] div[role="combobox"] {
+    border: none !important;
+    box-shadow: none !important;
+}
+
+/* Enlever le footer */
+footer {
+    visibility: hidden;
+}
