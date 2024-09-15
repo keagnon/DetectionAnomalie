@@ -107,6 +107,7 @@ def show_anomalie_detection():
     """
     Affiche la page de détection des anomalies dans les données de consommation énergétique.
     """
+    st.markdown("<br>", unsafe_allow_html=True)
     st.title("💬 Détection d'anomalies dans les données")
     st.markdown("<br>", unsafe_allow_html=True)
     st.markdown("<br>", unsafe_allow_html=True)

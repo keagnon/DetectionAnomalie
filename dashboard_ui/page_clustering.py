@@ -155,6 +155,7 @@ def show_clustering():
     """
     Afficher la page de clustering.
     """
+    st.markdown("<br>", unsafe_allow_html=True)
     st.title("🌦️Clustering")
     st.write("Ceci est la page pour faire du clustering.")
     st.markdown("<br>", unsafe_allow_html=True)
