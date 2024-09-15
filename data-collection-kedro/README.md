@@ -44,7 +44,7 @@
 2. [Architecture du projet](#architecture-du-projet)
 3. [Installation et configuration](#installation-et-configuration)
 4. [Structure du projet](#structure-du-projet)
-5. [Empreinte Carbone](#empreinte-carbone)
+5. [Empreinte Carbone](#empreinte_carbone)
 6. [Exécution du projet](#exécution-du-projet)
 7. [Description des pipelines](#description-des-pipelines)
 8. [Fichiers de configuration](#fichiers-de-configuration)
@@ -177,7 +177,8 @@ data-collection-kedro/
 └── requirements.txt                     # Liste des dépendances Python du projet
 
 ```
-## **Empreinte Carbone** 🌍  <a name="empreinte-carbone"></a>
+
+## **Empreinte Carbone** 🌍  <a name="empreinte_carbone"></a>
 
 Pour ce sous-projet de collecte de données avec Kedro, j'ai utilisé la bibliothèque **CodeCarbon** pour suivre l'empreinte carbone des pipelines, comme **data_fusion** et **etl_pipeline**. Les résultats sont stockés dans le dossier **logs**, offrant une vue détaillée des émissions de CO2eq générées par chaque traitement.
 
