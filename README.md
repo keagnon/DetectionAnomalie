@@ -118,17 +118,66 @@ En outre, chaque module du projet est containerisé avec **Docker** pour assurer
 
 ## 7. Calcul de l'Empreinte Carbone du Projet <a name="co2"></a>
 
-Dans notre projet, nous avons intégré le calcul de l'empreinte carbone à chaque sous-projet nécessitant beaucoup de calculs (comme l'entraînement des modèles et les pipelines ETL ) afin d'évaluer l'impact environnemental de chaque composant. À travers l'utilisation d'outils tels que **CodeCarbon**, nous avons mesuré les émissions générées par les différentes étapes, allant du traitement des données à l'entraînement des modèles de machine learning, ainsi que l'exécution des pipelines. Chaque sous-projet a donc été conçu pour suivre l'empreinte carbone associée, permettant de comprendre où se concentrent les émissions les plus importantes et de proposer des solutions d'optimisation.
+Dans le cadre de notre projet, nous avons intégré le calcul de l'empreinte carbone pour chaque composant nécessitant des ressources de calcul intensives (modèles, pipelines ETL, etc.). Grâce à CodeCarbon, nous avons mesuré les émissions en CO2eq générées par chaque tâche, de la préparation des données à l'entraînement des modèles.
 
-En mesurant l'empreinte carbone générée par l'infrastructure du projet (serveurs, pipelines, ressources cloud) et les traitements des données (prévisions météorologiques, mouvements sociaux), nous avons pu :
-- Quantifier l'impact environnemental de chaque tâche et ajuster les ressources en conséquence.
-- Explorer des moyens de réduction, comme l'utilisation de sources d'énergie renouvelable, l'optimisation des algorithmes pour réduire leur consommation énergétique, ou encore le passage à des infrastructures plus économes en énergie.
-- Fournir aux entreprises une estimation de leur propre impact carbone, en leur permettant de prendre des décisions éclairées pour minimiser cet impact à chaque étape du processus.
+Résultats :
+- **Empreinte carbone très faible**: Les processus les plus gourmands, comme l'entraînement du modèle CatBoost, restent en dessous de 0.00043 kgCO2eq, tandis que les autres modèles et pipelines ont un impact négligeable.
+- **Optimisation énergétique**: Ces résultats montrent que le projet est optimisé pour allier efficacité énergétique et performances élevées, garantissant une faible empreinte environnementale tout en répondant aux exigences de traitement de données.
+
+**Empreinte carbone totale**:
+Voici un aperçu des émissions en CO2eq générées par les différentes parties du projet :
+
+![empreinte_carbone_totale](images/logs_empreinte_carbone/total_empreinte_carbone.png)
 
 Cette approche `"green AI"` nous a permis de concilier performance algorithmique et responsabilité écologique dans l'ensemble du projet.
 
 ## 8. 📂 Structure du Projet <a name="structure-du-projet"></a>
-(Insérer la structure détaillée du projet ici)
+```
+📂 DETECTIONANOMALIE
+├── .github/                  # Configuration GitHub (actions, workflows, etc.)
+├── .mypy_cache/              # Cache pour l'analyse statique mypy
+├── dashboard_ui/             # Interface utilisateur avec Streamlit
+│   ├── app.py                # Point d'entrée principal pour l'application Streamlit
+│   ├── Dockerfile            # Fichier de configuration pour le déploiement Docker
+│   ├── requirements.txt      # Liste des dépendances Python
+│   ├── .env                  # Fichier des variables d'environnement (non suivi par Git)
+│   ├── styles.css            # Fichier pour les styles CSS
+│   ├── page_anomalie_detection.py  # Page de détection d'anomalies
+│   ├── page_clustering.py         # Page pour les clusters des régions de consommation
+│   ├── page_feedback.py           # Page pour recueillir les retours utilisateurs
+│   ├── page_prediction_conso.py   # Page pour la prédiction de consommation énergétique
+│   ├── page_prediction_meteo.py   # Page pour les prédictions basées sur les données météo
+│   ├── page_tracking.py           # Page de suivi avec MLflow
+│   └── utils.py                   # Fichier contenant des fonctions utilitaires pour l'application
+│
+├── data-collection-kedro/    # Pipelines pour la collecte de données (via Kedro)
+│   └── ...                   # Contient les pipelines et scripts de collecte
+│
+├── documentation/            # Documentation pour le projet
+│   └── ...                   # Manuels, guides, et fichiers explicatifs
+│
+├── images/                   # Images utilisées dans la documentation ou l'application
+│   └── ...                   # Fichiers d'images
+│
+├── ml_models/                # Modèles de Machine Learning utilisés
+│   ├── meteo_consommation/   # Modèles liés à la météo
+│   └── mouvements_consommation/ # Modèles liés aux mouvements sociaux
+│
+├── notebooks/                # Notebooks Jupyter pour l'exploration des données
+│   └── ...                   # Fichiers .ipynb pour les tests et expérimentations
+│
+├── scripts/                  # Scripts divers pour le projet
+│   ├── airflow/              # Configuration et scripts pour Airflow
+│   ├── empreinte_carbone_projet/ # Scripts pour calculer l'empreinte carbone
+│   ├── feedback/             # Scripts pour gérer les retours utilisateurs
+│   └── template_mlflow_team/ # Templates et configuration pour le suivi MLflow en équipe
+│
+├── .gitignore                # Fichier pour exclure certains fichiers du contrôle Git
+├── Makefile                  # Automatisation de tâches courantes (tests, déploiement, etc.)
+├── README.md                 # Documentation principale du projet
+├── requirements_test.txt     # Liste des dépendances pour les tests
+└── requirements.txt          # Liste des dépendances générales du projet
+```
 
 Nous utilisons un **🛠️ Makefile** pour automatiser les processus de build, de tests et faciliter la gestion de la CI en local. De plus, nos variables suivent le style `snake_case` et nous avons ajouté des `docstrings` dans toutes les parties du projet.
 

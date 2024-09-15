@@ -36,10 +36,10 @@ Le suivi et la gestion des modèles sont assurés via **MLflow**, qui permet une
 1. [📦 Installation](#installation)
 2. [🚀 Utilisation de l'Application](#utilisation)
 3. [📁 Structure du Projet](#structure-du-projet)
-4. [🖼️ Interface Utilisateur](#interface-utilisateur)
-5. [📈 Intégration avec MLflow](#intégration-mlflow)
-6. [🖼️ Captures d'écran](#captures-d’écran)
-
+4. [🌍 Calcul empreinte carbone](#empreinte_carbone)
+5. [🖼️ Interface Utilisateur](#interface-utilisateur)
+6. [📈 Intégration avec MLflow](#intégration-mlflow)
+7. [🖼️ Captures d'écran](#captures-d’écran)
 
 ## 📦 Installation <a name="installation"></a>
 
@@ -100,33 +100,45 @@ L'application permet de :
 Le projet est organisé de manière modulaire pour garantir une maintenabilité et une évolutivité optimales. Voici la structure principale :
 
 ```bash
-mouvement_consommation/
-    images/                       # Répertoire contenant des sous-répertoires d'images
-        anomaly_detection/        # Images pour la détection d'anomalies
-        clustering/               # Images pour le clustering
-        prediction_mouvement/     # Images pour la prédiction de mouvements
-        other/                    # Images autres
-    mlruns/                       # Répertoire pour les expériences MLflow
-    modele_mouvement_conso/       # Modèles de mouvement de consommation
-    tests_models/                 
-        data_test/                # Jeux de données de test
-    anomaly_detection/            # Répertoire pour la détection d'anomalies
-        anomaly_detection_energy.py # Détection des anomalies dans la consommation
-    clustering/                   # Répertoire pour le clustering
-        clustering_model.py         # Implémentation des modèles de clustering
-    prediction_mouvement/         # Répertoire pour les prédictions de mouvements
-        prediction_conso_mvt.py     # Modèle de prédiction de la consommation
-    StreamlitUI/                  # Fichiers pour l'interface Streamlit
-        app_clustering.py         # Interface pour le clustering
-        app_detection_anomalie.py # Interface pour la détection d'anomalies
-        app_prediction_conso_mvt.py # Interface pour la prédiction de la consommation
-    mlflow_utils.py               # Utilitaires pour MLflow
-    register_model.py             # Script pour l'enregistrement des modèles
-.env                              # Variables d'environnement (non incluses dans le dépôt)
-requirements.txt                  # Liste des dépendances
-Readme.md                         # Fichier README
+mouvements_consommation/
+├── images/                               # Répertoire contenant des sous-répertoires d'images
+│   ├── anomaly_detection/                # Images pour la détection d'anomalies
+│   ├── clustering/                       # Images pour le clustering
+│   └── prediction_mouvement/             # Images pour la prédiction de mouvements
+│   └── other/                            # Autres images
+│   └── logs_carbon/                      # Répertoire contenant des sous-répertoires d'images pour les logs de suivi de l'empreinte carbone
+│        ├── dbscan/                      # Images logs de carbone pour le modèle DBSCAN
+│        ├── isolationforest/             # Images logs de carbone pour le modèle Isolation Forest
+│        ├── random_forest/               # Images logs de carbone pour le modèle Random Forest
+│        ├── ridge/                       # Images logs de carbone pour le modèle Ridge Regression
+│
+├── log/                                  # Répertoire pour les logs divers
+│   ├── dbscan/                           # Logs pour DBSCAN
+│   ├── log_carbon_anomalie/              # Log carbone pour la détection d'anomalies
+│   ├── log_carbon_random_forest_model/   # Log carbone pour Random Forest
+│   └── log_carbon_ridge_model/           # Log carbone pour Ridge Regression
+│
+├── mlruns/                               # Répertoire pour les expériences MLflow
+├── modele_mouvement_conso/               # Modèles de mouvement de consommation
+├── tests_models/                         # Répertoire pour les tests des modèles
+│   └── data_test/                        # Jeux de données de test
+│
+├── anomaly_detection_energy.py           # Détection des anomalies dans la consommation énergétique
+├── clustering_model.py                   # Implémentation des modèles de clustering
+├── prediction_conso_mvt.py               # Modèle de prédiction de la consommation prenant en compte les mouvements
+├── mlflow_utils.py                       # Utilitaires pour MLflow
+├── register_model.py                     # Script pour l'enregistrement des modèles
+├── .env                                  # Variables d'environnement (non incluses dans le dépôt)
+├── requirements.txt                      # Liste des dépendances
+└── Readme.md                             # Fichier README
 
 ```
+
+## 🌍 Calcul empreinte carbone <a name="empreinte_carbone"></a>
+
+Dans le cadre de ce sous-projet dédié à la **détection d'anomalies** dans la consommation énergétique, nous avons intégré le suivi de l'empreinte carbone à travers **CodeCarbon**. Ce suivi a permis de mesurer l'impact environnemental des différents algorithmes utilisés, tels que **Isolation Forest** pour la détection d'anomalies, et les méthodes de **clustering** comme **K-means** et **DBSCAN**. De plus, des modèles de régression tels que **Ridge Regression** et **Random Forest**, qui prennent en compte des facteurs comme les **mouvements sociaux**, ont été évalués en termes d'émissions de CO2eq lors de leur exécution.
+
+Les résultats de ces suivis sont stockés dans des logs pour analyser et optimiser l'efficacité énergétique de chaque composant. [voir section capture d'écran](#captures-d’écran)
 
 
 ## 🖼️ Interface Utilisateur <a name="interface-utilisateur"></a>
@@ -142,7 +154,6 @@ L'interface **Streamlit** permet une interaction directe avec les modèles de ma
 
 3. **Prédiction de la Consommation** : La prédiction de la consommation énergétique est effectuée à l'aide de modèles comme **Ridge Regression** et **Random Forest**.
    - L'utilisateur peut ajuster les hyperparamètres et observer les performances du modèle.
-
 
 
 ## 📈 Intégration avec MLflow <a name="intégration-mlflow"></a>
@@ -219,5 +230,22 @@ Pour plus de détails sur la mise en place de MLflow sur GCP, consultez le fichi
    ![Prédiction de la consommation](images/prediction_mouvement/im6.png)
    ![Prédiction de la consommation](images/prediction_mouvement/im7.png)
 
+3. **Empreinte carbone modèle DBSCAN**
 
+   ![dbscan_carbon_tracker](images/logs_carbon/dbscan/dbscan_co2.png)
+   ![dbscan_carbon_tracker](images/logs_carbon/dbscan/dbscan_emissions_tracker.png)
+
+3. **Empreinte carbone modèle Ridge**
+
+   ![ridge_carbon_tracker](images/logs_carbon/ridge/ridge_co2.png)
+
+3. **Empreinte carbone modèle Random Forest**
+
+   ![random_forest_carbon_tracker](images/logs_carbon/random_forest/random_forest_co2.png)
+   ![random_forest_carbon_tracker](images/logs_carbon/random_forest/random_forest_emissions_tracker1.png)
+
+3. **Empreinte carbone modèle IsolationForest**
+
+   ![isolation_forest_carbon_tracker](images/logs_carbon/isolatioforest/carboneprint_anomalie_detection.png)
+   ![isolation_forest_carbon_tracker](images/logs_carbon/isolatioforest/isolation_forest_co2.png)
 

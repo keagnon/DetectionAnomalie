@@ -44,11 +44,11 @@
 2. [Architecture du projet](#architecture-du-projet)
 3. [Installation et configuration](#installation-et-configuration)
 4. [Structure du projet](#structure-du-projet)
-5. [Exécution du projet](#exécution-du-projet)
-6. [Description des pipelines](#description-des-pipelines)
-7. [Fichiers de configuration](#fichiers-de-configuration)
-8. [Tests du projet](#tests-du-projet)
-9. [Empreinte Carbone](#empreinte-carbone)
+5. [Empreinte Carbone](#empreinte_carbone)
+6. [Exécution du projet](#exécution-du-projet)
+7. [Description des pipelines](#description-des-pipelines)
+8. [Fichiers de configuration](#fichiers-de-configuration)
+9. [Tests du projet](#tests-du-projet)
 10. [Exemples d'images](#exemples-dimages)
 
 
@@ -145,7 +145,9 @@ data-collection-kedro/
 │   └── tests_unitaires/
 │
 ├── logs/                               # Dossier de logs pour l'empreinte carbone et autres logs
-│   ├── carbon_logs/                    # Logs générés par CodeCarbon
+│   ├── log_data_fusion_pipeline/       # Logs générés par CodeCarbon lors de l'exécution de la pipeline data fusion pipeline
+│   │   ├── emissions.csv               # Fichier CSV contenant les émissions de carbone
+│   ├── logs_etl_pipeline/              # Logs générés par CodeCarbon lors de l'exécution de la pipeline ETL pipeline
 │   │   ├── emissions.csv               # Fichier CSV contenant les émissions de carbone
 │
 ├── kedro-dataeng-env/                   # Environnement virtuel Kedro
@@ -175,6 +177,15 @@ data-collection-kedro/
 └── requirements.txt                     # Liste des dépendances Python du projet
 
 ```
+
+## **Empreinte Carbone** 🌍  <a name="empreinte_carbone"></a>
+
+Pour ce sous-projet de collecte de données avec Kedro, j'ai utilisé la bibliothèque **CodeCarbon** pour suivre l'empreinte carbone des pipelines, comme **data_fusion** et **etl_pipeline**. Les résultats sont stockés dans le dossier **logs**, offrant une vue détaillée des émissions de CO2eq générées par chaque traitement.
+
+### Résultats de l'Empreinte Carbone :
+
+![Empreinte Carbone dans le Terminal](images/carbon_logs/etl_pipeline/im3.png)
+![Empreinte Carbone dans le Terminal](images/carbon_logs/data_fusion/data_fusion_pipeline_co2_3.png)
 
 ## **Exécution du projet** 🚀 <a name="exécution-du-projet"></a>
 
@@ -262,36 +273,6 @@ Les tests sont réalisés avec **pytest**. Les tests unitaires sont disponibles 
    pytest tests/pipelines/etl_pipeline/
    ```
 
-## **Empreinte Carbone** 🌱 <a name="empreinte-carbone"></a>
-
-Ce projet utilise **CodeCarbon** pour suivre et enregistrer l'empreinte carbone des pipelines de traitement de données, afin de minimiser l'impact environnemental. Chaque exécution du pipeline suit la consommation d'énergie et calcule les émissions de CO2 générées par l'infrastructure de traitement.
-
-Les logs d'émission sont stockés dans le répertoire **`logs/carbon_logs`** et peuvent être visualisés pour chaque exécution.
-
-### **Exécuter le pipeline avec suivi de l'empreinte carbone :**
-
-Pour suivre l'empreinte carbone de l'exécution des pipelines, assurez-vous que **CodeCarbon** est bien installé et configurez votre pipeline pour capturer ces informations :
-
-```bash
-kedro run  # Lance le pipeline tout en suivant l'empreinte carbone
-```
-
-Les résultats seront enregistrés dans le fichier **`emissions.csv`** du répertoire **`logs/carbon_logs/`**.
-
-Voici un exemple d'information enregistrée dans les logs :
-
-```
-timestamp,duration (s),emissions (kg CO2e),energy_consumed (kWh)
-2024-09-12 15:30:45,360,0.15,0.3
-```
-
-### Capture d'écran du terminal affichant l'empreinte carbone :
-
-![Empreinte Carbone dans le Terminal](images/carbon_logs/im1.png)
-![Empreinte Carbone dans le Terminal](images/carbon_logs/im2.png)
-![Empreinte Carbone dans le Terminal](images/carbon_logs/im3.png)
-
-
 ## **Exemples d'images** 🖼️ <a name="exemples-dimages"></a>
 
 Ici vous trouverez les captures d'écran des exécutions de nos pipelines, ainsi que des résultats de tests ou du coverage.
@@ -343,5 +324,14 @@ Ici vous trouverez les captures d'écran des exécutions de nos pipelines, ainsi
 ![Pipeline de fusion](images/data_fusion/im12.png)
 ![Pipeline de fusion](images/data_fusion/im11.png)
 
+### **Exemple d'image - Empreinte carbone tracking pipeline ETL:**
 
+![Empreinte carbone](images/carbon_logs/data_fusion/data_fusion_pipeline_co2_1.png)
+![Empreinte carbone](images/carbon_logs/data_fusion/data_fusion_pipeline_co2_2.png)
+![Empreinte carbone](images/carbon_logs/data_fusion/data_fusion_pipeline_co2_3.png)
 
+### **Exemple d'image - Empreinte carbone tracking pipeline Data fusion:**
+
+![Empreinte carbone](images/carbon_logs/etl_pipeline/im1.png)
+![Empreinte carbone](images/carbon_logs/etl_pipeline/im2.png)
+![Empreinte carbone](images/carbon_logs/etl_pipeline/im3.png)
