@@ -1,0 +1,98 @@
+Install Apache Airflow on Ubuntu:
+=================================
+
+Prerequisite
+
+Anaconda Python or classic(open source) Python 3.7+ to be installed
+
+python --version
+
+ls /home/datamaking/anaconda3
+
+
+Step 1: Install below list of packages
+
+
+sudo apt-get install software-properties-common
+
+sudo apt-add-repository universe
+
+sudo apt-get update
+
+sudo apt-get install python3-setuptools
+
+sudo apt install python3-pip
+
+python3 -m pip install --upgrade pip
+
+
+Step 2: Install Airflow Linux Dependencies
+
+sudo apt-get install libmysqlclient-dev
+
+sudo apt-get install libssl-dev
+
+sudo apt-get install libkrb5-dev
+
+
+Step 3: Install Apache Airflow
+
+mkdir ~/airflow
+
+or 
+
+mkdir /home/datamaking/airflow
+
+
+export AIRFLOW_HOME=~/airflow
+
+
+pip install apache-airflow
+
+pip install typing_extensions
+
+
+Verify the airflow version
+
+airflow version
+
+
+
+# initialize the database
+
+airflow db init
+
+
+airflow users create --username santoudllo --firstname ALIMOU --lastname DIALLO --role Admin --email alimousantou@gmail.com --password @santou20
+
+
+
+airflow users list
+
+# start the web server, default port is 8080
+
+airflow webserver -p 8080
+
+or
+
+airflow webserver -p 8080 --daemon
+
+
+# start the scheduler. I recommend opening up a separate terminal window for starting the scheduler
+
+airflow scheduler
+
+or
+
+airflow scheduler --daemon
+
+# Open the url localhost:8080 in the browser and login with your user details
+
+http://localhost:8080
+
+
+airflow dags list
+
+arrter le processus en cours : 
+kill 3523 3537 3538 3540 3554 3557 12717 12720 14723 15005
+

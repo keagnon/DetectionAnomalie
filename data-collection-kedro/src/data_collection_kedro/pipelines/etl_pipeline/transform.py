@@ -1,6 +1,10 @@
-from typing import Any
+"""
+Ce fichier contient des fonctions pour lire les données à partir de différentes sources, notamment des API et des fichiers CSV.
+
+"""
 
 import pandas as pd
+from typing import Any
 
 
 class Transform:

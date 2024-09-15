@@ -1,6 +1,5 @@
 """
-This is a boilerplate pipeline 'etl_pipeline'
-generated using Kedro 0.19.5
+pipeline 'etl_pipeline'
 """
 from kedro.pipeline import Pipeline, node
 

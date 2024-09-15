@@ -1,22 +1,32 @@
-import streamlit as st
-import webbrowser
+"""
+Module pour afficher la page de tracking et ouvrir l'interface utilisateur de MLflow.
+"""
+
 import os
 
-from dotenv import load_dotenv
-
-load_dotenv()
-
-def local_css(file_name):
-    with open(file_name) as f:
-        st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
+import streamlit as st
+import webbrowser
+from utils import configure_google_credentials, local_css
 
 local_css("styles.css")
+configure_google_credentials()
 
 
-# Fonction pour afficher la page de tracking
 def open_mlflow_ui():
+    """
+    Ouvre l'interface utilisateur MLflow dans un nouvel onglet du navigateur.
+    """
     url = os.getenv("MLFLOW_TRACKING_URI")
-    webbrowser.open_new_tab(url)
+    if url:
+        webbrowser.open_new_tab(url)
+    else:
+        st.error("L'URL de MLflow n'est pas définie.")
+
 
 def show_tracking_page():
-    st.title("Tracking........")
+    """
+    Affiche la page de tracking dans l'application Streamlit.
+    """
+    st.title("Tracking des Expériences MLflow")
+    st.markdown("<br>", unsafe_allow_html=True)
+    st.write("Vous pouvez suivre les métriques et les performances des modèles ici.")

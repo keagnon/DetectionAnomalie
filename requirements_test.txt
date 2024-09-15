@@ -1,0 +1,6 @@
+pylint
+isort
+black
+mypy
+pytest
+pytest-cov

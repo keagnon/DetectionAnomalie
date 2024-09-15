@@ -1,25 +1,43 @@
 """
-This is a boilerplate pipeline 'etl_pipeline'
-generated using Kedro 0.19.5
-"""
-import os
-from typing import Any, Dict, List
+Pipeline ETL pour les données de consommation d'énergie
 
+Ce pipeline est chargé de récupérer, nettoyer et stocker les données de consommation d'énergie
+provenant de différentes sources, notamment des API et des fichiers CSV. Le pipeline réalise les tâches suivantes :
+
+1. Récupère les données à partir de plusieurs points d'API.
+2. Lit les fichiers CSV contenant des données de consommation d'énergie.
+3. Nettoie et transforme les données en utilisant la logique de transformation définie dans la classe `Transform`.
+4. Stocke les données nettoyées dans une base de données MongoDB.
+5. Suit et enregistre l'empreinte carbone des opérations de traitement et de stockage des données à l'aide de CodeCarbon.
+
+CodeCarbon est intégré pour surveiller la consommation énergétique et estimer l'empreinte carbone
+de chaque nœud (étape de traitement) dans ce pipeline ETL, afin de garantir un traitement des données
+respectueux de l'environnement.
+"""
+
+
+import os
 import pandas as pd
 import requests
 from dotenv import load_dotenv
 from pymongo import MongoClient
-
+from typing import Any, Dict, List
+from codecarbon import EmissionsTracker
 from .transform import Transform
 
+log_dir = "logs/carbon_logs"
+if not os.path.exists(log_dir):
+    os.makedirs(log_dir)
 
 def fetch_data_from_api(api_url: str) -> pd.DataFrame:
     """
     Fetch data from the specified API URL.
-    Params::
-          api_url: The URL of the API to fetch data from.
-    Returns::
-          pd.DataFrame: DataFrame containing the fetched data.
+
+    Params:
+    - api_url (str): The URL of the API to fetch data from.
+
+    Returns:
+    - pd.DataFrame: DataFrame containing the fetched data.
     """
     try:
         response = requests.get(api_url)
@@ -42,10 +60,12 @@ def fetch_data_from_api(api_url: str) -> pd.DataFrame:
 def read_csv_file(file_path: str) -> pd.DataFrame:
     """
     Read data from a CSV file.
-    Params::
-          file_path : The path to the CSV file.
-    Returns::
-          pd.DataFrame: DataFrame containing the CSV data.
+
+    Params:
+    - file_path (str): The path to the CSV file.
+
+    Returns:
+    - pd.DataFrame: DataFrame containing the CSV data.
     """
     return pd.read_csv(file_path, delimiter=";", encoding="utf-8")
 
@@ -61,11 +81,11 @@ def store_in_mongodb(
     Store the cleaned data in MongoDB in batches.
 
     Params:
-    - data: The cleaned data to store.
-    - db_name: The name of the MongoDB database.
-    - collection_name: The name of the MongoDB collection.
-    - batch_size: The number of records to insert in each batch.
-    - connect_timeout: Connection timeout in milliseconds.
+    - data (pd.DataFrame): The cleaned data to store.
+    - db_name (str): The name of the MongoDB database.
+    - collection_name (str): The name of the MongoDB collection.
+    - batch_size (int, optional): The number of records to insert in each batch. Default is 500.
+    - connect_timeout (int, optional): Connection timeout in milliseconds. Default is 200000.
     """
     load_dotenv()
 
@@ -99,15 +119,14 @@ def store_in_mongodb(
 
         # Insert data in batches
         for i in range(0, len(data), batch_size):
-            batch = data[i : i + batch_size]
+            batch = data[i: i + batch_size]
             try:
                 collection.insert_many(batch)
                 print(
-                    f"Batch {i//batch_size + 1} with {len(batch)} records stored successfully in {collection_name}."
+                    f"Batch {i // batch_size + 1} with {len(batch)} records stored successfully in {collection_name}."
                 )
             except Exception as e:
-                print(f"Error inserting batch {i//batch_size + 1}: {e}")
-                # Optionally, retry the insertion or handle the failure
+                print(f"Error inserting batch {i // batch_size + 1}: {e}")
 
     except Exception as e:
         print(f"Error when inserting data: {e}")
@@ -116,8 +135,9 @@ def store_in_mongodb(
 def display_data(data: pd.DataFrame) -> None:
     """
     Display the first few rows of the DataFrame.
-    params::
-          data (pd.DataFrame): The data to display.
+
+    Params:
+    - data (pd.DataFrame): The data to display.
     """
     print(data.head())
     print(data.columns)
@@ -128,11 +148,15 @@ def etl_api_data(
 ) -> None:
     """
     Process multiple API URLs and store data in MongoDB.
-    Params::
-          api_urls: List of API URLs to fetch data from.
-          db_name: The name of the MongoDB database.
-          collection_names: List of MongoDB collection names.
+
+    Params:
+    - api_urls (List[str]): List of API URLs to fetch data from.
+    - db_name (str): The name of the MongoDB database.
+    - collection_names (List[str]): List of MongoDB collection names.
     """
+
+    tracker = EmissionsTracker(output_dir=log_dir)  # Start tracking carbon emissions
+    tracker.start()
 
     for api_url, collection_name in zip(api_urls, collection_names):
         raw_data = fetch_data_from_api(api_url)
@@ -140,16 +164,19 @@ def etl_api_data(
         display_data(cleaned_data)
         store_in_mongodb(cleaned_data, db_name, collection_name)
 
+    tracker.stop() # Arrêter le suivi et sauvegarder les émissions
+
 
 def etl_csv_data(
     file_paths: List[str], db_name: str, collection_names: List[str]
 ) -> None:
     """
     Process multiple CSV files and store data in MongoDB.
-    params::
-          file_paths: List of file paths to read CSV data from.
-          db_name: The name of the MongoDB database.
-          collection_names: List of MongoDB collection names.
+
+    Params:
+    - file_paths (List[str]): List of file paths to read CSV data from.
+    - db_name (str): The name of the MongoDB database.
+    - collection_names (List[str]): List of MongoDB collection names.
     """
 
     for file_path, collection_name in zip(file_paths, collection_names):
