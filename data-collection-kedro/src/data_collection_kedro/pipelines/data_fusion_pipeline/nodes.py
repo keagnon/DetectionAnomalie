@@ -10,11 +10,12 @@ stockés dans Elasticsearch. Le pipeline réalise les tâches suivantes :
 3. Normalisation des colonnes, notamment les dates et les régions, afin d'assurer la cohérence entre les différentes sources de données.
 4. Fusion des jeux de données (météo, courbes de charge, mouvements sociaux) pour générer des jeux de données fusionnés.
 5. Stockage des jeux de données fusionnés dans Elasticsearch.
-6. Suivi et enregistrement de l'empreinte carbone des opérations de traitement et de stockage des données, avec les logs enregistrés dans le dossier `carbon_log_data_fusion`.
+6. Suivi et enregistrement de l'empreinte carbone des opérations de traitement et de stockage des données, avec les logs enregistrés dans le dossier `log_data_fusion_pipeline/carbon_logs`.
 
 Le suivi de l'empreinte carbone est intégré à chaque étape de traitement grâce à CodeCarbon, et les résultats sont enregistrés
-dans le dossier `carbon_logs`. Cela permet de surveiller l'impact environnemental de chaque exécution du pipeline.
+dans le dossier `logs/log_data_fusion_pipeline`. Cela permet de surveiller l'impact environnemental de chaque exécution du pipeline.
 """
+
 
 import os
 import sys
@@ -211,12 +212,19 @@ def create_index(es, index_name):
 def merge_data_store_in_elastic(dataframes):
     """
     Fusionne les DataFrames pour créer de nouveaux jeux de données et les stocke dans deux index Elasticsearch distincts.
+    Suivi de l'empreinte carbone intégré.
+
     params ::
         dataframes : List des DataFrames à fusionner
     """
 
-    tracker = EmissionsTracker(output_dir="logs/carbon_logs")
-    tracker.start()
+    # Démarrage du suivi de l'empreinte carbone
+    log_dir = "logs/log_data_fusion_pipeline"
+    if not os.path.exists(log_dir):
+        os.makedirs(log_dir)
+
+    tracker = EmissionsTracker(output_dir=log_dir)  # Initialisation du tracker
+    tracker.start()  # Démarrage du suivi des émissions
 
     es_host = os.getenv("ELASTIC_DEPLOYMENT_ENDPOINT")
     es_username = os.getenv("ELASTIC_USERNAME")
@@ -239,10 +247,10 @@ def merge_data_store_in_elastic(dataframes):
         else:
             print("Connected to Elasticsearch.")
 
-        meteo_courbe_index = "meteo_courbe_indexxxxx"
-        courbe_mouvement_index = "courbe_mouvement_indexxxxx"
+        meteo_courbe_index = "meteo_courbe_indexxxxxz"
+        courbe_mouvement_index = "courbe_mouvement_indexxxxxz"
 
-        # Création index
+        # Création des index dans Elasticsearch
         create_index(es, meteo_courbe_index)
         create_index(es, courbe_mouvement_index)
 
@@ -273,11 +281,13 @@ def merge_data_store_in_elastic(dataframes):
             f"Nombre de lignes après fusion courbe-mouvement: {len(merge_courbe_mouvement)}"
         )
 
+        # Remplissage des valeurs manquantes
         merge_meteo_courbe["TempMax_Deg"].fillna(value=0, inplace=True)
         merge_meteo_courbe["TempMin_Deg"].fillna(value=0, inplace=True)
         merge_meteo_courbe["CloudCoverage_percent"].fillna(value=0, inplace=True)
         merge_courbe_mouvement["motif"].fillna(value="inconnu", inplace=True)
 
+        # Stockage des DataFrames fusionnés dans Elasticsearch
         store_in_elasticsearch(
             merge_meteo_courbe, es, index_name=meteo_courbe_index, chunk_size=500
         )
@@ -292,13 +302,19 @@ def merge_data_store_in_elastic(dataframes):
         print(es.count(index="courbe_mouvement_index")["count"])
         print(es.count(index="meteo_courbe_index")["count"])
 
+        # Arrêt du suivi des émissions carbone
+        emissions = tracker.stop()
 
+        # Enregistrement des émissions de carbone
+        if emissions is not None:
+            print(f"Total carbon emissions for this run: {emissions} kgCO2eq")
+        else:
+            print("Aucune émission carbone détectée.")
 
     except exceptions.ConnectionError as e:
         print(f"Error connecting to Elasticsearch: {str(e)}")
     except Exception as e:
         print(f"An error occurred: {str(e)}")
-    tracker.stop()
 
     return merge_meteo_courbe, merge_courbe_mouvement
 
