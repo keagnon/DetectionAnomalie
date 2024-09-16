@@ -1,11 +1,4 @@
-"""
-Module pour la prédiction de la consommation journalière d'énergie avec mouvements sociaux.
-Il permet d'utiliser un modèle MLflow pour faire des prédictions basées sur les caractéristiques
-fournies par l'utilisateur.
-"""
-
 import os
-
 import mlflow
 import pandas as pd
 import streamlit as st
@@ -15,46 +8,13 @@ from utils import configure_google_credentials, local_css
 local_css("styles.css")
 configure_google_credentials()
 
+regions_list = [
+    "Hauts-de-France", "Bretagne", "Centre-Val de Loire", "Grand Est",
+    "Provence-Alpes-Côte d'Azur", "Occitanie", "Normandie", "Nouvelle-Aquitaine",
+    "Pays de la Loire", "Île-de-France", "Auvergne-Rhône-Alpes", "Bourgogne-Franche-Comté"
+]
 
-# Charger le jeu de données
-df = pd.read_csv("fusion_courbe_mouvement.csv", delimiter=";", encoding="utf-8")
-df.columns = df.columns.str.strip()
-
-# Feature engineering
-df["mois"] = pd.to_datetime(df["date"], format="%d/%m/%Y").dt.month
-df["jour_semaine"] = pd.to_datetime(df["date"], format="%d/%m/%Y").dt.dayofweek
-df["moyenne_conso_horaire"] = df[
-    [
-        "00:00",
-        "01:00",
-        "02:00",
-        "03:00",
-        "04:00",
-        "05:00",
-        "06:00",
-        "07:00",
-        "08:00",
-        "09:00",
-        "10:00",
-        "11:00",
-        "12:00",
-        "13:00",
-        "14:00",
-        "15:00",
-        "16:00",
-        "17:00",
-        "18:00",
-        "19:00",
-        "20:00",
-        "21:00",
-        "22:00",
-        "23:00",
-    ]
-].mean(axis=1)
-
-# Nettoyage des données
-df_clean = df.dropna(subset=["Consommation_journaliere"])
-
+moyenne_conso_horaire = 0.0
 
 def load_model():
     """
@@ -65,7 +25,6 @@ def load_model():
     """
     logged_model = "runs:/df3f426ffdc248cdb89089905b2bf8ad/random_forest_model"
     return mlflow.pyfunc.load_model(logged_model)
-
 
 def show_prediction_conso():
     """
@@ -78,6 +37,7 @@ def show_prediction_conso():
     st.markdown("<br>", unsafe_allow_html=True)
     st.markdown("<br>", unsafe_allow_html=True)
 
+    # Interface utilisateur pour entrer les données de prédiction
     col1, col2 = st.columns(2)
 
     with col1:
@@ -85,9 +45,7 @@ def show_prediction_conso():
         selected_month = date_input.month
         selected_day_of_week = date_input.weekday()
         st.markdown("<br>", unsafe_allow_html=True)
-        region_input = st.selectbox(
-            "Choisissez une région", df_clean["région"].unique()
-        )
+        region_input = st.selectbox("Choisissez une région", regions_list)
 
     with col2:
         social_movement_input = st.selectbox(
@@ -104,6 +62,7 @@ def show_prediction_conso():
     st.markdown("<br>", unsafe_allow_html=True)
     st.markdown("<br>", unsafe_allow_html=True)
 
+    # Prédiction lorsque l'utilisateur clique sur le bouton
     if st.button("🔍 Prédire la Consommation"):
         with st.spinner("Prédiction en cours..."):
             model = load_model()
@@ -125,3 +84,5 @@ def show_prediction_conso():
         width=100,
         caption="Prédiction Mouvements Sociaux",
     )
+
+show_prediction_conso()
