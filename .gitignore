@@ -33,7 +33,7 @@ merge_meteo_courbe.csv
 # also keep the example dataset
 !data/01_raw/iris.csv
 
-
+gcp_credentials.json
 ##########################
 # Common files
 
