@@ -111,6 +111,7 @@ def show_prediction_meteo():
                     "event": "model_execution",
                     "model_name": "BestEstimator",
                     "model_version": "1.0.0",
+                    "application_name": "PredictionConsoAppwithMeteo",
                     "status": "completed",
                     "cpu_usage": cpu_usage,
                     "memory_usage": memory_usage,
