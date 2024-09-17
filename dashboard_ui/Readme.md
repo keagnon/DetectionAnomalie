@@ -157,7 +157,7 @@ Le suivi des résultats est effectué avec **MLflow**, qui permet de visualiser 
 
 ![Suivi des résultats](images/tracking/whenclickingMlflowonMenuUI.png)
 
-## 📊 Monitoring et Logs Unifiés
+## 📊 Monitoring et Logs Unifiés <a name="monitoring-et-logs-unifiés></a>
 
 Dans cette section, nous détaillons le processus de **monitoring** des différentes fonctionnalités de l'application en utilisant **Elasticsearch** et un tableau de bord de suivi. Chaque action (détection d'anomalies, clustering, prédictions, etc.) est loggée dans un format unifié. Les logs sont envoyés à **Elasticsearch** et ensuite visualisés dans un tableau de bord de monitoring.
 
@@ -203,6 +203,8 @@ Les logs sont envoyés à **Elasticsearch** avec une structure cohérente pour c
 - **status** : Statut de l'exécution (`completed` ou `failed`).
 - **cpu_usage** et **memory_usage** : Utilisation des ressources système au moment de l'événement.
 - **details** : Contient des informations spécifiques à l'événement, comme les **inputs** de l'utilisateur et les résultats de l'exécution.
+
+---
 
 ### Explication des logs par type d'événement
 
