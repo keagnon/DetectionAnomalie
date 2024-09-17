@@ -40,6 +40,7 @@ Cette partie de notre projet de **détection d'anomalies** se concentre sur les 
 - 🔮 **Prédiction de la consommation** d'énergie en prenant en compte les conditions météorologiques et les mouvements sociaux.
 - 📝 **Feedback utilisateur** pour améliorer les modèles en continu.
 - 🔍 **Suivi des résultats** et des métriques des modèles via **MLflow**.
+- 📊 **Monitoring et Logs Unifiés** : Une section dédiée au suivi des performances du système et des modèles, avec un enregistrement des logs unifiés envoyés vers **Elasticsearch**.
 
 
 ## 📚 Sommaire
