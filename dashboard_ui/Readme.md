@@ -53,7 +53,7 @@ Cette partie de notre projet de **détection d'anomalies** se concentre sur les 
    - [☁️ Prédiction de la cosommation en prenant en compte les conditions météorologiques](#prédiction-météo)
    - [📝 Feedback utilisateur](#feedback-utilisateur)
    - [📈 Suivi des résultats et des modèles](#suivi-des-résultats-et-des-modèles)
-   - [📊 Monitoring et Logs Unifiés](#monitoring-et-logs-unifiés)
+   - [📊 Monitoring et Logs Unifiés](#monitoring-et-logs-unifies)
 4. [📁 Structure du projet](#structure-du-projet)
 5. [🖼️ Captures d'écran](#captures-d’écran)
 
@@ -157,7 +157,7 @@ Le suivi des résultats est effectué avec **MLflow**, qui permet de visualiser 
 
 ![Suivi des résultats](images/tracking/whenclickingMlflowonMenuUI.png)
 
-## 📊 Monitoring et Logs Unifiés <a name="monitoring-et-logs-unifiés></a>
+## 📊 Monitoring et Logs Unifiés {#monitoring-et-logs-unifies}
 
 Dans cette section, nous détaillons le processus de **monitoring** des différentes fonctionnalités de l'application en utilisant **Elasticsearch** et un tableau de bord de suivi. Chaque action (détection d'anomalies, clustering, prédictions, etc.) est loggée dans un format unifié. Les logs sont envoyés à **Elasticsearch** et ensuite visualisés dans un tableau de bord de monitoring.
 
@@ -204,7 +204,6 @@ Les logs sont envoyés à **Elasticsearch** avec une structure cohérente pour c
 - **cpu_usage** et **memory_usage** : Utilisation des ressources système au moment de l'événement.
 - **details** : Contient des informations spécifiques à l'événement, comme les **inputs** de l'utilisateur et les résultats de l'exécution.
 
----
 
 ### Explication des logs par type d'événement
 
