@@ -23,6 +23,11 @@
 ![Boto3](https://img.shields.io/badge/Boto3-1.35.14-005e00?style=for-the-badge&logo=amazonaws)
 ![Google Cloud Storage](https://img.shields.io/badge/Google%20Cloud%20Storage-2.18.2-orange?style=for-the-badge&logo=googlecloud)
 
+### Librairies pour les Logs
+
+![Elasticsearch](https://img.shields.io/badge/Elasticsearch-8.10.0-005571?style=for-the-badge&logo=elasticsearch)
+![psutil](https://img.shields.io/badge/psutil-5.9.7-blue?style=for-the-badge)
+![Loguru](https://img.shields.io/badge/Loguru-0.6.0-purple?style=for-the-badge&logo=logstash)
 
 ## 📑 Introduction
 
@@ -48,6 +53,7 @@ Cette partie de notre projet de **détection d'anomalies** se concentre sur les 
    - [☁️ Prédiction de la cosommation en prenant en compte les conditions météorologiques](#prédiction-météo)
    - [📝 Feedback utilisateur](#feedback-utilisateur)
    - [📈 Suivi des résultats et des modèles](#suivi-des-résultats-et-des-modèles)
+   - [📊 Monitoring et Logs Unifiés](#monitoring-et-logs-unifiés)
 4. [📁 Structure du projet](#structure-du-projet)
 5. [🖼️ Captures d'écran](#captures-d’écran)
 
@@ -151,6 +157,74 @@ Le suivi des résultats est effectué avec **MLflow**, qui permet de visualiser 
 
 ![Suivi des résultats](images/tracking/whenclickingMlflowonMenuUI.png)
 
+## 📊 Monitoring et Logs Unifiés
+
+Dans cette section, nous détaillons le processus de **monitoring** des différentes fonctionnalités de l'application en utilisant **Elasticsearch** et un tableau de bord de suivi. Chaque action (détection d'anomalies, clustering, prédictions, etc.) est loggée dans un format unifié. Les logs sont envoyés à **Elasticsearch** et ensuite visualisés dans un tableau de bord de monitoring.
+
+### Structure des Logs Unifiés
+
+Les logs sont envoyés à **Elasticsearch** avec une structure cohérente pour chaque action. Voici la structure de base d'un log unifié :
+
+```json
+{
+    "timestamp": "2024-09-17T10:12:34.123Z",
+    "event": "model_execution",
+    "model_name": "IsolationForest",
+    "model_version": "1.0.0",
+    "application_name": "AnomalyDetectionApp",
+    "response_time": 1.345,
+    "log_level": "INFO",
+    "status": "completed",
+    "cpu_usage": 15.2,
+    "memory_usage": 62.5,
+    "details": {
+        "anomalies_count": 5,
+        "noise_points_count": 2,
+        "successful_predictions": 10,
+        "failed_predictions": 1,
+        "inputs": {
+            "region": "Île-de-France",
+            "social_movement": 1,
+            "month": 9,
+            "day_of_week": 2
+        }
+    }
+}
+```
+### Explication des champs de log
+
+- **timestamp** : Le moment où l'action a eu lieu.
+- **event** : Le type d'événement enregistré (exemple : `model_execution`).
+- **model_name** : Le modèle utilisé pour l'action (exemple : `IsolationForest`).
+- **model_version** : La version du modèle utilisé.
+- **application_name** : L'application qui génère le log (exemple : `AnomalyDetectionApp`).
+- **response_time** : Temps de réponse en secondes pour l'exécution de l'événement.
+- **log_level** : Niveau du log (exemple : `INFO` pour succès, `ERROR` pour échec).
+- **status** : Statut de l'exécution (`completed` ou `failed`).
+- **cpu_usage** et **memory_usage** : Utilisation des ressources système au moment de l'événement.
+- **details** : Contient des informations spécifiques à l'événement, comme les **inputs** de l'utilisateur et les résultats de l'exécution.
+
+### Explication des logs par type d'événement
+
+- **Détection d'anomalies** : Le log enregistre le nombre d'anomalies détectées, le nombre de prédictions réussies et échouées, ainsi que les entrées spécifiques à l'utilisateur.
+- **Clustering** : Le log contient des informations sur le nombre de clusters détectés et les points considérés comme du bruit.
+- **Prédiction de consommation énergétique (météo ou mouvements sociaux)** : Chaque log inclut les **inputs** de l'utilisateur, tels que la région, la plage horaire et le mouvement social, ainsi que la consommation énergétique prédite.
+
+Voici une capture d'écran de l'interface d'**Elasticsearch** montrant les logs unifiés et les différents événements enregistrés dans l'application :
+![Elasticsearch Logs](images/monitoring/im1.png)
+
+### Tableau de Bord de Monitoring
+
+Nous avons mis en place un **tableau de bord** dans **Kibana** pour visualiser les logs en temps réel et suivre les performances des différents modèles. Voici les métriques suivies sur ce tableau de bord :
+
+- **CPU et Mémoire** : Suivi de l'utilisation des ressources système lors des prédictions.
+- **Temps de réponse** : Affichage des temps de réponse des différents modèles.
+- **Statut des Exécutions** : Nombre de prédictions réussies et échouées.
+- **Analyse des Anomalies** : Nombre d'anomalies détectées par région.
+
+Voici une capture d'écran du **tableau de bord Kibana** avec les différentes métriques suivies :
+![Kibana Dashboard](path_to_screenshot_kibana_dashboard.png)
+
 ## 📁 Structure du projet <a name="structure-du-projet"></a>
 
 Voici un aperçu de la structure du projet :
@@ -220,3 +294,16 @@ dashboard_ui/
 
    ![Suivi des résultats](images/tracking/mlflow_trackin.png)
    ![Suivi des résultats](images/tracking/whenclickingMlflowonMenuUI.png)
+
+7. **Elasticsearch**
+
+   ![Elasticsearch Logs](images/monitoring/im1.png)
+   ![Elasticsearch Logs](images/monitoring/im1.png)
+
+8. **Tableau de Bord des logs avec Kibana**
+
+   ![Kibana Dashboard](path_to_screenshot_kibana_dashboard.png)
+
+
+
+

@@ -49,6 +49,11 @@
 ![Python](https://img.shields.io/badge/Python-3.11.5-blue)
 ![GitHub Actions Badge](https://img.shields.io/badge/GitHub--Actions-CI%2FCD-brightgreen)
 
+### Librairies pour les Logs
+
+![Elasticsearch](https://img.shields.io/badge/Elasticsearch-8.10.0-005571?style=for-the-badge&logo=elasticsearch)
+![psutil](https://img.shields.io/badge/psutil-5.9.7-blue?style=for-the-badge)
+![Loguru](https://img.shields.io/badge/Loguru-0.6.0-purple?style=for-the-badge&logo=logstash)
 
 ## 📑 Sommaire
 1. [🔍 Contexte du Projet](#contexte-du-projet)
@@ -63,10 +68,11 @@
 10. [💻 Traitement des Données et Utilisation de Google Colab](#traitement-des-données-et-utilisation-de-google-colab)
 11. [🤖 Modèles de Machine Learning](#modèles-de-machine-learning)
 12. [🖥️ Interface Utilisateur](#interface-utilisateur-avec-streamlit)
-13. [📊 Ordonnancement des Données](#ordonnancement-des-données-avec-airflow)
-14. [📜 Conclusion](#conclusion)
-15. [⚠️ Difficultés Rencontrées](#difficultés_rencontrées)
-16. [🚀 Prochaines Étapes : Phase 2 - Forecasting ](#prochaine_etapes)
+13. [📈 Monitoring des Logs et Performance](#monitoring-des-logs)
+14. [📊 Documentation](#documentation)
+15. [📜 Conclusion](#conclusion)
+16. [⚠️ Difficultés Rencontrées](#difficultés_rencontrées)
+17. [🚀 Prochaines Étapes : Phase 2 - Forecasting ](#prochaine_etapes)
 
 
 
@@ -217,7 +223,26 @@ L'interface utilisateur finale a été développée avec **Streamlit**. Elle per
 
 Cette interface est un sous projet de notre projet de détection d'anomalie. Elle est déployée localement et sur **Streamlit Community**. Pour accéder à ce sous projet et avoir plus de détails,cliquer sur [Sous projet Dashboard Streamlit](https://github.com/keagnon/DetectionAnomalie/blob/main/dashboard_ui/Readme.md).
 
-## 13. 📊 Documentation<a name="documentation"></a>
+
+## 📈 Monitoring des Logs et Performance <a name="monitoring-des-logs"></a>
+
+Le **monitoring des logs** est essentiel pour suivre l'état de l'application en temps réel et identifier rapidement des erreurs potentielles, des anomalies dans les prédictions ou des problèmes de performance. Pour cela, nous avons mis en place un système de journalisation unifié qui enregistre les événements clés de l'application, notamment :
+
+- **Exécution des modèles** : suivi des performances, de l'utilisation des ressources système (CPU, mémoire), et des résultats de chaque prédiction.
+- **Prédictions de consommation** et **détection d'anomalies** : chaque prédiction est loggée avec des détails comme les entrées utilisateur et les résultats, ainsi que les anomalies détectées par les modèles.
+- **Logs de performance** : utilisation de la bibliothèque `psutil` pour monitorer l'usage du CPU et de la mémoire.
+
+Ces logs sont ensuite envoyés à **Elasticsearch** pour une analyse approfondie à travers un tableau de bord **Kibana**, offrant une vue claire de l'état de l'application et facilitant la prise de décision.
+
+Voici une capture d'écran de l'interface d'**Elasticsearch** montrant les logs unifiés et les différents événements enregistrés dans l'application :
+![Elasticsearch Logs](images/monitoring/im1.png)
+
+Voici une capture d'écran du **tableau de bord Kibana** avec les différentes métriques suivies :
+![Kibana Dashboard](path_to_screenshot_kibana_dashboard.png)
+
+Pour plus de détails,cliquer sur [Sous projet Dashboard Streamlit](https://github.com/keagnon/DetectionAnomalie/blob/main/dashboard_ui/Readme.md).
+
+## 14. 📊 Documentation <a name="documentation"></a>
 Nous avons documenté plusieurs étapes critiques du projet :
 1. **Mise en place d’un serveur MLFlow sur GCP** : [documentation_mlflow](https://github.com/keagnon/DetectionAnomalie/blob/main/documentation/etapes_mise_en_place.pdf)
 2. **Mise en place d’un serveur Airflow en local** : [documentation_airflow](https://github.com/keagnon/DetectionAnomalie/blob/main/documentation/etapes_installation_airflow.txt)
@@ -233,10 +258,10 @@ Nous avons documenté plusieurs étapes critiques du projet :
 ![Capture dag airflow](images/airflow/im3.png)
 
 
-## 14. 📜 Conclusion <a name="conclusion"></a>
+## 15. 📜 Conclusion <a name="conclusion"></a>
 Le projet de détection d'anomalies dans la consommation d'énergie a permis de mettre en place une solution complète, modulaire et scalable. Grâce à l'intégration de diverses technologies, nous avons réussi à développer un système robuste capable d'identifier des anomalies dans les données de consommation énergétique. En combinant des données météorologiques, sociales et de consommation, nous avons pu générer des insights précieux qui aident les entreprises à optimiser leur utilisation d'énergie.
 
-## 15. ⚠️ Difficultés Rencontrées <a name="difficultés_rencontrées"></a>
+## 16. ⚠️ Difficultés Rencontrées <a name="difficultés_rencontrées"></a>
 Malgré les succès obtenus, plusieurs défis ont été rencontrés au cours du projet :
 
 - **Gestion des Données Massives** : Le traitement de grands volumes de données, en particulier les prévisions météorologiques et les mouvements sociaux, a posé des problèmes de performance, notamment sur les machines locales. Pour contourner ces limites, nous avons utilisé Google Colab et Google Cloud Platform (GCP). Lors de la collecte des données avec Kedro, nous avons dû les traiter en lots (batch processing), et même après la fusion des données, l'insertion dans Elasticsearch s'est faite en petits morceaux (chunks) pour éviter des surcharges.
@@ -250,7 +275,7 @@ Malgré les succès obtenus, plusieurs défis ont été rencontrés au cours du 
 - **Données sur l’Empreinte Carbone** : Nous avons envisagé d'incorporer des données sur l'empreinte carbone par région pour ajouter une dimension "green AI" au projet, où l’optimisation de la consommation énergétique des algorithmes serait un objectif. Cependant, ces données se sont avérées difficiles à trouver. Chaque région ou secteur pourrait avoir un facteur d'émission différent, selon la source d’énergie utilisée. Cela aurait permis de prédire la demande énergétique tout en tenant compte des mouvements sociaux et de fournir des recommandations pour minimiser l’impact carbone en ajustant les sources d’énergie (comme passer du charbon aux énergies renouvelables). Malheureusement, ces données étaient insuffisantes pour mener à bien cette analyse.
 
 
-## 16. 🚀 Prochaines Étapes : Phase 2 - Forecasting <a name="prochaine_etapes"></a>
+## 17. 🚀 Prochaines Étapes : Phase 2 - Forecasting <a name="prochaine_etapes"></a>
 La prochaine étape du projet est de passer à la **Phase 2 : Forecasting**. Nous avons pour objectif d'étendre le système actuel pour inclure des modèles de prévision basés sur des séries temporelles, afin d'anticiper les incidents futurs en se basant sur des données historiques et actuelles.
 
 ### Objectifs de la Phase 2 :

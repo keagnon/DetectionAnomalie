@@ -1,17 +1,26 @@
 """
-Module pour le clustering des données de consommation énergétique.
+Affiche l'interface pour le clustering des données de consommation énergétique.
+
+- Permet de charger un fichier CSV et de traiter les données pour le clustering avec le modèle DBSCAN.
+- Visualise les clusters et les points de bruit détectés.
+- Log les détails des clusters (taille, points de bruit) et les métriques système (CPU/mémoire) dans Elasticsearch.
+- Gère les erreurs et log les exceptions en cas d'échec.
 """
-
 import os
-
-import mlflow
 import numpy as np
 import pandas as pd
-import plotly.express as px
+import mlflow
+import time
 import streamlit as st
+import psutil
+import plotly.express as px
 from sklearn.decomposition import PCA
 from sklearn.preprocessing import StandardScaler
 from utils import configure_google_credentials, local_css, preprocess_data
+from utils import send_log_to_elastic, get_system_usage
+from datetime import datetime
+from elasticsearch import Elasticsearch
+
 
 local_css("styles.css")
 configure_google_credentials()
@@ -21,49 +30,48 @@ LOGGED_MODEL = "runs:/096e31c04a7e4beaa1054645122fc825/dbscan_model"
 loaded_model = mlflow.sklearn.load_model(LOGGED_MODEL)
 
 
-def log_cluster_metrics(unique_labels, counts):
+def log_unified(event_status, model_name, model_version, response_time, clusters_logged, inputs, anomalies_count=0, noise_points_count=0):
     """
-    Enregistrer les métriques de clustering dans MLflow.
-
-    Args:
-        unique_labels (np.ndarray): Labels uniques des clusters.
-        counts (np.ndarray): Nombre de points dans chaque cluster.
+    Enregistre les logs unifiés dans Elasticsearch.
+    ::params:
+        event_status (str): Statut de l'événement (ex: "completed", "error").
+        model_name (str): Nom du modèle utilisé.
+        model_version (str): Version du modèle utilisé.
+        response_time (float): Temps de réponse de l'exécution.
+        clusters_logged (int): Nombre de clusters enregistrés.
+        inputs (dict): Détails des inputs fournis par l'utilisateur.
+        anomalies_count (int): Nombre d'anomalies détectées (par défaut 0).
+        noise_points_count (int): Nombre de points de bruit (par défaut 0).
     """
-    with mlflow.start_run():
-        for label, count in zip(unique_labels, counts):
-            if label == -1:
-                mlflow.log_metric("noise_points", count)
-            else:
-                mlflow.log_metric(f"cluster_{label}_size", count)
 
+    cpu_usage, memory_usage = get_system_usage()
 
-def display_cluster_summary(unique_labels, counts):
-    """
-    Afficher un résumé des clusters avec leur nombre de points.
-
-    Args:
-        unique_labels (np.ndarray): Labels uniques des clusters.
-        counts (np.ndarray): Nombre de points dans chaque cluster.
-    """
-    st.subheader("Résumé des clusters")
-    for label, count in zip(unique_labels, counts):
-        if label == -1:
-            st.markdown(
-                f"<span style='color: red;'>• Cluster {label} : {count} points</span>",
-                unsafe_allow_html=True,
-            )
-        else:
-            st.markdown(
-                f"<span style='color: green;'>• Cluster {label} : {count} points</span>",
-                unsafe_allow_html=True,
-            )
-
+    # Création log unifié avec les détails des inputs
+    log_data = {
+        "timestamp": datetime.utcnow().isoformat(),
+        "event": "model_execution",
+        "model_name": model_name,
+        "model_version": model_version,
+        "application_name": "ClusteringApp",
+        "response_time": response_time,
+        "log_level": "INFO" if event_status == "completed" else "ERROR",
+        "status": event_status,
+        "cpu_usage": cpu_usage,
+        "memory_usage": memory_usage,
+        "details": {
+            "clusters_logged": clusters_logged,
+            "anomalies_count": anomalies_count,
+            "noise_points_count": noise_points_count,
+            "inputs": inputs  # Inclure les inputs ici
+        }
+    }
+    send_log_to_elastic(log_data)
 
 def display_clustering_plot(df, hourly_columns):
     """
     Affiche le graphe du clustering en utilisant la réduction de dimensions PCA.
 
-    Args:
+    ::params:
         df (pd.DataFrame): DataFrame contenant les données prétraitées.
         hourly_columns (list): Liste des colonnes horaires.
     """
@@ -80,7 +88,29 @@ def display_clustering_plot(df, hourly_columns):
     unique_labels, counts = np.unique(df["cluster"], return_counts=True)
 
     # Enregistrer les métriques dans MLflow
-    log_cluster_metrics(unique_labels, counts)
+    with mlflow.start_run():
+        for label, count in zip(unique_labels, counts):
+            if label == -1:
+                mlflow.log_metric("noise_points", count)
+            else:
+                mlflow.log_metric(f"cluster_{label}_size", count)
+
+    # Créer le log unifié avec les informations pertinentes
+    response_time = 1.0  # Simulez une durée d'exécution
+    inputs = {
+        "file_name": "fichier_échantillon.csv",
+        "hourly_columns": hourly_columns
+    }
+
+    log_unified(
+        event_status="completed",
+        model_name="DBSCAN",
+        model_version="1.0.0",
+        response_time=response_time,
+        clusters_logged=len(unique_labels),
+        inputs=inputs,
+        noise_points_count=len(df[df["cluster"] == -1])
+    )
 
     col1, col2 = st.columns([7, 3], gap="medium")
 
@@ -108,16 +138,26 @@ def display_clustering_plot(df, hourly_columns):
         )
 
     with col2:
-        display_cluster_summary(unique_labels, counts)
+        st.subheader("Résumé des clusters")
+        for label, count in zip(unique_labels, counts):
+            if label == -1:
+                st.markdown(
+                    f"<span style='color: red;'>• Cluster {label} : {count} points</span>",
+                    unsafe_allow_html=True,
+                )
+            else:
+                st.markdown(
+                    f"<span style='color: green;'>• Cluster {label} : {count} points</span>",
+                    unsafe_allow_html=True,
+                )
 
     return df, unique_labels
 
-
 def display_noise_points(df, unique_labels):
     """
-    Afficher les points considérés comme bruit dans les clusters.
+    Afficher les points considérés comme bruit dans les clusters et envoyer les logs à Elasticsearch.
 
-    Args:
+    ::params:
         df (pd.DataFrame): DataFrame contenant les données prétraitées.
         unique_labels (np.ndarray): Labels uniques des clusters.
     """
@@ -150,7 +190,6 @@ def display_noise_points(df, unique_labels):
                 unsafe_allow_html=True,
             )
 
-
 def show_clustering():
     """
     Afficher la page de clustering.
@@ -167,6 +206,12 @@ def show_clustering():
 
     if uploaded_file is not None:
         df, hourly_columns = preprocess_data(uploaded_file)
+
+        # Logger les inputs du fichier
+        inputs = {
+            "file_name": uploaded_file.name,
+            "hourly_columns": hourly_columns
+        }
 
         if all(column in df.columns for column in hourly_columns):
             df, unique_labels = display_clustering_plot(df, hourly_columns)

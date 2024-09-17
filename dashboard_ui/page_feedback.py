@@ -4,7 +4,6 @@ et de les stocker dans un bucket S3 via l'API boto3.
 """
 
 import os
-
 import boto3
 import streamlit as st
 from botocore.exceptions import InvalidRegionError, NoCredentialsError, PartialCredentialsError
@@ -13,13 +12,11 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# Clés AWS et configuration du bucket S3
 AWS_ACCESS_KEY = os.getenv("AWS_ACCESS_KEY")
 AWS_SECRET_KEY = os.getenv("AWS_SECRET_KEY")
 S3_BUCKET_NAME = os.getenv("S3_BUCKET_NAME")
 S3_REGION_NAME = os.getenv("S3_REGION_NAME")
 
-# Initialisation du client S3 avec boto3.client
 s3_client = boto3.client(
     "s3",
     aws_access_key_id=AWS_ACCESS_KEY,
@@ -27,23 +24,22 @@ s3_client = boto3.client(
     region_name=S3_REGION_NAME,
 )
 
-
 def upload_feedback_to_s3(username, feedback):
     """
     Envoie le feedback de l'utilisateur à un bucket S3.
 
-    Args:
+    ::params:
         username (str): Le nom de l'utilisateur.
         feedback (str): Les commentaires de l'utilisateur.
     """
     try:
-        # Créez un nom de fichier basé sur le nom d'utilisateur et la date
+        # Création d'un nom de fichier basé sur le nom d'utilisateur et la date
         timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
         file_name = f"{username}_{timestamp}.txt"
 
         content = f"Nom d'utilisateur: {username}\nFeedback: {feedback}"
 
-        # Upload du fichier de feedback sur S3
+        # Chargement du fichier de feedback sur S3
         s3_client.put_object(
             Bucket=S3_BUCKET_NAME, Key=file_name, Body=content, ContentType="text/plain"
         )
@@ -70,7 +66,6 @@ def show_feedback():
     st.markdown("<br>", unsafe_allow_html=True)
     st.markdown("<br>", unsafe_allow_html=True)
 
-    # Formulaire de feedback avec bordures personnalisées
     name = st.text_input("Votre nom")
     feedback = st.text_area("Vos commentaires / suggestions")
 

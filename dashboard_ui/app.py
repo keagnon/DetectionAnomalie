@@ -14,30 +14,12 @@ from page_feedback import show_feedback
 from page_prediction_conso import show_prediction_conso
 from page_prediction_meteo import show_prediction_meteo
 from page_tracking import open_mlflow_ui, show_tracking_page
+from utils import local_css, configure_google_credentials
 from streamlit_option_menu import option_menu
 
 load_dotenv()
-
-# Créer un répertoire pour les logs s'il n'existe pas
-if not os.path.exists("logs"):
-    os.makedirs("logs")
-
-def local_css(file_name):
-    """
-    Charge et applique un fichier CSS pour styliser l'application.
-
-    ::Params:
-        file_name (str): Le chemin vers le fichier CSS.
-    """
-    with open(file_name, "r", encoding="utf-8") as f:
-        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
-
 local_css("styles.css")
-
-# Configurer les credentials Google Cloud
-google_credentials = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
-if google_credentials:
-    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = google_credentials
+configure_google_credentials()
 
 # structure de la page
 with st.sidebar:
@@ -74,7 +56,6 @@ with st.sidebar:
         },
     )
 
-# Afficher la page sélectionnée
 if selected == "Prédiction Météo":
     show_prediction_meteo()
 elif selected == "Anomalie Détection":
