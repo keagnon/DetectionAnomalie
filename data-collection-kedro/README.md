@@ -244,7 +244,7 @@ Pour ce sous-projet de collecte de données avec Kedro, j'ai utilisé la bibliot
 
 Les données brutes stockées dans Elasticsearch sont visualisées dans un tableau de bord **Kibana** hébergé sur une machine virtuelle **GCP**. Voici une capture d'écran du dashboard Kibana :
 
-![Capture du Dashboard Kibana](lien_capture_kibana)
+![Capture du Dashboard Kibana](images/dashboard_kibana/donnee_brute_kibana.png)
 
 
 ## **Fichiers de configuration** 🛠️ <a name="fichiers-de-configuration"></a>
