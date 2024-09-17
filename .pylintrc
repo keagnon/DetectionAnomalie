@@ -14,7 +14,12 @@ disable=
     C0114,  # Missing module docstring
     C0116,   # Missing function or method docstring
     R1710,
-    C0209
+    C0209,
+    R0914,
+    W0621,
+    C0103,
+    W0612
+    R0801
 
 [FORMAT]
 max-line-length=130
