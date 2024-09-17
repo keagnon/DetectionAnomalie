@@ -248,8 +248,10 @@ Nous avons documenté plusieurs étapes critiques du projet :
 2. **Mise en place d’un serveur Airflow en local** : [documentation_airflow](https://github.com/keagnon/DetectionAnomalie/blob/main/documentation/etapes_installation_airflow.txt)
 3. **Ordonnancement des Données** : [documentation_ordonnoncement](https://github.com/keagnon/DetectionAnomalie/blob/main/documentation/Ordonnoncements_donn%C3%A9es.pdf)
 4. **Documentation amazone** : [documentation_amazone](https://github.com/keagnon/DetectionAnomalie/blob/main/documentation/Documentation_amazone%20S3.odt)
-4. **Mise en place elastic search** : [documentation_elastic](https://github.com/keagnon/DetectionAnomalie/blob/main/documentation/Documentation%20mise%20en%20place%20elastic.pdf)
-4. **Installation et configuration streamlit** : [documentation_elastic](https://github.com/keagnon/DetectionAnomalie/blob/main/documentation/Documentation%20mise%20en%20place%20elastic.pdf)
+5. **Mise en place elastic search** : [documentation_elastic](https://github.com/keagnon/DetectionAnomalie/blob/main/documentation/Documentation%20mise%20en%20place%20elastic.pdf)
+6. **Installation et configuration streamlit** : [documentation_elastic](https://github.com/keagnon/DetectionAnomalie/blob/main/documentation/Documentation%20mise%20en%20place%20elastic.pdf)
+7. **Mise en Place des Logs et du Monitoring avec Elasticsearch et Kibana** : [documentation_monitoring_logs](https://github.com/keagnon/DetectionAnomalie/blob/main/documentation/Documentation%20mise%20en%20place%20elastic.pdf)
+
 
 **Airflow** est utilisé pour orchestrer les pipelines de collecte de données via des DAGs. Un exemple de DAG est utilisé pour enrichir nos datasets avec des données d'API. Ce script Airflow s'exécute toute les 30 minutes. Voici des images de notre DAG et de notre interface Airflow :
 
