@@ -157,7 +157,7 @@ Le suivi des résultats est effectué avec **MLflow**, qui permet de visualiser 
 
 ![Suivi des résultats](images/tracking/whenclickingMlflowonMenuUI.png)
 
-## 📊 Monitoring et Logs Unifiés {#monitoring-et-logs-unifies}
+## 📊 Monitoring et Logs Unifiés <a name="monitoring-et-logs-unifies"></a>
 
 Dans cette section, nous détaillons le processus de **monitoring** des différentes fonctionnalités de l'application en utilisant **Elasticsearch** et un tableau de bord de suivi. Chaque action (détection d'anomalies, clustering, prédictions, etc.) est loggée dans un format unifié. Les logs sont envoyés à **Elasticsearch** et ensuite visualisés dans un tableau de bord de monitoring.
 
