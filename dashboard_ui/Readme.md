@@ -2,7 +2,7 @@
 
 ### Langage
 
-![Python](https://img.shields.io/badge/Python-3.9-blue?style=for-the-badge&logo=python)
+![Python](https://img.shields.io/badge/Python-3.11.5-blue?style=for-the-badge&logo=python)
 
 ### Frameworks et Outils de Développement
 
@@ -300,11 +300,10 @@ dashboard_ui/
 7. **Elasticsearch**
 
    ![Elasticsearch Logs](images/monitoring/im1.png)
-   ![Elasticsearch Logs](images/monitoring/im1.png)
 
 8. **Tableau de Bord des logs avec Kibana**
 
-   ![Kibana Dashboard](path_to_screenshot_kibana_dashboard.png)
+   ![Kibana Dashboard](images/monitoring/dashboard_logs.png)
 
 
 

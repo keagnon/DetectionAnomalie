@@ -109,7 +109,7 @@ def show_prediction_meteo():
                 # Log du résultat de la prédiction avec les inputs utilisateur
                 log_data.update({
                     "event": "model_execution",
-                    "model_name": "BestEstimator",
+                    "model_name": "CatBoost",
                     "model_version": "1.0.0",
                     "application_name": "PredictionConsoAppwithMeteo",
                     "status": "completed",
@@ -136,7 +136,7 @@ def show_prediction_meteo():
             # Log en cas d'erreur
             log_data.update({
                 "event": "model_execution",
-                "model_name": "BestEstimator",
+                "model_name": "CatBoost",
                 "model_version": "1.0.0",
                 "status": "failed",
                 "error_message": str(e),

@@ -2,7 +2,7 @@
 # 📊 Modèles de ML pour la Prédiction et la Détection d'Anomalies Énergétiques
 
 ### 🔗 Langage
-![Python](https://img.shields.io/badge/Python-3.10-blue?style=for-the-badge&logo=python)
+![Python](https://img.shields.io/badge/Python-3.11.5-blue?style=for-the-badge&logo=python)
 
 ### 🛠️ Frameworks et Outils de Développement
 ![Streamlit](https://img.shields.io/badge/Streamlit-1.38.0-red?style=for-the-badge&logo=streamlit)

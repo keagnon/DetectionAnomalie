@@ -2,7 +2,7 @@
 
 ### Langage
 
-![Python Badge](https://img.shields.io/badge/python-3.9-blue)
+![Python Badge](https://img.shields.io/badge/python-3.11.5-blue)
 
 ### Frameworks et Outils de Développement
 
