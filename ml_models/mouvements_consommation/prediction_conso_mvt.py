@@ -15,7 +15,6 @@ Variables d'environnement :
 - MLFLOW_ARTEFACTS_LOCATION : Emplacement des artefacts MLflow dans GCS.
 """
 
-
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split, GridSearchCV
@@ -53,8 +52,7 @@ mlflow_artifacts_location = os.getenv('MLFLOW_ARTEFACTS_LOCATION')
 if not mlflow_artifacts_location:
     print("Warning: MLFLOW_ARTEFACTS_LOCATION non défini dans .env")
 
-
-experiment_name = "mouvement_social_prediction"
+experiment_name = "prediction_conso_prise_en_compte_mouvement_social"
 artifact_location = mlflow_artifacts_location
 tags = {"env": "dev", "version": "1.0.0"}
 
@@ -65,9 +63,6 @@ experiment_id = create_mlflow_experiment(
 )
 
 def upload_to_gcs(local_model_path, gcs_path, timeout=600):
-    """
-    Téléversement d'un fichier local vers Google Cloud Storage.
-    """
     client = storage.Client()
     bucket_name = mlflow_artifacts_location.split('//')[1].split('/')[0]
     bucket = client.bucket(bucket_name)
@@ -76,9 +71,6 @@ def upload_to_gcs(local_model_path, gcs_path, timeout=600):
     print(f"Modèle uploadé vers {gcs_path} dans GCS avec succès.")
 
 def log_and_upload_model(model, model_name, experiment_id):
-    """
-    Enregistrement et téléversement d'un modèle dans MLflow et GCS.
-    """
     local_model_path = f"{model_name}.pkl"
     if os.path.isdir(local_model_path):
         shutil.rmtree(local_model_path)
@@ -90,9 +82,6 @@ def log_and_upload_model(model, model_name, experiment_id):
         upload_to_gcs(local_model_path, gcs_model_path)
 
 def train_and_log_model(model, model_name, X_train, y_train, experiment_id):
-    """
-    Entraînement et enregistrement d'un modèle dans MLflow et GCS, suivi des émissions de carbone.
-    """
     log_dir = f"log/log_carbon_{model_name}"
     if not os.path.exists(log_dir):
         os.makedirs(log_dir)
@@ -154,9 +143,9 @@ grid_search.fit(X_train, y_train)
 best_ridge_model = grid_search.best_estimator_
 train_and_log_model(best_ridge_model, "ridge_model", X_train, y_train, experiment_id)
 
-# Modèle Random Forest
+# Modèle Random Forest avec optimisations
 random_forest_model = Pipeline(steps=[
     ('preprocessor', preprocessor),
-    ('model', RandomForestRegressor(n_estimators=100, random_state=42))
+    ('model', RandomForestRegressor(n_estimators=50, max_depth=10, n_jobs=-1, random_state=42))
 ])
 train_and_log_model(random_forest_model, "random_forest_model", X_train, y_train, experiment_id)

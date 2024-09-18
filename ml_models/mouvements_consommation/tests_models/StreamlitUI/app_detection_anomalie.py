@@ -76,7 +76,6 @@ if uploaded_file is not None:
         if not anomalies_df.empty:
             st.subheader("Visualisation des anomalies")
             selected_rows = st.multiselect(
-                "Choisissez les anomalies à afficher",
                 anomalies_df.index,
                 format_func=lambda idx: f"{anomalies_df.loc[idx, 'date']} - Région: {anomalies_df.loc[idx, 'région']}"
             )

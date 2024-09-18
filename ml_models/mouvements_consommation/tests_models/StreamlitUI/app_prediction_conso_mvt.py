@@ -18,7 +18,7 @@ from datetime import datetime
 load_dotenv()
 
 mlflow.set_tracking_uri(os.getenv("MLFLOW_TRACKING_URI"))
-mlflow.set_experiment("Prediction_des_mouvements_sociaux")
+mlflow.set_experiment("prediction_conso_prise_en_compte_mouvement_social")
 
 df = pd.read_csv('../data_test/fusion_courbe_mouvement.csv', delimiter=';', encoding='utf-8')
 df.columns = df.columns.str.strip()
@@ -74,7 +74,7 @@ def open_mlflow_ui():
 
 def load_model():
     """Charger le modèle MLflow"""
-    logged_model = 'runs:/df3f426ffdc248cdb89089905b2bf8ad/random_forest_model'
+    logged_model = 'runs:/812fd081bbfd47abb53d52f421492452/model'
     return mlflow.pyfunc.load_model(logged_model)
 
 tab1, tab2 = st.tabs(["Entraîner le Modèle", "Faire une Prédiction"])
