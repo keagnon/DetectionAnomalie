@@ -107,6 +107,7 @@ Le projet est divisé en plusieurs modules interconnectés, chacun jouant un rô
 - **🛠️ Module Déploiement et Feedback**
 - **🛠️ Module d'Orchestration et Conteneurisation**
 - **🛠️ Module Intégration Continue (CI) et Tests Unitaires**
+- **🛠️ Module Surveillance des logs**
 
 ![Workflow_géneral](images/Workflow.png)
 
