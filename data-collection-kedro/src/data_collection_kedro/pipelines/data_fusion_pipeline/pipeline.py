@@ -9,7 +9,6 @@ from .nodes import (
     select_columns,
 )
 
-
 def create_pipeline(**kwargs) -> Pipeline:
     return Pipeline(
         [
