@@ -297,7 +297,6 @@ Ici vous trouverez les captures d'écran des exécutions de nos pipelines, ainsi
 ![Pipeline ETL](images/etl_pipeline/im3.png)
 ![Pipeline ETL](images/etl_pipeline/im4.png)
 ![Pipeline ETL](images/etl_pipeline/im5.png)
-![Pipeline ETL](images/etl_pipeline/im6.png)
 
 
 ### **Exemple d'image - Visualisation Elasticsearch :**
