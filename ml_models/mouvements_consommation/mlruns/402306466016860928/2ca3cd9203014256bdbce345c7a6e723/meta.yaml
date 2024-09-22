@@ -1,0 +1,15 @@
+artifact_uri: file:///home/grace/Projects_training_CDI/Projet_Master2/DetectionAnomalie/ml_models/mouvements_consommation/mlruns/402306466016860928/2ca3cd9203014256bdbce345c7a6e723/artifacts
+end_time: 1727022449328
+entry_point_name: ''
+experiment_id: '402306466016860928'
+lifecycle_stage: active
+run_id: 2ca3cd9203014256bdbce345c7a6e723
+run_name: burly-rook-646
+run_uuid: 2ca3cd9203014256bdbce345c7a6e723
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1727022420169
+status: 3
+tags: []
+user_id: grace

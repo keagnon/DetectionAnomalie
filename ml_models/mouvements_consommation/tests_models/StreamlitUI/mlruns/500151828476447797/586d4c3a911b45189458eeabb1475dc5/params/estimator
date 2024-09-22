@@ -1,0 +1,8 @@
+Pipeline(steps=[('preprocessor',
+                 ColumnTransformer(transformers=[('num', StandardScaler(),
+                                                  ['movement_social', 'mois',
+                                                   'jour_semaine',
+                                                   'moyenne_conso_horaire']),
+                                                 ('cat', OneHotEncoder(),
+                                                  ['région'])])),
+                ('model', Ridge())])

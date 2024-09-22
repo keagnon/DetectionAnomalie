@@ -39,7 +39,7 @@ def load_model():
     Retourne:
         Un modèle MLflow chargé.
     """
-    logged_model = "runs:/df3f426ffdc248cdb89089905b2bf8ad/random_forest_model"
+    logged_model = 'runs:/5b7b79817fae4f79932eaf8285ee593e/ridge_model'
     return mlflow.pyfunc.load_model(logged_model)
 
 def show_prediction_conso():
@@ -65,9 +65,7 @@ def show_prediction_conso():
         region_input = st.selectbox("Choisissez une région", regions_list)
 
     with col2:
-        social_movement_input = st.selectbox(
-            "Y a-t-il un mouvement social ?", options=[0, 1]
-        )
+        social_movement_input = st.checkbox("Y a-t-il un mouvement social ?")
         st.markdown("<br>", unsafe_allow_html=True)
         moyenne_conso_horaire = st.number_input(
             "Entrez la plage horaire souhaitée (0-23h59)",
@@ -121,7 +119,7 @@ def show_prediction_conso():
                         "details": {
                             "inputs": {
                                 "region": region_input,
-                                "social_movement": social_movement_input,
+                                "social_movement": 1 if social_movement_input else 0,
                                 "month": selected_month,
                                 "day_of_week": selected_day_of_week,
                                 "moyenne_conso_horaire": moyenne_conso_horaire
@@ -151,7 +149,7 @@ def show_prediction_conso():
                         "details": {
                             "inputs": {
                                 "region": region_input,
-                                "social_movement": social_movement_input,
+                                "social_movement": 1 if social_movement_input else 0,
                                 "month": selected_month,
                                 "day_of_week": selected_day_of_week,
                                 "moyenne_conso_horaire": moyenne_conso_horaire
