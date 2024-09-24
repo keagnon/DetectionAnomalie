@@ -183,6 +183,7 @@ def store_in_elasticsearch(df, es, index_name, chunk_size=500):
             ]
             # Utiliser helpers.bulk pour insérer les données en bloc
             helpers.bulk(es, actions)
+            print(f"Chunk {chunk} inséré avec succès dans Elasticsearch.")
 
         print(f"Données insérées avec succès dans l'index Elasticsearch : {index_name}")
 

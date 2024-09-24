@@ -21,6 +21,7 @@ black:
 	black $(PYLINT_PATHS)
 test:
 	pytest $(TEST_PATH) --disable-warnings
+
 # Commande pour exécuter tous les outils (mypy, pylint, isort, black, pytest)
 check: mypy pylint isort black test
 

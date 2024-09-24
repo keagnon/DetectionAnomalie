@@ -5,7 +5,6 @@ from kedro.pipeline import Pipeline, node
 
 from .nodes import etl_api_data, etl_csv_data
 
-
 def create_pipeline(**kwargs) -> Pipeline:
     """
     Create a Kedro pipeline for the ETL process with multiple API sources.

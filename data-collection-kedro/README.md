@@ -281,7 +281,6 @@ Ici vous trouverez les captures d'écran des exécutions de nos pipelines, ainsi
 ### **Exemple d'image - Tests unitaires et couverture :**
 
 ![Tests unitaires](images/tests_unitaires/im1.png)
-![Coverage des tests](images/tests_unitaires/im2.png)
 
 
 ### **Exemple d'image - Visualisation MongoDB :**
@@ -298,17 +297,14 @@ Ici vous trouverez les captures d'écran des exécutions de nos pipelines, ainsi
 ![Pipeline ETL](images/etl_pipeline/im3.png)
 ![Pipeline ETL](images/etl_pipeline/im4.png)
 ![Pipeline ETL](images/etl_pipeline/im5.png)
-![Pipeline ETL](images/etl_pipeline/im6.png)
 
 
 ### **Exemple d'image - Visualisation Elasticsearch :**
 
 ![Elasticsearch](images/elastic_search/im1.png)
 ![Elasticsearch](images/elastic_search/im2.png)
-![Elasticsearch](images/elastic_search/im3.png)
 ![Elasticsearch](images/elastic_search/im4.png)
 ![Elasticsearch](images/elastic_search/im5.png)
-![Elasticsearch](images/elastic_search/im6.png)
 ![Elasticsearch](images/elastic_search/im7.png)
 
 ### **Exemple d'image - Exécution du pipeline de fusion :**
@@ -317,12 +313,7 @@ Ici vous trouverez les captures d'écran des exécutions de nos pipelines, ainsi
 ![Pipeline de fusion](images/data_fusion/im2.png)
 ![Pipeline de fusion](images/data_fusion/im3.png)
 ![Pipeline de fusion](images/data_fusion/im4.png)
-![Pipeline de fusion](images/data_fusion/im5.png)
 ![Pipeline de fusion](images/data_fusion/im6.png)
-![Pipeline de fusion](images/data_fusion/im7.png)
-![Pipeline de fusion](images/data_fusion/im8.png)
-![Pipeline de fusion](images/data_fusion/im12.png)
-![Pipeline de fusion](images/data_fusion/im11.png)
 
 ### **Exemple d'image - Empreinte carbone tracking pipeline ETL:**
 
@@ -335,3 +326,4 @@ Ici vous trouverez les captures d'écran des exécutions de nos pipelines, ainsi
 ![Empreinte carbone](images/carbon_logs/etl_pipeline/im1.png)
 ![Empreinte carbone](images/carbon_logs/etl_pipeline/im2.png)
 ![Empreinte carbone](images/carbon_logs/etl_pipeline/im3.png)
+![Empreinte carbone](images/data_fusion/im7.png)

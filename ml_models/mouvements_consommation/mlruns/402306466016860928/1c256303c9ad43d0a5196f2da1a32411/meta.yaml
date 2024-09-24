@@ -1,0 +1,15 @@
+artifact_uri: file:///home/grace/Projects_training_CDI/Projet_Master2/DetectionAnomalie/ml_models/mouvements_consommation/mlruns/402306466016860928/1c256303c9ad43d0a5196f2da1a32411/artifacts
+end_time: 1727022449328
+entry_point_name: ''
+experiment_id: '402306466016860928'
+lifecycle_stage: active
+run_id: 1c256303c9ad43d0a5196f2da1a32411
+run_name: beautiful-carp-157
+run_uuid: 1c256303c9ad43d0a5196f2da1a32411
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1727022420169
+status: 3
+tags: []
+user_id: grace

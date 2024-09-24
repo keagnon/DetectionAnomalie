@@ -107,6 +107,7 @@ Le projet est divisé en plusieurs modules interconnectés, chacun jouant un rô
 - **🛠️ Module Déploiement et Feedback**
 - **🛠️ Module d'Orchestration et Conteneurisation**
 - **🛠️ Module Intégration Continue (CI) et Tests Unitaires**
+- **🛠️ Module Surveillance des logs**
 
 ![Workflow_géneral](images/Workflow.png)
 
@@ -188,11 +189,17 @@ Cette approche `"green AI"` nous a permis de concilier performance algorithmique
 Nous utilisons un **🛠️ Makefile** pour automatiser les processus de build, de tests et faciliter la gestion de la CI en local. De plus, nos variables suivent le style `snake_case` et nous avons ajouté des `docstrings` dans toutes les parties du projet.
 
 ## 9. 🔄 Pipelines de Collecte de Données avec Kedro <a name="pipelines-de-collecte-de-données-avec-kedro"></a>
-Cette partie est un sous projet développer pour la partie ingestion des données et est inclus dans notre projet de détection d'anomalie .
-Deux pipelines Kedro ont été mis en place :
-1. **Pipeline ETL** : Ce pipeline collecte, transforme et stocke les données dans MongoDB.
-2. **Pipeline data fusion** : Ce pipeline charge les données, les fusionne et les stocke dans Elasticsearch.
+Cette partie du projet est un sous-projet dédié à l'ingestion et à la préparation des données, inclus dans notre projet global de détection d'anomalies. Deux pipelines Kedro ont été mis en place pour gérer ces données et les rendre disponibles pour l'analyse et la visualisation :
 
+1. **Pipeline ETL** : Ce pipeline collecte les données brutes à partir de différentes sources, les transforme (nettoyage, enrichissement, etc.) et les stocke ensuite dans une base de données MongoDB. Le stockage dans MongoDB centralise les données transformées pour une utilisation ultérieure.
+
+2. **Pipeline de Fusion des Données (data fusion)** : Ce pipeline charge les données depuis MongoDB, les fusionne pour créer un ensemble de données cohérent, puis les stocke dans Elasticsearch. Le stockage dans Elasticsearch facilite l'indexation et la visualisation des données.
+
+C’est grâce à la visualisation des données brutes dans Kibana que nous avons pu extraire des indicateurs clés de performance (KPI). Cette étape de visualisation a été cruciale pour comprendre les tendances et les anomalies présentes dans les données, et a ainsi permis de définir et de suivre des KPI pertinents.
+
+Ce processus a non seulement rendu possible l'extraction des KPI directement à partir des données brutes, mais a également fourni une vue globale et détaillée des informations nécessaires pour l'évaluation des performances et le suivi des anomalies.
+
+![visualisation donnee brute](images/data_viz_kibana/dasboard_donnee_brute.png)
 Pour accéder à ce sous projet et àvoir plus de détails, consultez le [Accéder au sous projet data-collection-kedro](https://github.com/keagnon/DetectionAnomalie/blob/main/data-collection-kedro/README.md).
 
 

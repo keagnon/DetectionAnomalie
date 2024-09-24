@@ -1,0 +1,15 @@
+artifact_uri: file:///home/grace/Projects_training_CDI/Projet_Master2/DetectionAnomalie/ml_models/mouvements_consommation/mlruns/402306466016860928/d88761cb60f4475eb79d1ae30bd11c2c/artifacts
+end_time: 1727022449328
+entry_point_name: ''
+experiment_id: '402306466016860928'
+lifecycle_stage: active
+run_id: d88761cb60f4475eb79d1ae30bd11c2c
+run_name: polite-moth-645
+run_uuid: d88761cb60f4475eb79d1ae30bd11c2c
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1727022420169
+status: 3
+tags: []
+user_id: grace

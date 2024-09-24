@@ -1,20 +1,14 @@
 name: Python Lint, Type Check, and Tests
-
 on: [push, pull_request]
-
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v2
-
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: '3.9'
-
+        python-version: '3.11.5'
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
@@ -24,35 +18,19 @@ jobs:
         python3 -m pip install types-requests
         pip install pytest pytest-cov  # Ajout de pytest et pytest-cov
         pip install pytest-mock
-
-
-    - name: Set up environment variables for testing
-      run: |
-        echo "MONGODB_USERNAME=your-username" >> $GITHUB_ENV
-        echo "MONGODB_PASSWORD=your-password" >> $GITHUB_ENV
-        echo "MONGODB_CLUSTER=your-cluster" >> $GITHUB_ENV
-        echo "ELASTIC_DEPLOYMENT_ENDPOINT=your-endpoint" >> $GITHUB_ENV
-        echo "ELASTIC_USERNAME=your-username" >> $GITHUB_ENV
-        echo "ELASTIC_PASSWORD=your-password" >> $GITHUB_ENV
-
     - name: Check import formatting with isort
       run: isort .
-
     - name: Check code formatting with black
       run: black .
-
     - name: Lint with pylint
       run: pylint --rcfile=.pylintrc dashboard_ui/
-
     - name: Run tests with pytest
       run: |
-        pytest --disable-warnings --maxfail=5  # Exécuter les tests dans le dossier tests/
-
+        pytest --disable-warnings --maxfail=5
     - name: Generate full coverage report
       run: |
-        pytest --cov=. data-collection-kedro/tests/ --cov-report=xml  # Couverture de tout le code et génération d'un rapport XML
-        pytest --cov=. data-collection-kedro/tests/ --cov-report=html  # Génération d'un rapport HTML pour inspection visuelle
-
+        pytest --cov=. data-collection-kedro/tests/ --cov-report=xml
+        pytest --cov=. data-collection-kedro/tests/ --cov-report=html
     - name: Upload coverage report artifact
       uses: actions/upload-artifact@v3
       with:

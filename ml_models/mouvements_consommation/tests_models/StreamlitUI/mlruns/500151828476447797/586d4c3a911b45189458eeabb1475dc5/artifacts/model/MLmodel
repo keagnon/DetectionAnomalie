@@ -1,0 +1,27 @@
+artifact_path: model
+flavors:
+  python_function:
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.sklearn
+    model_path: model.pkl
+    predict_fn: predict
+    python_version: 3.11.5
+  sklearn:
+    code: null
+    pickled_model: model.pkl
+    serialization_format: cloudpickle
+    sklearn_version: 1.5.1
+mlflow_version: 2.16.0
+model_size_bytes: 5181
+model_uuid: 4393c5a4a12d4312af6369f06b5ca8f7
+run_id: 586d4c3a911b45189458eeabb1475dc5
+signature:
+  inputs: '[{"type": "string", "name": "r\u00e9gion", "required": true}, {"type":
+    "boolean", "name": "movement_social", "required": true}, {"type": "integer", "name":
+    "mois", "required": true}, {"type": "integer", "name": "jour_semaine", "required":
+    true}, {"type": "double", "name": "moyenne_conso_horaire", "required": true}]'
+  outputs: '[{"type": "tensor", "tensor-spec": {"dtype": "float64", "shape": [-1]}}]'
+  params: null
+utc_time_created: '2024-09-22 16:10:15.324199'

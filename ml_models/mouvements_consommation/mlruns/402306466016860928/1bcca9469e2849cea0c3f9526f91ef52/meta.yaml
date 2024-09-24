@@ -1,0 +1,15 @@
+artifact_uri: file:///home/grace/Projects_training_CDI/Projet_Master2/DetectionAnomalie/ml_models/mouvements_consommation/mlruns/402306466016860928/1bcca9469e2849cea0c3f9526f91ef52/artifacts
+end_time: 1727022454736
+entry_point_name: ''
+experiment_id: '402306466016860928'
+lifecycle_stage: active
+run_id: 1bcca9469e2849cea0c3f9526f91ef52
+run_name: Ridge_GridSearch
+run_uuid: 1bcca9469e2849cea0c3f9526f91ef52
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1727022420169
+status: 3
+tags: []
+user_id: grace

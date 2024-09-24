@@ -1,0 +1,11 @@
+digest: ecdc7b97
+name: dataset
+profile: '{"num_rows": 23572, "num_elements": 117860}'
+schema: '{"mlflow_colspec": [{"type": "string", "name": "r\u00e9gion", "required":
+  true}, {"type": "boolean", "name": "movement_social", "required": true}, {"type":
+  "integer", "name": "mois", "required": true}, {"type": "integer", "name": "jour_semaine",
+  "required": true}, {"type": "double", "name": "moyenne_conso_horaire", "required":
+  true}]}'
+source: '{"tags": {"mlflow.user": "grace", "mlflow.source.name": "prediction_conso_mvt_optimization.py",
+  "mlflow.source.type": "LOCAL", "mlflow.source.git.commit": "49e54825566a3b3a7d26644b3dec428ca1c5ad0e"}}'
+source_type: code

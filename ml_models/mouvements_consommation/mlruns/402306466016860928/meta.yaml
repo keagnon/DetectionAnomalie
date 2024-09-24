@@ -1,0 +1,6 @@
+artifact_location: file:///home/grace/Projects_training_CDI/Projet_Master2/DetectionAnomalie/ml_models/mouvements_consommation/mlruns/402306466016860928
+creation_time: 1727022419486
+experiment_id: '402306466016860928'
+last_update_time: 1727022419486
+lifecycle_stage: active
+name: Consommation_Energetique_Prediction
