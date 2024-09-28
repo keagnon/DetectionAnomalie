@@ -1,5 +1,5 @@
 
-# 📊 Modèles de ML pour la Prédiction et la Détection d'Anomalies Énergétiques
+# 📊 Modèles de ML pour la Prédiction et la Détection d'Anomalies Énergétiques Basée sur les Données des mouvements sociaux
 
 ### 🔗 Langage
 ![Python](https://img.shields.io/badge/Python-3.11.5-blue?style=for-the-badge&logo=python)

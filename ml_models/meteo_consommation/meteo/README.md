@@ -1,4 +1,4 @@
-# 🌤️ Détection d'Anomalies dans la Consommation Énergétique Basée sur les Données Météorologiques
+# 🌤️ Modèle ML pour la Détection d'Anomalies dans la Consommation Énergétique Basée sur les Données Météorologiques
 
 ## Langage
 ![Python](https://img.shields.io/badge/python-3.11.5-blue)
