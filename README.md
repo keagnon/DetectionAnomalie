@@ -73,8 +73,7 @@
 15. [📜 Conclusion](#conclusion)
 16. [⚠️ Difficultés Rencontrées](#difficultés_rencontrées)
 17. [🚀 Prochaines Étapes : Phase 2 - Forecasting ](#prochaine_etapes)
-
-
+17. [🤝 Notre Équipe](#equipe)
 
 ## 1. 🔍 Contexte du Projet<a name="contexte-du-projet"></a>
 La détection précoce des anomalies énergétiques est essentielle pour la gestion proactive de l'énergie, en particulier pendant les périodes de forte demande (hiver, été) ou durant des événements comme les mouvements sociaux. Ce projet vise à identifier ces anomalies en se basant sur des données variées (météorologiques, sociales, etc.) et à fournir une interface utilisateur permettant la visualisation et l'analyse des résultats. La solution est structurée en plusieurs sous-projets interconnectés, chacun avec des objectifs spécifiques.
@@ -120,6 +119,9 @@ Nous avons mis en place une intégration continue (CI) via **GitHub Actions**, q
 - **📊 Coverage** pour mesurer la couverture des tests, avec un rapport généré après chaque exécution de CI afin d'assurer que l'ensemble du code est bien couvert par les tests.
 
 Le pipeline de CI, configuré dans le répertoire `.github/workflows`, est accessible via [ce lien](https://github.com/keagnon/DetectionAnomalie/actions/runs/10871125104/job/30164567486).
+
+Voici un aperçu de notre fichier `Makefile`, qui automatise les tests locaux et le linting dans notre pipeline CI locale :
+![CI local](images/Makefile.png)
 
 En outre, chaque module du projet est containerisé avec **Docker** pour assurer la portabilité et la cohérence des environnements. Les fichiers `.env` permettent une configuration flexible des variables d'environnement.
 
@@ -296,3 +298,9 @@ La prochaine étape du projet est de passer à la **Phase 2 : Forecasting**. Nou
 Nous avons déjà réalisé un Proof of Concept (PoC), et l'objectif sera de rendre le système capable d'effectuer des prévisions précises et pertinentes. En combinant les données de séries temporelles avec les informations sur la consommation et les événements extérieurs, nous pourrons proposer des prévisions plus précises aux entreprises pour les aider à optimiser leurs ressources et éviter les incidents énergétiques.
 
 Le système actuel est conçu de manière modulaire, ce qui permettra une transition fluide vers cette phase de forecasting et facilitera l'adaptation continue aux besoins changeants des entreprises et du marché.
+
+
+## 18. 🤝 Notre Équipe <a name="equipe"></a>
+Parce que le succès se construit ensemble, voici notre équipe prête à transformer des idées en réalité 🌟.
+
+![Image de l'équipe](images/team.jpg)
