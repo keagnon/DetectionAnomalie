@@ -11,7 +11,6 @@ from sklearn.metrics import mean_squared_error, mean_absolute_error
 from mlflow_utils import create_mlflow_experiment, get_mlflow_experiment
 from dotenv import load_dotenv
 
-# Charger les variables d'environnement
 load_dotenv()
 
 # Configurer les credentials pour Google et MLflow
@@ -24,19 +23,16 @@ if mlflow_tracking_uri:
     mlflow.set_tracking_uri(mlflow_tracking_uri)
 
 def preprocess_data(file_path):
-    # Charger les données et prétraiter
     df = pd.read_csv(file_path, delimiter=';', encoding='utf-8')
     df.columns = df.columns.str.strip()
 
-    # Ajouter des caractéristiques temporelles
     df['mois'] = pd.to_datetime(df['date'], format='%d/%m/%Y').dt.month
     df['jour_semaine'] = pd.to_datetime(df['date'], format='%d/%m/%Y').dt.dayofweek
     df['moyenne_conso_horaire'] = df[['00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00',
                                       '08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00',
                                       '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00']].mean(axis=1)
 
-    # Gérer les données manquantes en remplissant les NaN par la moyenne
-    df_clean = df.dropna(subset=['Consommation_journaliere'])  # ou utiliser df.fillna()
+    df_clean = df.dropna(subset=['Consommation_journaliere'])
 
     return df_clean
 
@@ -62,13 +58,11 @@ def train_ridge_model(df_clean):
         ('model', Ridge())
     ])
 
-    # Séparer les données en ensembles d'entraînement et de test
     X_train, X_test, y_train, y_test = train_test_split(features, target, test_size=0.3, random_state=42)
 
     # Paramètres pour la recherche en grille
     param_grid = {'model__alpha': [0.01, 0.1, 1.0, 10.0, 100.0]}
 
-    # Démarrer une expérience MLflow
     experiment_name = "Consommation_Energetique_Prediction"
     artifact_location = os.getenv('MLFLOW_ARTEFACTS_LOCATION')
     tags = {"env": "dev", "version": "1.0.0"}
@@ -111,10 +105,7 @@ def train_ridge_model(df_clean):
         return best_model, score, rmse, mae
 
 def main(file_path):
-    # Charger et prétraiter les données
     df_clean = preprocess_data(file_path)
-
-    # Entraîner le modèle Ridge et enregistrer les résultats dans MLflow
     best_model, score, rmse, mae = train_ridge_model(df_clean)
     print(f"Modèle final avec un score de {score:.2f}, RMSE: {rmse:.2f}, MAE: {mae:.2f}")
 

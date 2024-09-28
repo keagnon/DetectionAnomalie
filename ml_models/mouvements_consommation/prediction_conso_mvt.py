@@ -9,7 +9,6 @@ from sklearn.model_selection import train_test_split, GridSearchCV
 from mlflow_utils import create_mlflow_experiment, get_mlflow_experiment
 
 def preprocess_data(file_path):
-    # Charger les données et prétraiter
     df = pd.read_csv(file_path, delimiter=';', encoding='utf-8')
     df.columns = df.columns.str.strip()
 
@@ -45,13 +44,10 @@ def train_ridge_model(df_clean):
         ('model', Ridge())
     ])
 
-    # Séparer les données en ensembles d'entraînement et de test
     X_train, X_test, y_train, y_test = train_test_split(features, target, test_size=0.3, random_state=42)
 
     # Paramètres pour la recherche en grille
     param_grid = {'model__alpha': [0.1, 1.0, 10.0, 100.0]}
-
-    # Démarrer une expérience MLflow
     experiment_name = "Consommation_Energetique_Prediction"
     artifact_location = os.getenv('MLFLOW_ARTEFACTS_LOCATION')
     tags = {"env": "dev", "version": "1.0.0"}
