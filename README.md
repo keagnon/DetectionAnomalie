@@ -121,6 +121,9 @@ Nous avons mis en place une intégration continue (CI) via **GitHub Actions**, q
 
 Le pipeline de CI, configuré dans le répertoire `.github/workflows`, est accessible via [ce lien](https://github.com/keagnon/DetectionAnomalie/actions/runs/10871125104/job/30164567486).
 
+Voici un aperçu de notre fichier `Makefile`, qui automatise les tests locaux et le linting dans notre pipeline CI locale :
+![CI local](images/Makefile.png)
+
 En outre, chaque module du projet est containerisé avec **Docker** pour assurer la portabilité et la cohérence des environnements. Les fichiers `.env` permettent une configuration flexible des variables d'environnement.
 
 ## 7. Calcul de l'Empreinte Carbone du Projet <a name="co2"></a>
@@ -296,3 +299,7 @@ La prochaine étape du projet est de passer à la **Phase 2 : Forecasting**. Nou
 Nous avons déjà réalisé un Proof of Concept (PoC), et l'objectif sera de rendre le système capable d'effectuer des prévisions précises et pertinentes. En combinant les données de séries temporelles avec les informations sur la consommation et les événements extérieurs, nous pourrons proposer des prévisions plus précises aux entreprises pour les aider à optimiser leurs ressources et éviter les incidents énergétiques.
 
 Le système actuel est conçu de manière modulaire, ce qui permettra une transition fluide vers cette phase de forecasting et facilitera l'adaptation continue aux besoins changeants des entreprises et du marché.
+
+
+### Notre Équipe
+![Image de l'équipe](images/team.jpg)

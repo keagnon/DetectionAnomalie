@@ -265,6 +265,7 @@ dashboard_ui/
    ![Détection d'anomalies](images/anomaly_detection/anomaly5.png)
    ![Détection d'anomalies](images/anomaly_detection/anomaly6.png)
    ![Détection d'anomalies](images/anomaly_detection/anomaly7.png)
+   ![Détection d'anomalies](images/anomaly_detection/anomaly8.png)
 
 2. **Clustering**
 
