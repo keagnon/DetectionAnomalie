@@ -302,4 +302,5 @@ Le système actuel est conçu de manière modulaire, ce qui permettra une transi
 
 ## 18. 👥 Notre Équipe <a name="equipe"></a>
 Parce que le succès se construit ensemble 🤝, voici notre équipe prête à transformer des idées en réalité 🌟.
+
 ![Image de l'équipe](images/team.jpg)
