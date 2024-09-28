@@ -1,35 +1,37 @@
 # 🌤️ Détection d'Anomalies dans la Consommation Énergétique Basée sur les Données Météorologiques
 
-## Sommaire
-1. [Langage Utilisé](#langage-utilisé)
-2. [Frameworks et Outils de Développement](#frameworks-et-outils-de-développement)
-3. [Présentation du Projet](#📖-présentation-du-projet)
-4. [Installation et Démarrage du Projet](#🛠️-installation-et-démarrage-du-projet)
-5. [Structure du Projet](#📂-structure-du-projet)
-6. [Fonctionnalités Principales](#🚀-fonctionnalités-principales)
-7. [Intégration avec Kedro et Streamlit](#📈-intégration-avec-kedro-et-streamlit)
-8. [Modèles et Algorithmes Utilisés](#📊-modèles-et-algorithmes-utilisés)
-9. [Intégration avec MLFlow](#📈-intégration-avec-mlflow)
-10. [Empreinte Carbone avec CodeCarbon](#🌱-empreinte-carbone-avec-codecarbon)
-
-
-## Langage Utilisé
+## Langage
 ![Python](https://img.shields.io/badge/python-3.11.5-blue)
 
 ## Frameworks et Outils de Développement
 ![Streamlit](https://img.shields.io/badge/Streamlit-1.38.0-brightgreen)
 ![MLflow](https://img.shields.io/badge/MLflow-2.1.6-orange)
 ![Docker](https://img.shields.io/badge/Docker-Enabled-blue)
+![Kedro Badge](https://img.shields.io/badge/Kedro-0.19.8-brightgreen)
+
+### Empreinte Carbone
 ![CodeCarbon](https://img.shields.io/badge/CodeCarbon-2.7.1-green)
 
-## 📖 Présentation du Projet
+## Sommaire
+
+1. [📖 Présentation du Projet](#présentation-du-projet)
+2. [🛠️ Installation et Démarrage du Projet](#installation-et-démarrage-du-projet)
+3. [📂 Structure du Projet](#structure-du-projet)
+4. [🚀 Fonctionnalités Principales](#fonctionnalités-principales)
+5. [📈 Intégration avec Kedro et Streamlit](#intégration-avec-kedro-et-streamlit)
+6. [📊 Modèles et Algorithmes Utilisés](#modèles-et-algorithmes-utilisés)
+7. [📈 Intégration avec MLFlow](#intégration-avec-mlflow)
+8. [🌱 Empreinte Carbone avec CodeCarbon](#empreinte-carbone-avec-codecarbon)
+
+
+## 📖 Présentation du sous-projet<a name="présentation-du-projet"></a>
 
 Ce sous-projet fait partie de la solution globale de **Détection d'Anomalies** dans la consommation d'énergie. Son objectif est de prédire et d'identifier des anomalies dans les comportements de consommation énergétique, en prenant en compte les données météorologiques.
 
-Nous utilisons les algorithmes de **Random Forest** et **CatBoost**, intégrés dans des **pipelines Kedro** pour le traitement des données et l'entraînement des modèles. De plus, une interface interactive, développée avec **Streamlit**, permet de visualiser en temps réel les résultats de ces modèles.
+Nous utilisons des algorithmes intégrés dans des **pipelines Kedro** pour le traitement des données et l'entraînement des modèles. De plus, une interface interactive, développée avec **Streamlit**, permet de visualiser en temps réel les résultats de ces modèles.
 
 
-## 🛠️ Installation et Démarrage du Projet
+## 🛠️ Installation et Démarrage du Projet<a name="installation-et-démarrage-du-projet"></a>
 
 ### Prérequis
 - Python 3.11+
@@ -73,9 +75,7 @@ Nous utilisons les algorithmes de **Random Forest** et **CatBoost**, intégrés 
     streamlit run streamlit/interface_meteo.py
     ```
 
----
-
-## 📂 Structure du Projet
+## 📂 Structure du Projet<a name="structure-du-projet"></a>
 
 ```bash
 📦 meteo/
@@ -104,17 +104,17 @@ Nous utilisons les algorithmes de **Random Forest** et **CatBoost**, intégrés 
 ```
 
 
-## 🚀 Fonctionnalités Principales
+## 🚀 Fonctionnalités Principales<a name="fonctionnalités-principales"></a>
 
 - **Détection d'anomalies** : Identification des anomalies dans la consommation énergétique à partir de données météorologiques.
-- **Modèles utilisés :** Algorithmes de **CatBoost** et **Random Forest** pour la classification et la prédiction des comportements anormaux.
-- **Streamlit** : Interface utilisateur interactive permettant la visualisation en temps réel des résultats des modèles.
+- **Modèles utilisés :** Création d'un modèle de prédiction de la consommation énergetiques en prenant en compte les conditions météorologique.
+- **Streamlit** : Interface utilisateur interactive permettant la visualisation en temps réel des résultats du modèle.
 - **Kedro Pipelines** : Pipelines modulaires pour le traitement de données et l'apprentissage automatique, facilitant la réutilisation et la gestion des workflows complexes.
 - **MLFlow** : Suivi complet des modèles de machine learning, y compris la versioning, les métriques et les artefacts.
 - **Google Cloud Storage** : Stockage des données et des modèles pour une collaboration efficace et une mise à l'échelle.
 
 
-## 📈 Intégration avec Kedro et Streamlit
+## 📈 Intégration avec Kedro et Streamlit<a name="intégration-avec-kedro-et-streamlit"></a>
 
 ### Kedro Pipelines
 
@@ -154,12 +154,11 @@ L'application **Streamlit** permet de visualiser les résultats des modèles de 
 ![Interface Utilisateur Streamlit](images/UI.png)
 
 
-## 📊 Modèles et Algorithmes Utilisés
+## 📊 Modèles et Algorithmes Utilisés<a name="modèles-et-algorithmes-utilisés"></a>
 
-- **CatBoost** : Utilisé pour la classification des anomalies énergétiques.
-- **Random Forest** : Employé pour la prédiction des comportements anormaux de consommation d'énergie.
+**CatBoost** et **Random Forest** : Employé pour la prédiction consommation d'énergie.
 
-## 📈 Intégration avec MLFlow
+## 📈 Intégration avec MLFlow<a name="intégration-avec-mlflow"></a>
 
 Nous utilisons **MLFlow** pour gérer l'entraînement et le suivi des modèles, en garantissant une traçabilité complète des expériences.
 
@@ -175,7 +174,7 @@ Nous utilisons **MLFlow** pour gérer l'entraînement et le suivi des modèles, 
 ![Expériences MLFlow](images/mlflow_experiment.png)
 
 
-## 🌱 Empreinte Carbone avec CodeCarbon
+## 🌱 Empreinte Carbone avec CodeCarbon<a name="empreinte-carbone-avec-codecarbon"></a>
 
 Le projet intègre **CodeCarbon** pour mesurer et réduire l'empreinte carbone générée par l'entraînement des modèles. Cette initiative vise à optimiser la consommation énergétique pendant les phases de calcul intensif, en suivant les émissions via le fichier de métriques généré par CodeCarbon.
 .
