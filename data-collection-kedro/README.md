@@ -1,4 +1,4 @@
-# **🚀 Data-collection-kedro - Projet Kedro**
+# **🚀 Projet Kedro : Mise en place des pipelines de données**
 
 ### Langage
 
