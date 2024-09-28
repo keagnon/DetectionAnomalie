@@ -178,6 +178,7 @@ Nous utilisons **MLFlow** pour gérer l'entraînement et le suivi des modèles, 
 ## 🌱 Empreinte Carbone avec CodeCarbon
 
 Le projet intègre **CodeCarbon** pour mesurer et réduire l'empreinte carbone générée par l'entraînement des modèles. Cette initiative vise à optimiser la consommation énergétique pendant les phases de calcul intensif, en suivant les émissions via le fichier de métriques généré par CodeCarbon.
+.
 
 Le fichier généré se trouve dans `ml_models/meteo_consommation/meteo/streamlit/emissions.csv`.
 
