@@ -73,8 +73,7 @@
 15. [📜 Conclusion](#conclusion)
 16. [⚠️ Difficultés Rencontrées](#difficultés_rencontrées)
 17. [🚀 Prochaines Étapes : Phase 2 - Forecasting ](#prochaine_etapes)
-
-
+17. [👥 Notre Équipe](#equipe)
 
 ## 1. 🔍 Contexte du Projet<a name="contexte-du-projet"></a>
 La détection précoce des anomalies énergétiques est essentielle pour la gestion proactive de l'énergie, en particulier pendant les périodes de forte demande (hiver, été) ou durant des événements comme les mouvements sociaux. Ce projet vise à identifier ces anomalies en se basant sur des données variées (météorologiques, sociales, etc.) et à fournir une interface utilisateur permettant la visualisation et l'analyse des résultats. La solution est structurée en plusieurs sous-projets interconnectés, chacun avec des objectifs spécifiques.
@@ -301,5 +300,6 @@ Nous avons déjà réalisé un Proof of Concept (PoC), et l'objectif sera de ren
 Le système actuel est conçu de manière modulaire, ce qui permettra une transition fluide vers cette phase de forecasting et facilitera l'adaptation continue aux besoins changeants des entreprises et du marché.
 
 
-### Notre Équipe
+## 18. 👥 Notre Équipe <a name="equipe"></a>
+Parce que le succès se construit ensemble 🤝, voici notre équipe prête à transformer des idées en réalité 🌟.
 ![Image de l'équipe](images/team.jpg)
