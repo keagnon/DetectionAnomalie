@@ -31,7 +31,7 @@
 
 ## 📑 Introduction
 
-Ce sous-projet est le **tableau de bord final** développé avec **Streamlit** et du **CSS** qui englobe toutes les fonctionnalités des différents modèles développés dans le cadre de notre projet de **détection d'anomalies**. Ce tableau de bord permet d'interagir avec plusieurs modèles de machine learning et d'observer leurs performances sur différentes tâches.
+Ce projet est le **tableau de bord final** développé avec **Streamlit** et **CSS** qui englobe toutes les fonctionnalités des différents modèles développés dans le cadre de notre projet de **détection d'anomalies**. Ce tableau de bord, intégré dans notre solution globale, permet d'interagir avec plusieurs modèles de machine learning et d'observer leurs performances sur différentes tâches.
 
 Cette partie de notre projet de **détection d'anomalies** se concentre sur les aspects suivants :
 

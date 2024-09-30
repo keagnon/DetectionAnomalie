@@ -197,12 +197,14 @@ Cette partie du projet est un sous-projet dédié à l'ingestion et à la prépa
 
 2. **Pipeline de Fusion des Données (data fusion)** : Ce pipeline charge les données depuis MongoDB, les fusionne pour créer un ensemble de données cohérent, puis les stocke dans Elasticsearch. Le stockage dans Elasticsearch facilite l'indexation et la visualisation des données.
 
-Pour accéder à ce sous projet et àvoir plus de détails, consultez le [Accéder au sous projet data-collection-kedro](https://github.com/keagnon/DetectionAnomalie/blob/main/data-collection-kedro/README.md).
+Pour accéder à ce sous projet et avoir plus de détails, consultez le [Accéder au sous projet data-collection-kedro](https://github.com/keagnon/DetectionAnomalie/blob/main/data-collection-kedro/README.md).
 
 
 ![visualisation donnee brute](images/data_viz_kibana/dasboard_donnee_brute.png)
 
 C’est grâce à la visualisation des données brutes dans Kibana que nous avons pu extraire des indicateurs clés de performance (KPI). Cette étape de visualisation a été cruciale pour comprendre les tendances et les anomalies présentes dans les données, et a ainsi permis de définir et de suivre des KPI pertinents.
+<br>
+Pour plus de détails, consultez l'[interprétation des données brutes collectées visualisées](https://github.com/keagnon/DetectionAnomalie/tree/main/data-collection-kedro#visualisation-des-donn%C3%A9es-brutes-collect%C3%A9es).
 
 
 ## 10. 💻 Traitement des Données et Utilisation de Google Colab <a name="traitement-des-données-et-utilisation-de-google-colab"></a>
@@ -221,6 +223,7 @@ Ces deux groupes de données ont conduit à deux sous-projets distincts :
 - [Accéder au sous-projet développement modèles ML pour les données sur la consommation régionale et les mouvements sociaux](https://github.com/keagnon/DetectionAnomalie/blob/main/ml_models/mouvements_consommation/Readme.md).
 
 Ces sous-projets, ainsi que notre interface Streamlit, utilisent **MLflow** pour le suivi et la mise en production des modèles.
+
 <br>
 
 **N.B** : Un serveur **MLFlow** a été déployé sur une VM GCP pour permettre à l'équipe de suivre les performances des modèles.
@@ -236,7 +239,7 @@ L'interface utilisateur finale a été développée avec **Streamlit** et du **C
 
 Sur l'interface utilisateur que nous avons développée, quatre onglets sont disponibles, chacun correspondant à un modèle de machine learning différent. Ces modèles communiquent avec **MLflow** pour effectuer les prédictions en temps réel. Chaque onglet permet d'interagir avec un modèle spécifique, dont **IsolationForest** pour la détection d'anomalies, **CatBoost**, **RandomForest**, et **DBSCAN**.
 
-Cette interface est un sous projet de notre projet de détection d'anomalie. Elle est déployée localement. Pour accéder à ce sous projet et avoir plus de détails, cliquer sur [Sous projet Dashboard Streamlit CSS](https://github.com/keagnon/DetectionAnomalie/blob/main/dashboard_ui/Readme.md).
+Cette interface est un sous projet de notre projet de détection d'anomalie. Elle est déployée localement. Pour accéder à ce sous projet et avoir plus de détails, cliquez sur [Sous projet Dashboard Streamlit CSS](https://github.com/keagnon/DetectionAnomalie/blob/main/dashboard_ui/Readme.md).
 
 
 ## 📈 Monitoring des Logs et Performance <a name="monitoring-des-logs"></a>
@@ -263,7 +266,7 @@ En complément, l'historique des erreurs recense les problèmes rencontrés par 
 
 Ce tableau de bord centralise toutes les informations nécessaires pour surveiller les exécutions, identifier les erreurs et optimiser les ressources.
 
-Pour plus de détails, cliquer sur [Monitoring et logs unifiés](https://github.com/keagnon/DetectionAnomalie/tree/main/dashboard_ui#monitoring-et-logs-unifies)
+Pour plus de détails, cliquez sur [Monitoring et logs unifiés](https://github.com/keagnon/DetectionAnomalie/tree/main/dashboard_ui#monitoring-et-logs-unifies)
 
 ## 14. 📊 Documentation <a name="documentation"></a>
 Nous avons documenté plusieurs étapes critiques du projet :

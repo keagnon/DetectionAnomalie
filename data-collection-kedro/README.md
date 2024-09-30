@@ -243,7 +243,7 @@ Pour ce projet de collecte de données avec Kedro, nous avons utilisé la biblio
   - `merge_data_store_in_elastic()`
 
 
-## **Visualisation des données brutes collectées** 🔄 <a name="visualisation-des-données-brutes-collectées"></a>
+## **Visualisation des données brutes collectées** 📊 <a name="visualisation-des-données-brutes-collectées"></a>
 
 Les données brutes stockées dans Elasticsearch sont visualisées dans un tableau de bord **Kibana** hébergé sur une machine virtuelle **GCP**. Voici une capture d'écran du dashboard Kibana :
 
