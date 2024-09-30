@@ -188,6 +188,8 @@ Cette approche `"green AI"` nous a permis de concilier performance algorithmique
 └── requirements.txt          # Liste des dépendances générales du projet
 ```
 
+<br>
+
 **N.B** : Nos variables suivent le style `snake_case` et nous avons ajouté des `docstrings` dans toutes les parties du projet.
 
 ## 9. 🔄 Pipelines de Collecte de Données avec Kedro <a name="pipelines-de-collecte-de-données-avec-kedro"></a>
