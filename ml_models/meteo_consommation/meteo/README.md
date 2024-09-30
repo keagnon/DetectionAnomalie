@@ -26,7 +26,7 @@
 
 ## 📖 Présentation du sous-projet<a name="présentation-du-projet"></a>
 
-Ce sous-projet fait partie de la solution globale de **Détection d'Anomalies** dans la consommation d'énergie. Son objectif est de prédire et d'identifier des anomalies dans les comportements de consommation énergétique, en prenant en compte les données météorologiques.
+Ce projet fait partie de la solution globale de **Détection d'Anomalies** dans la consommation d'énergie. Son objectif est de prédire et d'identifier des anomalies dans les comportements de consommation énergétique, en prenant en compte les données météorologiques.
 
 Nous utilisons des algorithmes intégrés dans des **pipelines Kedro** pour le traitement des données et l'entraînement des modèles. De plus, une interface interactive, développée avec **Streamlit**, permet de visualiser en temps réel les résultats de ces modèles.
 
@@ -156,7 +156,7 @@ L'application **Streamlit** permet de visualiser les résultats des modèles de 
 
 ## 📊 Modèles et Algorithmes Utilisés<a name="modèles-et-algorithmes-utilisés"></a>
 
-**CatBoost** et **Random Forest** : Employé pour la prédiction consommation d'énergie.
+**CatBoost et Random Forest** sont utilisés pour la prédiction de la consommation d'énergie.
 
 ## 📈 Intégration avec MLFlow<a name="intégration-avec-mlflow"></a>
 
