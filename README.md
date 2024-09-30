@@ -76,7 +76,7 @@
 17. [🤝 Notre Équipe](#equipe)
 
 ## 1. 🔍 Contexte du Projet<a name="contexte-du-projet"></a>
-La détection précoce des anomalies énergétiques est essentielle pour la gestion proactive de l'énergie, en particulier pendant les périodes de forte demande (hiver, été) ou durant des événements comme les mouvements sociaux. Ce projet vise à identifier ces anomalies en se basant sur des données variées (météorologiques, sociales, etc.) et à fournir une interface utilisateur permettant la visualisation et l'analyse des résultats. La solution est structurée en 4 sous-projets interconnectés, chacun avec des objectifs spécifiques et incluant un ou plusieurs modules.
+La détection précoce des anomalies énergétiques est essentielle pour la gestion proactive de l'énergie, en particulier pendant les périodes de forte demande (hiver, été) ou durant des événements comme les mouvements sociaux. Ce projet vise à identifier ces anomalies en se basant sur des données variées (météorologiques, sociales, etc.) et à fournir une interface utilisateur permettant la visualisation et l'analyse des résultats. La solution est structurée en quatre sous-projets interconnectés, chacun ayant des objectifs spécifiques et incluant un ou plusieurs modules.
 
 
 ## 2. 💡 Pourquoi ce projet ? <a name="pourquoi-ce-projet"></a>
