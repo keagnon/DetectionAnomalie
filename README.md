@@ -76,7 +76,7 @@
 17. [🤝 Notre Équipe](#equipe)
 
 ## 1. 🔍 Contexte du Projet<a name="contexte-du-projet"></a>
-La détection précoce des anomalies énergétiques est essentielle pour la gestion proactive de l'énergie, en particulier pendant les périodes de forte demande (hiver, été) ou durant des événements comme les mouvements sociaux. Ce projet vise à identifier ces anomalies en se basant sur des données variées (météorologiques, sociales, etc.) et à fournir une interface utilisateur permettant la visualisation et l'analyse des résultats. La solution est structurée en 4 sous-projets interconnectés, chacun avec des objectifs spécifiques et incluant un ou plusieurs modules.
+La détection précoce des anomalies énergétiques est essentielle pour la gestion proactive de l'énergie, en particulier pendant les périodes de forte demande (hiver, été) ou durant des événements comme les mouvements sociaux. Ce projet vise à identifier ces anomalies en se basant sur des données variées (météorologiques, sociales, etc.) et à fournir une interface utilisateur permettant la visualisation et l'analyse des résultats. La solution est structurée en quatre sous-projets interconnectés, chacun ayant des objectifs spécifiques et incluant un ou plusieurs modules.
 
 
 ## 2. 💡 Pourquoi ce projet ? <a name="pourquoi-ce-projet"></a>
@@ -188,6 +188,8 @@ Cette approche `"green AI"` nous a permis de concilier performance algorithmique
 └── requirements.txt          # Liste des dépendances générales du projet
 ```
 
+<br>
+
 **N.B** : Nos variables suivent le style `snake_case` et nous avons ajouté des `docstrings` dans toutes les parties du projet.
 
 ## 9. 🔄 Pipelines de Collecte de Données avec Kedro <a name="pipelines-de-collecte-de-données-avec-kedro"></a>
@@ -290,7 +292,7 @@ Nous avons documenté plusieurs étapes critiques du projet :
 Le projet de détection d'anomalies dans la consommation d'énergie a permis de mettre en place une solution complète, modulaire et scalable. Grâce à l'intégration de diverses technologies, nous avons réussi à développer un système robuste capable d'identifier des anomalies dans les données de consommation énergétique. En combinant des données météorologiques, sociales et de consommation, nous avons pu générer des insights précieux qui aident les entreprises à optimiser leur utilisation d'énergie.
 
 ## 16. ⚠️ Difficultés Rencontrées <a name="difficultés_rencontrées"></a>
-Malgré les succès obtenus, plusieurs défis ont été rencontrés au cours du projet :
+Bien que des succès aient été obtenus, plusieurs défis ont été rencontrés au cours du projet:
 
 - **Gestion des Données Massives** : Le traitement de grands volumes de données, en particulier les prévisions météorologiques et les mouvements sociaux, a posé des problèmes de performance, notamment sur les machines locales. Pour contourner ces limites, nous avons utilisé Google Colab et Google Cloud Platform (GCP). Lors de la collecte des données avec Kedro, nous avons dû les traiter en lots (batch processing), et même après la fusion des données, l'insertion dans Elasticsearch s'est faite en petits morceaux (chunks) pour éviter des surcharges.
 
@@ -304,7 +306,7 @@ Malgré les succès obtenus, plusieurs défis ont été rencontrés au cours du 
 ## 17. 🚀 Prochaines Étapes : Phase 2 - Forecasting <a name="prochaine_etapes"></a>
 La prochaine étape du projet est de passer à la **Phase 2 : Forecasting**. Nous avons pour objectif d'étendre le système actuel pour inclure des modèles de prévision basés sur des séries temporelles, afin d'anticiper les incidents futurs en se basant sur des données historiques et actuelles.
 
-### Objectifs de la Phase 2 :
+### Objectifs :
 - **Prédiction des Risques d'Incidents** : Prédire les risques d'incidents sur une période de 2 à 3 mois.
 - **Anticipation des Impacts** : Anticiper les impacts des conditions météorologiques et des événements sociaux sur la consommation énergétique.
 - **Optimisation de la Planification** : Aider les entreprises à planifier et à ajuster leurs stratégies en fonction des prévisions.
