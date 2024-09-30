@@ -221,6 +221,8 @@ Ces deux groupes de données ont conduit à deux sous-projets distincts :
 - [Accéder au sous-projet développement modèles ML pour les données sur la consommation régionale et les mouvements sociaux](https://github.com/keagnon/DetectionAnomalie/blob/main/ml_models/mouvements_consommation/Readme.md).
 
 Ces sous-projets, ainsi que notre interface Streamlit, utilisent **MLflow** pour le suivi et la mise en production des modèles.
+<br>
+
 **N.B** : Un serveur **MLFlow** a été déployé sur une VM GCP pour permettre à l'équipe de suivre les performances des modèles.
 
 ## 12. 🖥️ Interface Utilisateur <a name="interface-utilisateur-avec-streamlit"></a>
@@ -250,7 +252,7 @@ Ces logs sont ensuite envoyés à **Elasticsearch** pour une analyse approfondie
 Voici une capture d'écran de l'interface d'**Elasticsearch** montrant les logs unifiés et les différents événements enregistrés dans l'application :
 ![Elasticsearch Logs](images/monitoring/im1.png)
 
-Voici une capture d'écran du **tableau de bord Kibana** avec les différentes métriques suivies :
+Voici une capture d'écran du **tableau de bord Kibana** avec les différentes métriques suivies : <br>
 ![Kibana Dashboard](images/monitoring/dashboard_logs.png)
 
 Le tableau de bord ci-dessus montre clairement que nous avons quatre modèles de machine learning : **IsolationForest** pour la détection d'anomalies, **CatBoost**, **RandomForest**, et **DBSCAN**. Chacun de ces modèles est suivi en temps réel avec des indicateurs clés tels que le temps de réponse, l'utilisation du CPU et de la mémoire. Par exemple, **IsolationForest** est le plus utilisé avec près de 44 % des exécutions, suivi par **CatBoost** (34,84 %), **RandomForest** (12,18 %) et **DBSCAN** (9,01 %).

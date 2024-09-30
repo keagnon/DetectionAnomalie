@@ -47,9 +47,10 @@
 5. [🌍 Empreinte Carbone](#empreinte_carbone)
 6. [🚀 Exécution du projet](#exécution-du-projet)
 7. [🔄 Description des pipelines](#description-des-pipelines)
-8. [🛠️ Fichiers de configuration](#fichiers-de-configuration)
-9. [🧪 Tests du projet](#tests-du-projet)
-10. [🖼️ Exemples d'images](#exemples-dimages)
+8. [📊 Visualisation des données brutes collectées](#visualisation-des-données-brutes-collectées)
+9. [🛠️ Fichiers de configuration](#fichiers-de-configuration)
+10. [🧪 Tests du projet](#tests-du-projet)
+11. [🖼️ Exemples d'images](#exemples-dimages)
 
 
 ## **Vue d'ensemble du projet** 🌍 <a name="vue-densemble-du-projet"></a>
@@ -242,6 +243,8 @@ Pour ce projet de collecte de données avec Kedro, nous avons utilisé la biblio
   - `merge_data_store_in_elastic()`
 
 
+## **Visualisation des données brutes collectées** 🔄 <a name="visualisation-des-données-brutes-collectées"></a>
+
 Les données brutes stockées dans Elasticsearch sont visualisées dans un tableau de bord **Kibana** hébergé sur une machine virtuelle **GCP**. Voici une capture d'écran du dashboard Kibana :
 
 ![Capture du Dashboard Kibana](images/dashboard_kibana/donnee_brute_kibana.png)
@@ -270,7 +273,6 @@ Les trois premiers graphiques montrent comment la consommation d'énergie varie 
 
 ### **2. `parameters_etl_pipeline.yml`** :
 - Contient les paramètres globaux comme la taille des chunks ou les URL des API.
-
 
 
 ## **Tests du projet** 🧪 <a name="tests-du-projet"></a>

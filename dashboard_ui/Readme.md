@@ -1,4 +1,4 @@
-# 📊 Anomaly Detection Dashboard (Streamlit)
+# 📊 Dashboard final (Streamlit & CSS)
 
 ### Langage
 
@@ -225,7 +225,7 @@ Nous avons mis en place un **tableau de bord** dans **Kibana** pour visualiser l
 - **Analyse des Anomalies** : Nombre d'anomalies détectées par région.
 
 Voici une capture d'écran du **tableau de bord Kibana** avec les différentes métriques suivies :
-![Kibana Dashboard](path_to_screenshot_kibana_dashboard.png)
+![Kibana Dashboard](images/monitoring/dashboard_logs.png)
 
 ## 📁 Structure du projet <a name="structure-du-projet"></a>
 
