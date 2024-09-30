@@ -292,7 +292,7 @@ Nous avons documenté plusieurs étapes critiques du projet :
 Le projet de détection d'anomalies dans la consommation d'énergie a permis de mettre en place une solution complète, modulaire et scalable. Grâce à l'intégration de diverses technologies, nous avons réussi à développer un système robuste capable d'identifier des anomalies dans les données de consommation énergétique. En combinant des données météorologiques, sociales et de consommation, nous avons pu générer des insights précieux qui aident les entreprises à optimiser leur utilisation d'énergie.
 
 ## 16. ⚠️ Difficultés Rencontrées <a name="difficultés_rencontrées"></a>
-Malgré les succès obtenus, plusieurs défis ont été rencontrés au cours du projet :
+Bien que des succès aient été obtenus, plusieurs défis ont été rencontrés au cours du projet:
 
 - **Gestion des Données Massives** : Le traitement de grands volumes de données, en particulier les prévisions météorologiques et les mouvements sociaux, a posé des problèmes de performance, notamment sur les machines locales. Pour contourner ces limites, nous avons utilisé Google Colab et Google Cloud Platform (GCP). Lors de la collecte des données avec Kedro, nous avons dû les traiter en lots (batch processing), et même après la fusion des données, l'insertion dans Elasticsearch s'est faite en petits morceaux (chunks) pour éviter des surcharges.
 
