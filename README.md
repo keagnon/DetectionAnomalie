@@ -76,7 +76,7 @@
 17. [🤝 Notre Équipe](#equipe)
 
 ## 1. 🔍 Contexte du Projet<a name="contexte-du-projet"></a>
-La détection précoce des anomalies énergétiques est essentielle pour la gestion proactive de l'énergie, en particulier pendant les périodes de forte demande (hiver, été) ou durant des événements comme les mouvements sociaux. Ce projet vise à identifier ces anomalies en se basant sur des données variées (météorologiques, sociales, etc.) et à fournir une interface utilisateur permettant la visualisation et l'analyse des résultats. La solution est structurée en plusieurs sous-projets interconnectés, chacun avec des objectifs spécifiques.
+La détection précoce des anomalies énergétiques est essentielle pour la gestion proactive de l'énergie, en particulier pendant les périodes de forte demande (hiver, été) ou durant des événements comme les mouvements sociaux. Ce projet vise à identifier ces anomalies en se basant sur des données variées (météorologiques, sociales, etc.) et à fournir une interface utilisateur permettant la visualisation et l'analyse des résultats. La solution est structurée en 4 sous-projets interconnectés, chacun avec des objectifs spécifiques et incluant un ou plusieurs modules.
 
 
 ## 2. 💡 Pourquoi ce projet ? <a name="pourquoi-ce-projet"></a>
@@ -120,7 +120,7 @@ Nous avons mis en place une intégration continue (CI) via **GitHub Actions**, q
 
 Le pipeline de CI, configuré dans le répertoire `.github/workflows`, est accessible via [ce lien](https://github.com/keagnon/DetectionAnomalie/actions/runs/10871125104/job/30164567486).
 
-Voici un aperçu de notre fichier `Makefile`, qui automatise les tests locaux et le linting dans notre pipeline CI locale :
+Nous utilisons un **🛠️ Makefile** pour automatiser les processus de build, de tests et faciliter la gestion de la CI en local. Voici un aperçu de notre fichier `Makefile` :
 ![CI local](images/Makefile.png)
 
 En outre, chaque module du projet est containerisé avec **Docker** pour assurer la portabilité et la cohérence des environnements. Les fichiers `.env` permettent une configuration flexible des variables d'environnement.
@@ -188,7 +188,7 @@ Cette approche `"green AI"` nous a permis de concilier performance algorithmique
 └── requirements.txt          # Liste des dépendances générales du projet
 ```
 
-Nous utilisons un **🛠️ Makefile** pour automatiser les processus de build, de tests et faciliter la gestion de la CI en local. De plus, nos variables suivent le style `snake_case` et nous avons ajouté des `docstrings` dans toutes les parties du projet.
+**N.B** : Nos variables suivent le style `snake_case` et nous avons ajouté des `docstrings` dans toutes les parties du projet.
 
 ## 9. 🔄 Pipelines de Collecte de Données avec Kedro <a name="pipelines-de-collecte-de-données-avec-kedro"></a>
 Cette partie du projet est un sous-projet dédié à l'ingestion et à la préparation des données, inclus dans notre projet global de détection d'anomalies. Deux pipelines Kedro ont été mis en place pour gérer ces données et les rendre disponibles pour l'analyse et la visualisation :
@@ -197,19 +197,21 @@ Cette partie du projet est un sous-projet dédié à l'ingestion et à la prépa
 
 2. **Pipeline de Fusion des Données (data fusion)** : Ce pipeline charge les données depuis MongoDB, les fusionne pour créer un ensemble de données cohérent, puis les stocke dans Elasticsearch. Le stockage dans Elasticsearch facilite l'indexation et la visualisation des données.
 
-C’est grâce à la visualisation des données brutes dans Kibana que nous avons pu extraire des indicateurs clés de performance (KPI). Cette étape de visualisation a été cruciale pour comprendre les tendances et les anomalies présentes dans les données, et a ainsi permis de définir et de suivre des KPI pertinents.
+Pour accéder à ce sous projet et avoir plus de détails, consultez le [Accéder au sous projet data-collection-kedro](https://github.com/keagnon/DetectionAnomalie/blob/main/data-collection-kedro/README.md).
 
-Ce processus a non seulement rendu possible l'extraction des KPI directement à partir des données brutes, mais a également fourni une vue globale et détaillée des informations nécessaires pour l'évaluation des performances et le suivi des anomalies.
 
 ![visualisation donnee brute](images/data_viz_kibana/dasboard_donnee_brute.png)
-Pour accéder à ce sous projet et àvoir plus de détails, consultez le [Accéder au sous projet data-collection-kedro](https://github.com/keagnon/DetectionAnomalie/blob/main/data-collection-kedro/README.md).
+
+C’est grâce à la visualisation des données brutes dans Kibana que nous avons pu extraire des indicateurs clés de performance (KPI). Cette étape de visualisation a été cruciale pour comprendre les tendances et les anomalies présentes dans les données, et a ainsi permis de définir et de suivre des KPI pertinents.
+<br>
+Pour plus de détails, consultez l'[interprétation des données brutes collectées visualisées](https://github.com/keagnon/DetectionAnomalie/tree/main/data-collection-kedro#visualisation-des-donn%C3%A9es-brutes-collect%C3%A9es).
 
 
 ## 10. 💻 Traitement des Données et Utilisation de Google Colab <a name="traitement-des-données-et-utilisation-de-google-colab"></a>
 Certaines données volumineuses ont été traitées avec **Google Colab**, notamment pour les membres de l'équipe ayant des limitations matérielles. Voici une capture d'écran de nos notebooks sur Google Colab ainsi que notre bucket GCP pour le stockage des données et artefacts.
 
-![Capture du Bucket GCP](images/bucket.png)
 ![Capture google colab GCP](images/google_colab.png)
+![Capture du Bucket GCP](images/bucket.png)
 
 ## 11. 🤖 Modèles de Machine Learning <a name="modèles-de-machine-learning"></a>
 Grâce à nos pipelines de collecte, stockage et fusion des données, les données ont été divisées en deux groupes :
@@ -217,20 +219,27 @@ Grâce à nos pipelines de collecte, stockage et fusion des données, les donné
 2. **Consommation journalière et mouvements sociaux** (avec une colonne "mouvement social" indiquant les jours avec des événements).
 
 Ces deux groupes de données ont conduit à deux sous-projets distincts :
-- [Accéder au sous-projet sur la consommation régionale et les données météo](https://github.com/keagnon/DetectionAnomalie/blob/main/ml_models/meteo_consommation/meteo/README.md).
-- [Accéder au sous-projet sur la consommation et les mouvements sociaux](https://github.com/keagnon/DetectionAnomalie/blob/main/ml_models/mouvements_consommation/Readme.md).
+- [Accéder au sous-projet développement modèles ML pour les données sur la consommation régionale et les données météo](https://github.com/keagnon/DetectionAnomalie/blob/main/ml_models/meteo_consommation/meteo/README.md).
+- [Accéder au sous-projet développement modèles ML pour les données sur la consommation régionale et les mouvements sociaux](https://github.com/keagnon/DetectionAnomalie/blob/main/ml_models/mouvements_consommation/Readme.md).
 
-Ces sous-projets, ainsi que notre interface Streamlit, utilisent **MLflow** pour le suivi et la mise en production des modèles. Un serveur **MLFlow** a été déployé sur une VM GCP pour permettre à l'équipe de suivre les performances des modèles.
+Ces sous-projets, ainsi que notre interface Streamlit, utilisent **MLflow** pour le suivi et la mise en production des modèles.
+
+<br>
+
+**N.B** : Un serveur **MLFlow** a été déployé sur une VM GCP pour permettre à l'équipe de suivre les performances des modèles.
 
 ## 12. 🖥️ Interface Utilisateur <a name="interface-utilisateur-avec-streamlit"></a>
-L'interface utilisateur finale a été développée avec **Streamlit**. Elle permet :
-- Le téléchargement de datasets.
-- La visualisation des résultats des modèles de machine learning.
-- La collecte de feedbacks utilisateurs.
+L'interface utilisateur finale a été développée avec **Streamlit** et du **CSS**. Elle permet :
+- Le téléchargement de datasets ;
+- L'interaction avec les modèles de machine learning développés ;
+- La collecte de feedbacks utilisateurs ;
+- L'accès à notre serveur **Mlflow**.
 
 ![First_page_dashboard_ui](images/dashboard/interface_utilisateur.png)
 
-Cette interface est un sous projet de notre projet de détection d'anomalie. Elle est déployée localement. Pour accéder à ce sous projet et avoir plus de détails,cliquer sur [Sous projet Dashboard Streamlit](https://github.com/keagnon/DetectionAnomalie/blob/main/dashboard_ui/Readme.md).
+Sur l'interface utilisateur que nous avons développée, quatre onglets sont disponibles, chacun correspondant à un modèle de machine learning différent. Ces modèles communiquent avec **MLflow** pour effectuer les prédictions en temps réel. Chaque onglet permet d'interagir avec un modèle spécifique, dont **IsolationForest** pour la détection d'anomalies, **CatBoost**, **RandomForest**, et **DBSCAN**.
+
+Cette interface est un sous projet de notre projet de détection d'anomalie. Elle est déployée localement. Pour accéder à ce sous projet et avoir plus de détails, cliquez sur [Sous projet Dashboard Streamlit CSS](https://github.com/keagnon/DetectionAnomalie/blob/main/dashboard_ui/Readme.md).
 
 
 ## 📈 Monitoring des Logs et Performance <a name="monitoring-des-logs"></a>
@@ -246,10 +255,18 @@ Ces logs sont ensuite envoyés à **Elasticsearch** pour une analyse approfondie
 Voici une capture d'écran de l'interface d'**Elasticsearch** montrant les logs unifiés et les différents événements enregistrés dans l'application :
 ![Elasticsearch Logs](images/monitoring/im1.png)
 
-Voici une capture d'écran du **tableau de bord Kibana** avec les différentes métriques suivies :
+Voici une capture d'écran du **tableau de bord Kibana** avec les différentes métriques suivies : <br>
 ![Kibana Dashboard](images/monitoring/dashboard_logs.png)
 
-Pour plus de détails,cliquer sur [Sous projet Dashboard Streamlit](https://github.com/keagnon/DetectionAnomalie/blob/main/dashboard_ui/Readme.md).
+Le tableau de bord ci-dessus montre clairement que nous avons quatre modèles de machine learning : **IsolationForest** pour la détection d'anomalies, **CatBoost**, **RandomForest**, et **DBSCAN**. Chacun de ces modèles est suivi en temps réel avec des indicateurs clés tels que le temps de réponse, l'utilisation du CPU et de la mémoire. Par exemple, **IsolationForest** est le plus utilisé avec près de 44 % des exécutions, suivi par **CatBoost** (34,84 %), **RandomForest** (12,18 %) et **DBSCAN** (9,01 %).
+
+Le graphique sur le nombre d'exécutions réussies et échouées montre que **IsolationForest** est non seulement le plus utilisé, mais aussi celui avec le plus d'exécutions complètes, tandis que les autres modèles comme **DBSCAN** ont moins d'exécutions globales. Cela donne un aperçu des performances de chaque modèle et permet de suivre la fiabilité des prédictions.
+
+En complément, l'historique des erreurs recense les problèmes rencontrés par les différents modèles. On peut y voir, par exemple, des erreurs `NameError` pour **IsolationForest** et **CatBoost**, facilitant ainsi l'identification des dysfonctionnements et leur résolution rapide pour améliorer les performances des modèles.
+
+Ce tableau de bord centralise toutes les informations nécessaires pour surveiller les exécutions, identifier les erreurs et optimiser les ressources.
+
+Pour plus de détails, cliquez sur [Monitoring et logs unifiés](https://github.com/keagnon/DetectionAnomalie/tree/main/dashboard_ui#monitoring-et-logs-unifies)
 
 ## 14. 📊 Documentation <a name="documentation"></a>
 Nous avons documenté plusieurs étapes critiques du projet :
@@ -282,8 +299,6 @@ Malgré les succès obtenus, plusieurs défis ont été rencontrés au cours du 
 - **Disponibilité et Qualité des Données** : La collecte de données provenant de sources variées (PDF, captures d'écran, fichiers XML) a créé des difficultés, notamment lors de la fusion des ensembles de données. Certaines périodes manquaient de données, et certaines dates ne correspondaient pas, compliquant la création d'un dataset cohérent.
 
 - **Contraintes Budgétaires** : Le manque de crédits sur GCP a limité nos expérimentations, obligeant certaines parties du projet à être déployées sur des infrastructures locales ("on-premise"), ce qui a restreint les capacités et l'échelle des tests.
-
-- **Données sur l’Empreinte Carbone** : Nous avons envisagé d'incorporer des données sur l'empreinte carbone par région pour ajouter une dimension "green AI" au projet, où l’optimisation de la consommation énergétique des algorithmes serait un objectif. Cependant, ces données se sont avérées difficiles à trouver. Chaque région ou secteur pourrait avoir un facteur d'émission différent, selon la source d’énergie utilisée. Cela aurait permis de prédire la demande énergétique tout en tenant compte des mouvements sociaux et de fournir des recommandations pour minimiser l’impact carbone en ajustant les sources d’énergie (comme passer du charbon aux énergies renouvelables). Malheureusement, ces données étaient insuffisantes pour mener à bien cette analyse.
 
 
 ## 17. 🚀 Prochaines Étapes : Phase 2 - Forecasting <a name="prochaine_etapes"></a>

@@ -1,4 +1,4 @@
-# 📊 Anomaly Detection Dashboard (Streamlit)
+# 📊 Dashboard final (Streamlit & CSS)
 
 ### Langage
 
@@ -31,7 +31,7 @@
 
 ## 📑 Introduction
 
-Ce projet est le **tableau de bord final** développé avec **Streamlit** qui englobe toutes les fonctionnalités des différents modèles développés dans le cadre de notre projet de **détection d'anomalies**. Ce tableau de bord permet d'interagir avec plusieurs modèles de machine learning et d'observer leurs performances sur différentes tâches.
+Ce projet est le **tableau de bord final** développé avec **Streamlit** et **CSS** qui englobe toutes les fonctionnalités des différents modèles développés dans le cadre de notre projet de **détection d'anomalies**. Ce tableau de bord, intégré dans notre solution globale, permet d'interagir avec plusieurs modèles de machine learning et d'observer leurs performances sur différentes tâches.
 
 Cette partie de notre projet de **détection d'anomalies** se concentre sur les aspects suivants :
 
@@ -225,7 +225,7 @@ Nous avons mis en place un **tableau de bord** dans **Kibana** pour visualiser l
 - **Analyse des Anomalies** : Nombre d'anomalies détectées par région.
 
 Voici une capture d'écran du **tableau de bord Kibana** avec les différentes métriques suivies :
-![Kibana Dashboard](path_to_screenshot_kibana_dashboard.png)
+![Kibana Dashboard](images/monitoring/dashboard_logs.png)
 
 ## 📁 Structure du projet <a name="structure-du-projet"></a>
 

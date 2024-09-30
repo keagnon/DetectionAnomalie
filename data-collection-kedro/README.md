@@ -40,16 +40,17 @@
 
 
 ## **Table des matières** 📚
-1. [Vue d'ensemble du projet](#vue-densemble-du-projet)
-2. [Architecture du projet](#architecture-du-projet)
-3. [Installation et configuration](#installation-et-configuration)
-4. [Structure du projet](#structure-du-projet)
-5. [Empreinte Carbone](#empreinte_carbone)
-6. [Exécution du projet](#exécution-du-projet)
-7. [Description des pipelines](#description-des-pipelines)
-8. [Fichiers de configuration](#fichiers-de-configuration)
-9. [Tests du projet](#tests-du-projet)
-10. [Exemples d'images](#exemples-dimages)
+1. [🌍 Vue d'ensemble du projet](#vue-densemble-du-projet)
+2. [🏗️ Architecture du projet](#architecture-du-projet)
+3. [⚙️ Installation et configuration](#installation-et-configuration)
+4. [🗂️ Structure du projet](#structure-du-projet)
+5. [🌍 Empreinte Carbone](#empreinte_carbone)
+6. [🚀 Exécution du projet](#exécution-du-projet)
+7. [🔄 Description des pipelines](#description-des-pipelines)
+8. [📊 Visualisation des données brutes collectées](#visualisation-des-données-brutes-collectées)
+9. [🛠️ Fichiers de configuration](#fichiers-de-configuration)
+10. [🧪 Tests du projet](#tests-du-projet)
+11. [🖼️ Exemples d'images](#exemples-dimages)
 
 
 ## **Vue d'ensemble du projet** 🌍 <a name="vue-densemble-du-projet"></a>
@@ -61,7 +62,7 @@ Le projet se concentre sur l'intégration de données provenant de diverses sour
 
 ## **Architecture du projet** 🏗️ <a name="architecture-du-projet"></a>
 
-Le projet suit une architecture modulaire basée sur Kedro, où chaque tâche de traitement de données est encapsulée dans des pipelines distincts pour favoriser la flexibilité et la maintenance.
+Ce sous-projet suit une architecture modulaire basée sur Kedro, où chaque tâche de traitement de données est encapsulée dans des pipelines distincts pour favoriser la flexibilité et la maintenance.
 
 
 ### **Vue d'ensemble des pipelines :**
@@ -180,7 +181,7 @@ data-collection-kedro/
 
 ## **Empreinte Carbone** 🌍  <a name="empreinte_carbone"></a>
 
-Pour ce sous-projet de collecte de données avec Kedro, j'ai utilisé la bibliothèque **CodeCarbon** pour suivre l'empreinte carbone des pipelines, comme **data_fusion** et **etl_pipeline**. Les résultats sont stockés dans le dossier **logs**, offrant une vue détaillée des émissions de CO2eq générées par chaque traitement.
+Pour ce projet de collecte de données avec Kedro, nous avons utilisé la bibliothèque **CodeCarbon** pour suivre l'empreinte carbone des pipelines, comme **data_fusion** et **etl_pipeline**. Les résultats sont stockés dans le dossier **logs**, offrant une vue détaillée des émissions de CO2eq générées par chaque traitement.
 
 ### Résultats de l'Empreinte Carbone :
 
@@ -242,10 +243,28 @@ Pour ce sous-projet de collecte de données avec Kedro, j'ai utilisé la bibliot
   - `merge_data_store_in_elastic()`
 
 
+## **Visualisation des données brutes collectées** 📊 <a name="visualisation-des-données-brutes-collectées"></a>
+
 Les données brutes stockées dans Elasticsearch sont visualisées dans un tableau de bord **Kibana** hébergé sur une machine virtuelle **GCP**. Voici une capture d'écran du dashboard Kibana :
 
 ![Capture du Dashboard Kibana](images/dashboard_kibana/donnee_brute_kibana.png)
 
+Les trois premiers graphiques montrent comment la consommation d'énergie varie en fonction des régions et des saisons, influencée par les conditions météorologiques, tandis que les deux derniers mettent en lumière l'impact des mouvements sociaux sur la baisse de la consommation énergétique.
+
+### 1. **Consommation énergétique par région (2018-2024)** (Graphique en haut à gauche)
+   Ce graphique représente l'évolution de la **consommation énergétique cumulée par région** sur la période 2018-2024. Les pics de consommation semblent être saisonniers, avec des hausses notables en hiver, ce qui peut indiquer une corrélation avec les basses températures et une demande accrue de chauffage. On observe également une légère baisse vers 2021, ce qui pourrait coïncider avec une réduction d'activité économique, peut-être liée aux restrictions sanitaires.
+
+### 2. **Répartition de la consommation énergétique par région** (Diagramme circulaire au centre)
+   Ce diagramme montre la part de la **consommation énergétique par région**. La **région Île-de-France** domine avec environ **30,88 %** de la consommation totale, suivie de **Auvergne-Rhône-Alpes** (18,47 %) et des **Hauts-de-France** (17,4 %). Cela reflète les différences régionales en termes de densité de population et d'activité économique.
+
+### 3. **Évolution de la consommation énergétique et des températures minimales** (Graphique à droite)
+   Ce tableau liste les **dates et les températures minimales** par opérateur avec les moyennes de consommation journalière. Il permet de comparer l'impact des variations météorologiques (températures basses) sur la consommation d'énergie, mais les colonnes de température semblent vides ici, ce qui pourrait indiquer des données manquantes ou non disponibles à cette étape.
+
+### 4. **Graphique comparatif entre les jours avec et sans mouvement social** (Graphique en bas à gauche)
+   Ce graphique illustre l'impact des **mouvements sociaux** sur la consommation énergétique. On observe que les jours avec des mouvements sociaux (barres bleues) entraînent une baisse notable de la consommation d'énergie dans plusieurs régions. Cela suggère une perturbation des activités économiques, probablement due à des grèves ou des manifestations.
+
+### 5. **Série temporelle des consommations journalières et horaires** (Graphique en bas à droite)
+   Ce graphique montre une **série temporelle** comparant les jours avec mouvements sociaux (en bleu foncé) et sans mouvements sociaux (en vert). La tendance générale indique que la consommation énergétique est plus faible pendant les périodes de mouvements sociaux, avec des pics réguliers sans ces mouvements. Cela confirme l'impact des perturbations sociales sur la consommation énergétique.
 
 ## **Fichiers de configuration** 🛠️ <a name="fichiers-de-configuration"></a>
 
@@ -254,7 +273,6 @@ Les données brutes stockées dans Elasticsearch sont visualisées dans un table
 
 ### **2. `parameters_etl_pipeline.yml`** :
 - Contient les paramètres globaux comme la taille des chunks ou les URL des API.
-
 
 
 ## **Tests du projet** 🧪 <a name="tests-du-projet"></a>
